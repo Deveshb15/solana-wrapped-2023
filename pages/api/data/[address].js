@@ -71,7 +71,7 @@ const getDataFromTransaction = (transactions, address, balance) => {
   for(let i = 0; i < transactions.length; i++) {
       const transaction = transactions[i];
       // get total gas spent
-      if(transaction.feePayer === address) {
+      if(transaction?.feePayer?.toLowerCase() === address) {
           total_gas_spent += transaction.fee
       }
 
@@ -79,12 +79,12 @@ const getDataFromTransaction = (transactions, address, balance) => {
       if(transaction.nativeTransfers?.length > 0) {
           for(let j = 0; j < transaction.nativeTransfers.length; j++) {
               const transfer = transaction.nativeTransfers[j];
-              if(transfer.fromUserAccount === address) {
+              if(transfer?.fromUserAccount?.toLowerCase() === address) {
                   total_sol_sent += transfer.amount
                   diff_wallet_address += 1
               }
 
-              if (transfer.toUserAccount === address) {
+              if (transfer?.toUserAccount?.toLowerCase() === address) {
                   total_sol_received += transfer.amount
                   diff_wallet_address += 1
               }
@@ -164,7 +164,7 @@ export default async function handler(req, res) {
           lastSignature
         );
 
-        const txn_data = getDataFromTransaction(transactions, address, balance)
+        const txn_data = getDataFromTransaction(transactions, address?.toLowerCase(), balance)
 
         res.status(200).json({ success: true, nft_data: nftData, balance: balance/LAMPORTS_PER_SOL, txn_data });
       } catch (error) {
