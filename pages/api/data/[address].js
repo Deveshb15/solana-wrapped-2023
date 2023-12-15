@@ -1,10 +1,19 @@
 import axios from "axios";
+import { Connection, LAMPORTS_PER_SOL } from "@solana/web3.js";
+import { getDomainKey, NameRegistryState } from "@bonfida/spl-name-service";
 
-const sleep = (ms) => {
-  return new Promise((resolve) => setTimeout(resolve, ms));
-};
+const QUICKNODE_RPC =
+  "https://winter-evocative-frog.solana-mainnet.quiknode.pro/0f7008df95d494ee7291e39fe4023cd18e08a71a/";
+const SOLANA_CONNECTION = new Connection(QUICKNODE_RPC);
 
-const LAMPORTS_PER_SOL = 1000000000
+async function getPublicKeyFromSolDomain(domain) {
+  const { pubkey } = await getDomainKey(domain);
+  const owner = (
+    await NameRegistryState.retrieve(SOLANA_CONNECTION, pubkey)
+  ).registry.owner.toBase58();
+  console.log(`The owner of SNS Domain: ${domain} is: `, owner);
+  return owner;
+}
 
 const fetchAndParseTransactions = async (url, lastSignature) => {
   let i = 0;
@@ -62,50 +71,89 @@ const fetchAndParseTransactions = async (url, lastSignature) => {
 };
 
 const getDataFromTransaction = (transactions, address, balance) => {
-
   let total_gas_spent = 0;
   let total_sol_sent = 0;
   let total_sol_received = 0;
-  let diff_wallet_address = 0
+  let diff_wallet_address = 0;
   let balance_a_year_ago = 0;
-  for(let i = 0; i < transactions.length; i++) {
-      const transaction = transactions[i];
-      // get total gas spent
-      if(transaction?.feePayer?.toLowerCase() === address) {
-          total_gas_spent += transaction.fee
+  for (let i = 0; i < transactions.length; i++) {
+    const transaction = transactions[i];
+    // get total gas spent
+    if (transaction?.feePayer?.toLowerCase() === address) {
+      total_gas_spent += transaction.fee;
+    }
+
+    // get total sol sent
+    if (transaction.nativeTransfers?.length > 0) {
+      for (let j = 0; j < transaction.nativeTransfers.length; j++) {
+        const transfer = transaction.nativeTransfers[j];
+        if (transfer?.fromUserAccount?.toLowerCase() === address) {
+          total_sol_sent += transfer.amount;
+          diff_wallet_address += 1;
+        }
+
+        if (transfer?.toUserAccount?.toLowerCase() === address) {
+          total_sol_received += transfer.amount;
+          diff_wallet_address += 1;
+        }
       }
+    }
 
-      // get total sol sent
-      if(transaction.nativeTransfers?.length > 0) {
-          for(let j = 0; j < transaction.nativeTransfers.length; j++) {
-              const transfer = transaction.nativeTransfers[j];
-              if(transfer?.fromUserAccount?.toLowerCase() === address) {
-                  total_sol_sent += transfer.amount
-                  diff_wallet_address += 1
-              }
-
-              if (transfer?.toUserAccount?.toLowerCase() === address) {
-                  total_sol_received += transfer.amount
-                  diff_wallet_address += 1
-              }
-
-          }
-      }
-
-      // calculate balance a year ago
-      let diff = total_sol_received - total_sol_sent
-      if(diff > 0 && balance_a_year_ago === 0) {
-          balance_a_year_ago = balance - diff
-      }
-
+    // calculate balance a year ago
+    let diff = total_sol_received - total_sol_sent;
+    if (diff > 0 && balance_a_year_ago === 0) {
+      balance_a_year_ago = balance - diff;
+    }
   }
 
   return {
-      total_gas_spent: total_gas_spent/LAMPORTS_PER_SOL,
-      total_sol_sent: total_sol_sent/LAMPORTS_PER_SOL,
-      total_sol_received: total_sol_received/LAMPORTS_PER_SOL,
-      diff_wallet_address: diff_wallet_address,
-      balance_a_year_ago: balance_a_year_ago/LAMPORTS_PER_SOL
+    total_gas_spent: total_gas_spent / LAMPORTS_PER_SOL,
+    total_sol_sent: total_sol_sent / LAMPORTS_PER_SOL,
+    total_sol_received: total_sol_received / LAMPORTS_PER_SOL,
+    diff_wallet_address: diff_wallet_address,
+    balance_a_year_ago: balance_a_year_ago / LAMPORTS_PER_SOL,
+  };
+};
+
+async function getAllAirdrops(address) {
+  try {
+    const url = `https://sac-api.solworks.dev/addresses?addresses=${address}`;
+    const response = await axios.get(url, {
+      headers: {
+        Accept: "application/json",
+        "X-Api-Key": "qBENSim9C5lKnhAMul9H9MJP3jrkcQnL",
+      },
+    });
+    let airdropData = []
+    const { data } = response;
+    console.log(data);
+    if (data?.length > 0) {
+
+      let eligibility = data[0]?.eligibility
+      if (eligibility?.length > 0) {
+        for (let i = 0; i < eligibility.length; i++) {
+          const element = eligibility[i];
+          if (element?.eligible) {
+            airdropData.push({
+              protocol: element?.protocol,
+              token: element?.token,
+              ticker: element?.ticker,
+              eligible: element?.eligible,
+              amount: element?.amount,
+              usdc: element?.potentialValueUsdc
+            })
+          }
+        }
+      } else {
+        return null
+      }
+    } else {
+      return null
+    }
+    return airdropData;
+  } catch (error) {
+    console.log(error);
+    return null;
   }
 }
 
@@ -121,6 +169,12 @@ export default async function handler(req, res) {
         if (!address) {
           return res.status(400).json({ success: false });
         }
+
+        let account = address;
+        if (address.includes(".sol")) {
+          account = await getPublicKeyFromSolDomain(address);
+        }
+
         let balance = 0;
 
         // get total balance
@@ -131,42 +185,46 @@ export default async function handler(req, res) {
               jsonrpc: "2.0",
               id: 1,
               method: "getBalance",
-              params: [address],
+              params: [account],
             }
           );
           console.log("Balance req: ", getBalanceReq.data);
           balance = getBalanceReq.data.result.value;
-        } catch(err) {
+        } catch (err) {
           console.log("Error: ", err.message);
         }
         console.log("Balance: ", balance / LAMPORTS_PER_SOL);
 
         // GET NFT STATS FIRST
-        const nftStatsRequest = await axios.post(
-          "https://rest-api.hellomoon.io/v0/nft/magiceden/wallet-all-time-stats",
-          {
-            ownerAccount: address,
-          },
-          {
-            headers: {
-              authorization: `Bearer ${process.env.HELLOMOON_API_KEY}`,
-            },
-          }
-        );
+        const nftStatsRequest = await axios(`https://nft-database.vercel.app/api/sol/${account}`);
 
         const nftData = nftStatsRequest.data?.data;
 
         // Now let's get the transactions from helius
-        let url = `https://api.helius.xyz/v0/addresses/${address}/transactions?api-key=2678fd86-929f-4d82-b9f8-eff7dc4d04b9`;
+        let url = `https://api.helius.xyz/v0/addresses/${account}/transactions?api-key=2678fd86-929f-4d82-b9f8-eff7dc4d04b9`;
         let lastSignature = null;
         const transactions = await fetchAndParseTransactions(
           url,
           lastSignature
         );
 
-        const txn_data = getDataFromTransaction(transactions, address?.toLowerCase(), balance)
+        const txn_data = getDataFromTransaction(
+          transactions,
+          account?.toLowerCase(),
+          balance
+        );
 
-        res.status(200).json({ success: true, nft_data: nftData, balance: balance/LAMPORTS_PER_SOL, txn_data });
+        const airdropData = await getAllAirdrops(account);
+
+        res
+          .status(200)
+          .json({
+            success: true,
+            nft_data: nftData,
+            balance: balance / LAMPORTS_PER_SOL,
+            txn_data,
+            airdrop_data: airdropData,
+          });
       } catch (error) {
         res.status(400).json({ success: false });
       }
