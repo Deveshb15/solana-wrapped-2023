@@ -2,6 +2,16 @@ import axios from "axios";
 import { Connection, LAMPORTS_PER_SOL } from "@solana/web3.js";
 import { getDomainKey, NameRegistryState } from "@bonfida/spl-name-service";
 
+import { Redis } from "@upstash/redis";
+
+const redis = new Redis({
+  url: "https://steady-llama-49841.upstash.io",
+  token:
+    "AcKxACQgYTZjZWI0YTUtNzc0Ni00Y2Q3LWFhN2UtMmY0NzNlZjViODdkYTRhNzRiNTlhOWYyNDhjODk2ZjI3MTdkMDFmNDJjNDc=",
+});
+
+// const data = await redis.set('foo', 'bar');
+
 const QUICKNODE_RPC =
   "https://winter-evocative-frog.solana-mainnet.quiknode.pro/0f7008df95d494ee7291e39fe4023cd18e08a71a/";
 const SOLANA_CONNECTION = new Connection(QUICKNODE_RPC);
@@ -320,36 +330,60 @@ export default async function handler(req, res) {
           account = await getPublicKeyFromSolDomain(address);
         }
 
-        let balance = await getBalance(account);
+        let cached_data = await redis.get(`sol-${account}`);
+        if (cached_data) {
+          console.log("Data from cache");
+          // console.log("Cached data: ", cached_data);
+          return res.status(200).json({
+            success: true,
+            balance: cached_data?.balance,
+            nft_data: cached_data?.nft_data,
+            txn_data: cached_data?.txn_data,
+            airdrop_data: cached_data?.airdrop_data,
+          });
+        } else {
+          let balance = await getBalance(account);
 
-        console.log("Balance: ", balance / LAMPORTS_PER_SOL);
+          console.log("Balance: ", balance / LAMPORTS_PER_SOL);
 
-        // GET NFT STATS FIRST
-        const nftData = await getNftStats(account);
+          // GET NFT STATS FIRST
+          const nftData = await getNftStats(account);
 
-        // Now let's get the transactions from helius
-        let url = `https://api.helius.xyz/v0/addresses/${account}/transactions?api-key=2678fd86-929f-4d82-b9f8-eff7dc4d04b9`;
-        let lastSignature = null;
-        const transactions = await fetchAndParseTransactions(
-          url,
-          lastSignature
-        );
+          // Now let's get the transactions from helius
+          let url = `https://api.helius.xyz/v0/addresses/${account}/transactions?api-key=2678fd86-929f-4d82-b9f8-eff7dc4d04b9`;
+          let lastSignature = null;
+          const transactions = await fetchAndParseTransactions(
+            url,
+            lastSignature
+          );
 
-        const txn_data = await getDataFromTransaction(
-          transactions,
-          account?.toLowerCase(),
-          balance
-        );
+          const txn_data = await getDataFromTransaction(
+            transactions,
+            account?.toLowerCase(),
+            balance
+          );
 
-        const airdropData = await getAllAirdrops(account);
+          const airdropData = await getAllAirdrops(account);
 
-        res.status(200).json({
-          success: true,
-          nft_data: nftData,
-          balance: balance / LAMPORTS_PER_SOL,
-          txn_data,
-          airdrop_data: airdropData,
-        });
+          try {
+            await redis.set(`sol-${account}`, {
+              balance: balance / LAMPORTS_PER_SOL,
+              nft_data: nftData,
+              txn_data,
+              airdrop_data: airdropData,
+            });
+          } catch (err) {
+            console.log(err);
+          }
+
+          res.status(200).json({
+            success: true,
+            nft_data: nftData,
+            balance: balance / LAMPORTS_PER_SOL,
+            txn_data,
+            airdrop_data: airdropData,
+          });
+        }
       } catch (error) {
         res.status(400).json({ success: false });
       }
