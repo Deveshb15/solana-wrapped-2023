@@ -31,13 +31,13 @@ const Card7 = ({transactions}) => {
         <div className="mt-12 md:mt-[152px] md:mt-[72px] font-dm absolute z-10 w-[312px] h-[484px] md:w-[530px] md:h-[500px]">
        <div className='md:flex md:justify-around'>
        <div>
-        <img className="mr-2 w-[102px] h-[102px] md:w-40 md:h-40" src="/nft1.png" />
+        <img className="mr-2 w-[102px] h-[102px] rounded-xl md:w-40 md:h-40" src={transactions? transactions.highest_purchased_nft.nft?.nft_image : '/nft1.png'} />
         <p className='mt-4 text-sm md:text-md text-ash text-center'>{transactions?.highest_purchased_nft.nft?.nft_name}</p>
         <p className='mt-2 text-center text-fade'>Highest Paid NFT</p>
         <p className='text-center'>{transactions? transactions.highest_purchased_nft?.sol : 0}</p>
         </div>
         <div>
-        <img className="mr-2 w-[102px] h-[102px] md:w-40 md:h-40" src="/nft2.png"  />
+        <img className="mr-2 w-[102px] h-[102px] rounded-xl md:w-40 md:h-40" src={transactions? transactions.highest_sold_nft.nft?.nft_image :'/nft2.png'}  />
         <p className='mt-4 text-sm md:text-md text-ash text-center'>{transactions?.highest_sold_nft?.nft?.nft_name}</p>
         <p className='mt-2 text-center text-fade'>Most Profitable NFT</p>
         <p className='text-center'>{transactions? transactions.highest_sold_nft?.sol : 0}</p>
