@@ -329,8 +329,8 @@ export default async function handler(req, res) {
         if (address.includes(".sol")) {
           account = await getPublicKeyFromSolDomain(address);
         }
-
-        let cached_data = await redis.get(`sol-${account}`);
+        let cached_data = null;
+        // let cached_data = await redis.get(`sol-${account}`);
         if (cached_data) {
           console.log("Data from cache");
           // console.log("Cached data: ", cached_data);
@@ -340,6 +340,7 @@ export default async function handler(req, res) {
             nft_data: cached_data?.nft_data,
             txn_data: cached_data?.txn_data,
             airdrop_data: cached_data?.airdrop_data,
+            total_transactions: cached_data?.total_transactions,
           });
         } else {
           let balance = await getBalance(account);
@@ -350,12 +351,14 @@ export default async function handler(req, res) {
           const nftData = await getNftStats(account);
 
           // Now let's get the transactions from helius
-          let url = `https://api.helius.xyz/v0/addresses/${account}/transactions?api-key=${process.env.HELIUS_API_KEY}}`;
+          let url = `https://api.helius.xyz/v0/addresses/${account}/transactions?api-key=${process.env.HELIUS_API_KEY}`;
           let lastSignature = null;
           const transactions = await fetchAndParseTransactions(
             url,
             lastSignature
           );
+
+          let total_transactions = transactions.length;
 
           const txn_data = await getDataFromTransaction(
             transactions,
@@ -371,6 +374,9 @@ export default async function handler(req, res) {
               nft_data: nftData,
               txn_data,
               airdrop_data: airdropData,
+              total_transactions: total_transactions
+            }, {
+              ex: 86400
             });
           } catch (err) {
             console.log(err);
@@ -382,6 +388,7 @@ export default async function handler(req, res) {
             balance: balance / LAMPORTS_PER_SOL,
             txn_data,
             airdrop_data: airdropData,
+            total_transactions: total_transactions
           });
         }
       } catch (error) {
