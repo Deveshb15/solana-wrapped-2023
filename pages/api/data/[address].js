@@ -13,7 +13,7 @@ const redis = new Redis({
 // const data = await redis.set('foo', 'bar');
 
 const QUICKNODE_RPC =
-  "https://winter-evocative-frog.solana-mainnet.quiknode.pro/0f7008df95d494ee7291e39fe4023cd18e08a71a/";
+  `https://winter-evocative-frog.solana-mainnet.quiknode.pro/${process.env.QUICKNODE_API_KEY}/`;
 const SOLANA_CONNECTION = new Connection(QUICKNODE_RPC);
 
 const sleep = async (ms) => {
@@ -43,7 +43,7 @@ const cleanIpfsUrl = (url) => {
 
 const getNFTMetadata = async (addresses) => {
   const url =
-    "https://api.helius.xyz/v0/token-metadata?api-key=2678fd86-929f-4d82-b9f8-eff7dc4d04b9";
+    `https://api.helius.xyz/v0/token-metadata?api-key=${process.env.HELIUS_API_KEY}`;
   const nftAddresses = addresses;
 
   try {
@@ -350,7 +350,7 @@ export default async function handler(req, res) {
           const nftData = await getNftStats(account);
 
           // Now let's get the transactions from helius
-          let url = `https://api.helius.xyz/v0/addresses/${account}/transactions?api-key=2678fd86-929f-4d82-b9f8-eff7dc4d04b9`;
+          let url = `https://api.helius.xyz/v0/addresses/${account}/transactions?api-key=${process.env.HELIUS_API_KEY}}`;
           let lastSignature = null;
           const transactions = await fetchAndParseTransactions(
             url,
