@@ -47,9 +47,9 @@ const Carousel = ({ address }) => {
 
   console.log("data is", data);
 
-  //   if (loading) {
-  //     return <Loading/>;
-  //   }
+    if (loading) {
+      return <Loading/>;
+    }
 
   const slides = [
     <Card1 key={1} />,
