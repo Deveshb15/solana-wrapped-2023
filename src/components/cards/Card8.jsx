@@ -38,7 +38,7 @@ const Card8 = ({data}) => {
             background: 'rgba(37, 43, 53, 0.30)',
             }}>
                     <p className="text-white mt-3 flex justify-center md:text-lg leading-[38.40px]">
-                    523
+                    {data ? data.total_transactions : '-'}
                     </p>
                     <p className='text-fade text-[8px]'>Transactions</p>
 

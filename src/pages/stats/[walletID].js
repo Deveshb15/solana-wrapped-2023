@@ -53,7 +53,7 @@ const Carousel = ({ address }) => {
 
   const slides = [
     <Card1 key={1} />,
-    <Card2 key={2} />,
+    <Card2 data={data} key={2} />,
     <Card3 key={3} />,
     <Card4 transactions={data?.txn_data} key={4} />,
     <Card5 airdrop={data?.airdrop_data} key={5} />,
