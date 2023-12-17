@@ -10,7 +10,7 @@ import Card6 from './Card6';
 const Carousel = () => {
     const [activeSlide, setActiveSlide] = useState(0);
     const slides = [
-        <Card1/>, <Card2/>, <Card3/>, <Card4/>, <Card5/>, <Card6/>
+        <Card1 key={1} />, <Card2 key={2} />, <Card3 key={3} />, <Card4 key={4} />, <Card5 key={5} />, <Card6 key={6} />
     ];
 
     const goToSlide = (index) => {

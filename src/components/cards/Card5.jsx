@@ -36,15 +36,15 @@ const Card5 = ({airdrop}) => {
           <p className="text-white md:mt-8 text-white  text-base md:text-lg leading-[38.40px]">
           Worth Airdrop Received     </p>
           <div className='mt-3 flex'>
-        <Image className="mr-2" src="/airdrop1.png" height={24} width={24} />
-        <Image className="mr-2" src="/airdrop2.png" height={24} width={24} />
-        <Image src="/airdrop3.png" height={24} width={24} />
+        <Image className="mr-2" src="/airdrop1.png" height={24} width={24} alt='airdrop1' />
+        <Image className="mr-2" src="/airdrop2.png" height={24} width={24} alt='airdrop2' />
+        <Image src="/airdrop3.png" height={24} width={24} alt='airdrop3' />
 
         </div>
           <div className='mt-56 md:mt-44'>
           {/* <div className='h-[284px] md:h=[300px]'> */}
-          <p className='text-ash text-lg md:text-2xl'>Despite the year's ups & downs,</p>
-          <p className='text-white text-lg md:text-2xl'>you've received free monies.</p>
+          <p className='text-ash text-lg md:text-2xl'>Despite the year&apos;s ups & downs,</p>
+          <p className='text-white text-lg md:text-2xl'>you&apos;ve received free monies.</p>
         </div>
         </div>
     
