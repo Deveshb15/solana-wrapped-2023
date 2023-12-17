@@ -35,18 +35,19 @@ const Carousel = ({address}) => {
         setActiveSlide(activeSlide + 1 < slides.length ? activeSlide + 1 : 0);
     };
 
-//   useEffect(() => {
-//     console.log('inside data')
-//     fetch(`/api/data/${walletID}`)
-//       .then(response => response.json())
-//       .then(fetchedData => {
-//         setData(fetchedData);
-//         setLoading(false);
+  useEffect(() => {
+    console.log('inside data')
+    fetch(`/api/data/${walletID}`)
+      .then(response => response.json())
+      .then(fetchedData => {
+        setData(fetchedData);
+        setLoading(false);
 
     
-//       });
-//   }, []);
+      });
+  }, []);
 
+  console.log('data is', data)
 
 //   if (loading) {
 //     return <Loading/>;
@@ -55,22 +56,16 @@ const Carousel = ({address}) => {
 
   const slides = [
     <Card1/>, <Card2/>, <Card3 />,
-     <Card4 />, <Card5 />, <Card6 />, <Card7/> , <Card8/>]
+     <Card4 transactions={data?.txn_data}/>, <Card5 airdrop={data?.airdrop_data} />, <Card6 nft={data?.nft_data}/>, <Card7 transactions={data?.txn_data}/> , <Card8 data={data}/>]
 
-// const slides = [
-//     data && <Card1 />, 
-//     data?.highestTransaction?.[0] && <Card2 transactions={data?.highestTransaction[0]} />, 
-//     (data?.percentage && data?.arbitrumSent && data?.arbitrumReceived) && <Card3 percentage={data.percentage} sent={data.arbitrumSent} received={data.arbitrumReceived} />, 
-//     data?.nftCount && <Card4 nftCount={data.nftCount} />, 
-//     data?.nft && <Card5 nft={data.nft} />,
-//     (data?.transactions && data?.favouriteToken && data?.percentage && data?.nftCount && data?.nft) && <Card6 transactions={data.transactions} favToken={data.favouriteToken} percentage={data.percentage} nftCount={data.nftCount} nftData={data.nft} />
-//   ].filter(Boolean);
+    //  console.log('txs', data.txn_data)
+
 
 
     return (
         <div className="min-h-screen p-8 bg-black relative"> 
            <Head>
-      <title>Arbitrum Wrappd</title>
+      <title>Solana Wrappd</title>
     </Head>
         <TopNav/>
             <div className="md:w-64 mx-auto flex justify-center mt-12 mb-4">

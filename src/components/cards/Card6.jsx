@@ -1,6 +1,6 @@
 import React from 'react';
 
-const Card6 = ({transactions}) => {
+const Card6 = ({nft}) => {
   // console.log('transactions are', transactions)
 
     return (
@@ -31,13 +31,13 @@ const Card6 = ({transactions}) => {
           <div className='flex'>
           <div className='mr-8 md:mr-12'>
           <p className="text-white flex mt-8 text-4xl md:text-[42px] leading-[38.40px]">
-          140
+          {nft? nft.purchased: 0}
           </p>
           <p className='text-fade'>Collected</p>
           </div>
           <div>
           <p className="text-white flex mt-8 text-4xl md:text-[42px] leading-[38.40px]">
-          12
+          {nft? nft.sold:0}
           </p>
           <p className='text-fade'>Sold</p>
           </div>
@@ -45,7 +45,7 @@ const Card6 = ({transactions}) => {
           <div>
           <div>
           <p className="text-white flex mt-8 text-4xl md:text-[42px] leading-[38.40px]">
-          5
+          {nft? nft.minted:0}
           </p>
           <p className='text-fade'>Minted (Aped In)</p>
           </div>

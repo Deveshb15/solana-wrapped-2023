@@ -1,8 +1,9 @@
 import React from 'react';
 import Image from 'next/image'
 
-const Card5 = ({}) => {
+const Card5 = ({airdrop}) => {
   // console.log('transactions are', transactions)
+  
 
     return (
       <div className="relative">

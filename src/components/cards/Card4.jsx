@@ -2,7 +2,7 @@ import React from 'react';
 
 const Card4 = ({transactions}) => {
   // console.log('transactions are', transactions)
-
+{console.log(transactions)}
     return (
       <div className="relative">
       <div 
@@ -31,13 +31,13 @@ const Card4 = ({transactions}) => {
           <div className='flex'>
           <div className='mr-8 md:mr-12'>
           <p className="text-white flex mt-8 text-4xl md:text-[42px] leading-[38.40px]">
-          100
+          {transactions? (transactions.total_sol_sent.toFixed(2)):0}
           </p>
           <p className='text-fade'>SOL Spent</p>
           </div>
           <div>
           <p className="text-white flex mt-8 text-4xl md:text-[42px] leading-[38.40px]">
-          0.7
+          {transactions? (transactions.total_sol_received.toFixed(2)):0}
           </p>
           <p className='text-fade'>SOL Received</p>
           </div>
@@ -45,7 +45,7 @@ const Card4 = ({transactions}) => {
           <div>
           <div>
           <p className="text-white flex mt-8 text-4xl md:text-[42px] leading-[38.40px]">
-          50
+          {transactions? (transactions.total_gas_spent.toFixed(2)):0}
           </p>
           <p className='text-fade'>GAS Spent</p>
           </div>

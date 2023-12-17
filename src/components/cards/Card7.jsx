@@ -32,15 +32,15 @@ const Card7 = ({transactions}) => {
        <div className='md:flex md:justify-around'>
        <div>
         <img className="mr-2 w-[102px] h-[102px] md:w-40 md:h-40" src="/nft1.png" />
-        <p className='mt-4 text-sm md:text-md text-ash text-center'>Polar Paw #263</p>
+        <p className='mt-4 text-sm md:text-md text-ash text-center'>{transactions?.highest_purchased_nft.nft?.nft_name}</p>
         <p className='mt-2 text-center text-fade'>Highest Paid NFT</p>
-        <p className='text-center'>(100 SOL)</p>
+        <p className='text-center'>{transactions? transactions.highest_purchased_nft?.sol : 0}</p>
         </div>
         <div>
         <img className="mr-2 w-[102px] h-[102px] md:w-40 md:h-40" src="/nft2.png"  />
-        <p className='mt-4 text-sm md:text-md text-ash text-center'>Most Profitable NFT</p>
-        <p className='mt-2 text-center text-fade'>Highest Paid NFT</p>
-        <p className='text-center'>(20 SOL)</p>
+        <p className='mt-4 text-sm md:text-md text-ash text-center'>{transactions?.highest_sold_nft?.nft?.nft_name}</p>
+        <p className='mt-2 text-center text-fade'>Most Profitable NFT</p>
+        <p className='text-center'>{transactions? transactions.highest_sold_nft?.sol : 0}</p>
         </div>
         </div>
         <div className='ml-6 md:ml-12 md:mt-11'>

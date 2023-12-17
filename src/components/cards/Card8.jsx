@@ -2,7 +2,7 @@ import React from 'react';
 import Image from 'next/image'
 
 
-const Card8 = ({transactions}) => {
+const Card8 = ({data}) => {
   // console.log('transactions are', transactions)
 
     return (
@@ -47,7 +47,8 @@ const Card8 = ({transactions}) => {
             background: 'rgba(37, 43, 53, 0.30)',
             }}>
                     <p className="text-white mt-3 flex justify-center md:text-lg leading-[38.40px]">
-                    0.11 SOL
+                    {data.transactions? data.transactions.total_gas_spent : 0}
+
                     </p>
                     <p className='text-fade text-[8px]'>Total txn fees paid</p>
 
@@ -57,11 +58,11 @@ const Card8 = ({transactions}) => {
             background: 'rgba(37, 43, 53, 0.30)'
             }}>
                                     <p className="text-white pt-6 flex justify-center md:text-lg leading-[38.40px]">
-                                    89.42 SOL
+                                    {data.transactions? data.transactions.total_sol_sent : 0}
                     </p>
                     <p className='text-fade text-[8px]'>SOL Sent</p>
                     <p className="text-white mt-3 flex justify-center md:text-lg">
-                    73.72 SOL
+                    {data.transactions? data.transactions.total_sol_received:0}
                     </p>
                     <p className='text-fade text-[8px]'>SOL Received</p>
           </div>
@@ -85,7 +86,7 @@ const Card8 = ({transactions}) => {
             background: 'rgba(37, 43, 53, 0.30)',
             }}>
                     <p className="text-white mt-3 flex justify-center  font-dm md:text-[32px]">
-                    172 NFTs
+                    {(data?.nft_data?.purchased)+(data?.nft_data?.minted)} NFTs
                     </p>
                     <p className='text-fade text-[8px]'>Collected in 2023</p>
 
@@ -98,7 +99,7 @@ const Card8 = ({transactions}) => {
                     <p className="text-white mt-3 flex justify-center md:text-lg leading-[38.40px]">
                     523
                     </p>
-                    <p className='text-fade text-[8px]'>Transactions</p>
+                    <p className='text-fade text-[8px]'>Biggest NFT W of 2023</p>
 
             </div>
             <div className="mt-2 ml-2 rounded-lg md:w-36 md:h-16 justify-center text-center" style={{
@@ -107,12 +108,12 @@ const Card8 = ({transactions}) => {
                     <p className="text-white mt-3 flex justify-center md:text-lg leading-[38.40px]">
                     0.11 SOL
                     </p>
-                    <p className='text-fade text-[8px]'>Total txn fees paid</p>
+                    <p className='text-fade text-[8px]'>Wallet you most interacted with</p>
 
             </div>
             
             </div>
-            <div className="ml-5 rounded-lg md:w-72 md:h-16 justify-center text-center" style={{
+            <div className="ml-5 mt-3 rounded-lg md:w-72 md:h-16 justify-center text-center" style={{
             background: 'rgba(37, 43, 53, 0.30)',
             }}>
                     <p className="text-white pt-3 flex justify-center md:text-lg leading-[38.40px]">
