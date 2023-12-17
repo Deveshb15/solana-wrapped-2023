@@ -13,7 +13,7 @@ export default function Loading() {
   <rect x="22.9458" y="11.4589" width="2.70754" height="8.12262" rx="1.35377" transform="rotate(-135 22.9458 11.4589)" fill="#D9D9D9"/>
   </svg>
     </div>
-    <div className="text-center text-white text-lg font-medium font-['DM Sans'] leading-snug"> Hang tight! <br /> We're wrapping your txns into a neat little package...
+    <div className="text-center text-white text-lg font-medium font-['DM Sans'] leading-snug"> Hang tight! <br /> We&apos;re wrapping your txns into a neat little package...
 </div>
   </div>
     )

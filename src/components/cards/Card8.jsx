@@ -75,9 +75,9 @@ const Card8 = ({data}) => {
                     2,000$                    </p>
                     <p className='text-fade text-[8px]'>Worth Airdrop Recevied</p>
                     <div className='mt-3 flex justify-center'>
-                    <Image className="mr-2" src="/airdrop1.png" height={24} width={24} />
-                    <Image className="mr-2" src="/airdrop2.png" height={24} width={24} />
-                    <Image src="/airdrop3.png" height={24} width={24} />
+                    <Image className="mr-2" src="/airdrop1.png" height={24} width={24} alt='airdrop1' />
+                    <Image className="mr-2" src="/airdrop2.png" height={24} width={24} alt='airdrop2' />
+                    <Image src="/airdrop3.png" height={24} width={24} alt='airdrop3' />
                     </div>
             </div>
             </div>

@@ -1,3 +1,5 @@
+/* eslint-disable jsx-a11y/alt-text */
+/* eslint-disable @next/next/no-img-element */
 import React from 'react';
 import Image from 'next/image'
 
@@ -28,7 +30,7 @@ const Card7 = ({transactions}) => {
           }}
         ></div>
          
-        <div className="mt-12 md:mt-[152px] md:mt-[72px] font-dm absolute z-10 w-[312px] h-[484px] md:w-[530px] md:h-[500px]">
+        <div className="mt-12 md:mt-[152px] font-dm absolute z-10 w-[312px] h-[484px] md:w-[530px] md:h-[500px]">
        <div className='md:flex md:justify-around'>
        <div>
         <img className="mr-2 w-[102px] h-[102px] rounded-xl md:w-40 md:h-40" src={transactions? transactions.highest_purchased_nft.nft?.nft_image : '/nft1.png'} />

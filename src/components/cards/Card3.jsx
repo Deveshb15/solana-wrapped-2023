@@ -31,15 +31,15 @@ const Card3 = ({transactions}) => {
           <p className="text-white flex mt-8 text-5xl md:text-[64px] leading-[38.40px]">
           25%
           <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none">
-  <path d="M12 19V5" stroke="#14F195" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
-  <path d="M5 12L12 5L19 12" stroke="#14F195" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+  <path d="M12 19V5" stroke="#14F195" strokeWidth="2" stroke-linecap="round" stroke-linejoin="round"/>
+  <path d="M5 12L12 5L19 12" stroke="#14F195" strokeWidth="2" stroke-linecap="round" stroke-linejoin="round"/>
 </svg>
           </p>
           <p className="text-white md:mt-8 text-white  text-base md:text-lg leading-[38.40px]">
           Wallet Portfolio Gains          </p>
           <div className='mt-56 md:mt-44'>
-          <p className='text-ash text-lg md:text-2xl'>Despite the year's ups & downs,</p>
-          <p className='text-white text-lg md:text-2xl'>you're here for the tech, right?</p>
+          <p className='text-ash text-lg md:text-2xl'>Despite the year&apos;s ups & downs,</p>
+          <p className='text-white text-lg md:text-2xl'>you&apos;re here for the tech, right?</p>
         </div>
         </div>
     
