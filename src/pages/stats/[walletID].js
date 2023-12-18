@@ -53,10 +53,6 @@ const Carousel = ({ address }) => {
 
   console.log("data is", data);
 
-  //   if (loading) {
-  //     return <Loading/>;
-  //   }
-
   const slides = [
     <Card1 key={1} />,
     <Card2 total_transactions={data?.total_transactions} key={2} />,
@@ -69,7 +65,6 @@ const Carousel = ({ address }) => {
   ];
 
   //  console.log('txs', data.txn_data)
-
   const Loading = () => {
     return (
       <div className="flex justify-center items-center h-screen">
@@ -77,7 +72,6 @@ const Carousel = ({ address }) => {
       </div>
     );
   }
-
   return (
     <div className="min-h-screen p-8 bg-black relative">
       <Head>
