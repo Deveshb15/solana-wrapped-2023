@@ -1,6 +1,6 @@
 import React from 'react';
 
-const Card2 = ({data}) => {
+const Card2 = ({ total_transactions }) => {
   // console.log('transactions are', transactions)
 
     return (
@@ -29,7 +29,7 @@ const Card2 = ({data}) => {
          
         <div className="ml-12 md:mt-[72px] font-dm absolute z-10 w-[312px] h-[484px] md:w-[530px] md:h=[500px]">
           <p className="text-white mt-8 text-5xl md:text-[64px] leading-[38.40px]">
-            {data ? data.total_transactions : '-'}
+            {total_transactions}
           </p>
           <p className="text-white md:mt-8 text-white  text-base md:text-lg leading-[38.40px]">
           Transactions done on Solana          </p>
