@@ -99,12 +99,12 @@ const Card8 = ({ data }) => {
                 </div>
               ) : (
                 <div>
-                  <p className="text-white md:mt-8 text-sm leading-[38.40px]">
+                  <p className="text-white md:mt-8 text-sm text-center leading-[38.40px]">
                     You haven&apos;t received any airdrops
                   </p>
                 </div>
               )}
-              <div className="mt-3 flex justify-center">
+              <div className="md:mt-3 pb-3 md:pb-0 flex justify-center">
                 <Image
                   className="mr-2"
                   src="/airdrop1.png"
@@ -223,14 +223,14 @@ const Card8 = ({ data }) => {
                   <p className="text-fade text-[8px]">NFT W of 2023</p>
                 </div>
                 <div
-                  className="mt-2 ml-2 rounded-lg w-28 md:w-36 md:h-16 justify-center text-center"
+                  className="mt-2 ml-2 flex rounded-lg w-28 md:w-36 md:h-16 justify-center text-center"
                   style={{
                     background: "rgba(37, 43, 53, 0.30)",
                   }}
                 >
                   {data?.txn_data?.most_transacted_wallet?.length > 0 ? (
                     <div>
-                      <p className="text-white mt-3 flex justify-center text-xs leading-[38.40px]">
+                      <p className="text-white mt-3 justify-center text-xs leading-[38.40px]">
                         {data?.txn_data?.most_transacted_wallet?.substr(0, 4)}
                         ...
                         {data?.txn_data?.most_transacted_wallet?.substr(
@@ -241,7 +241,7 @@ const Card8 = ({ data }) => {
                       <p className="text-fade text-[8px]">
                         Wallet you most interacted with
                       </p>
-                    </div>
+                    </div>  
                   ) : (
                     <div>
                       <p className="text-fade text-[8px]">

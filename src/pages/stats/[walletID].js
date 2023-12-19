@@ -128,9 +128,13 @@ const Carousel = ({ address }) => {
               className="w-full sm:w-auto flex justify-between bottom-2 mx-auto"
               style={{ scrollSnapType: "x mandatory" }}
             >
+              {
+  activeSlide !== 0 && (
+
               <button
                 onClick={goToPrevSlide}
-                className={`flex sm:hidden cursor-pointer bg-gray md:mt-64 md:mr-[320px] rounded-full shadow-md z-[2] p-1 m-0 absolute bottom-1/2 left-2 ${
+                style={{marginLeft:'35%'}}
+                className={`flex sm:hidden cursor-pointer bg-gray md:mt-64 md:mr-[320px] rounded-full shadow-md z-[2] p-1 m-0 absolute bottom-[10%] left-2 ${
                   activeSlide === 0 ? "opacity-0" : "opacity-100"
                 }`}
               >
@@ -146,6 +150,9 @@ const Carousel = ({ address }) => {
                   <path d="M15 19l-7-7 7-7"></path>
                 </svg>
               </button>
+)}
+              {/* {
+    activeSlide !== 0 && ( */}
               <button
                 onClick={goToPrevSlide}
                 className={`hidden sm:flex cursor-pointer bg-gray md:mt-64 md:mr-[320px] rounded-full shadow-md z-[2] p-1 m-0 ${
@@ -164,6 +171,7 @@ const Carousel = ({ address }) => {
                   <path d="M15 19l-7-7 7-7"></path>
                 </svg>
               </button>
+  {/* )} */}
               <div className="md:w-96">
                 {slides.map((Slide, index) => (
                   <div
@@ -182,7 +190,8 @@ const Carousel = ({ address }) => {
                 <div>
                   <button
                     onClick={goToNextSlide}
-                    className="flex sm:hidden cursor-pointer bg-gray rounded-full md:mt-64 z-0 shadow-md p-1 m-0 absolute bottom-1/2 right-2"
+                    style={{marginRight:'40%'}}
+                  className="flex sm:hidden cursor-pointer bg-gray rounded-full md:mt-64 z-0 shadow-md p-1 m-0 absolute bottom-[10%] right-2"
                   >
                     <svg
                       className="w-6 h-6 text-gray-800"
