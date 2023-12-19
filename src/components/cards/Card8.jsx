@@ -4,9 +4,12 @@ import Image from "next/image";
 const Card8 = ({ data }) => {
   // console.log('transactions are', transactions)
 
-  let total_airdrop = data?.airdrop_data ? data?.airdrop_data
-  .map((item) => item.usdc)
-  .reduce((prev, next) => prev + next)?.toFixed(4) : 0
+  let total_airdrop = data?.airdrop_data
+    ? data?.airdrop_data
+        .map((item) => item.usdc)
+        .reduce((prev, next) => prev + next)
+        ?.toFixed(4)
+    : 0;
 
   return (
     <div className="relative">
@@ -67,11 +70,15 @@ const Card8 = ({ data }) => {
                 }}
               >
                 <p className="text-white pt-6 flex justify-center md:text-lg leading-[38.40px]">
-                  {data?.txn_data ? (data?.txn_data.total_sol_sent?.toFixed(4)) : 0}
+                  {data?.txn_data
+                    ? data?.txn_data.total_sol_sent?.toFixed(4)
+                    : 0}
                 </p>
                 <p className="text-fade text-[8px]">SOL Sent</p>
                 <p className="text-white mt-3 flex justify-center md:text-lg">
-                  {data?.txn_data ? data?.txn_data.total_sol_received?.toFixed(4) : 0}
+                  {data?.txn_data
+                    ? data?.txn_data.total_sol_received?.toFixed(4)
+                    : 0}
                 </p>
                 <p className="text-fade text-[8px]">SOL Received</p>
               </div>
@@ -82,13 +89,12 @@ const Card8 = ({ data }) => {
                 background: "rgba(37, 43, 53, 0.30)",
               }}
             >
-             {
-              total_airdrop > 0 ? (
+              {total_airdrop > 0 ? (
                 <div>
-                <p className="text-white pt-6 flex justify-center md:text-lg leading-[38.40px]">
-                  2,000${" "}
-                </p>
-                <p className="text-fade text-[8px]">Worth Airdrop Recevied</p>
+                  <p className="text-white pt-6 flex justify-center md:text-lg leading-[38.40px]">
+                    2,000${" "}
+                  </p>
+                  <p className="text-fade text-[8px]">Worth Airdrop Recevied</p>
                 </div>
               ) : (
                 <div>
@@ -96,8 +102,7 @@ const Card8 = ({ data }) => {
                     You haven&apos;t received any airdrops
                   </p>
                 </div>
-              )
-             }
+              )}
               <div className="mt-3 flex justify-center">
                 <Image
                   className="mr-2"
@@ -153,12 +158,22 @@ const Card8 = ({ data }) => {
                     background: "rgba(37, 43, 53, 0.30)",
                   }}
                 >
-                  <p className="text-white mt-3 flex justify-center md:text-lg leading-[38.40px]">
-                    0.11 SOL
-                  </p>
-                  <p className="text-fade text-[8px]">
-                    Wallet you most interacted with
-                  </p>
+                  {data?.txn_data?.most_transacted_wallet?.length > 0 ? (
+                    <div>
+                      <p className="text-white mt-3 flex justify-center text-xs leading-[38.40px]">
+                        {data?.txn_data?.most_transacted_wallet?.substr(0,4)}...{data?.txn_data?.most_transacted_wallet?.substr(data?.txn_data?.most_transacted_wallet?.length-4,4)}
+                      </p>
+                      <p className="text-fade text-[8px]">
+                        Wallet you most interacted with
+                      </p>
+                    </div>
+                  ) : (
+                    <div>
+                      <p className="text-fade text-[8px]">
+                        You haven&apos;t interacted with any wallet
+                      </p>
+                    </div>
+                  )}
                 </div>
               </div>
               <div
@@ -168,7 +183,12 @@ const Card8 = ({ data }) => {
                 }}
               >
                 <p className="text-white pt-3 flex justify-center md:text-lg leading-[38.40px]">
-                  {data?.txn_data ? data?.txn_data?.portfolio_profit_loss_percentage?.toFixed(4) : 0}%
+                  {data?.txn_data
+                    ? data?.txn_data?.portfolio_profit_loss_percentage?.toFixed(
+                        4
+                      )
+                    : 0}
+                  %
                 </p>
                 <p className="text-fade text-[8px]">
                   Increase in Wallet Balance

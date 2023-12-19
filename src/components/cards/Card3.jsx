@@ -3,8 +3,8 @@ import React from "react";
 const Card3 = ({ transactions }) => {
   // console.log('transactions are', transactions)
 
-  // let percentage = transactions?.portfolio_profit_loss_percentage;
-  let percentage = -22
+  let percentage = transactions?.portfolio_profit_loss_percentage;
+  // let percentage = -22
 
   return (
     <div className="relative">
