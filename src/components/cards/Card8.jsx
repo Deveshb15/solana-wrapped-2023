@@ -335,7 +335,7 @@ const Card8 = ({ data }) => {
         </svg>
         </div> */}
       </div>
-      <div className="flex justify-center mt-8">
+      <div className="hidden sm:flex justify-center mt-8">
         <button
           className="flex justify-center font-dm items-center gap-2.5 py-4 px-8 rounded-full border border-white"
           style={{ width: "242px" }}

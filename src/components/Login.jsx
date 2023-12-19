@@ -96,7 +96,7 @@ function Login() {
           </div>
         </div>
       </div>
-      <div className="lg:fixed lg:bottom-6 lg:left-1/2 lg:transform lg:-translate-x-1/2 flex  justify-between items-center w-full">
+      <div className="fixed bottom-16 lg:left-1/2 md:bottom-0 transform flex  justify-between items-center w-full">
         <button className="bg-white font-dm text-black text-sm px-5 py-2.5 mr-2 rounded-3xl ml-auto">
           Share Solana Wrapped
         </button>
