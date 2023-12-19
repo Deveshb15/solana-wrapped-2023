@@ -3,6 +3,8 @@ import React from 'react';
 const Card3 = ({transactions}) => {
   // console.log('transactions are', transactions)
 
+    let percentage = transactions?.portfolio_profit_loss_percentage
+
     return (
       <div className="relative">
       <div 
@@ -29,11 +31,25 @@ const Card3 = ({transactions}) => {
          
         <div className="ml-12 md:mt-[72px] font-dm absolute z-10 w-[312px] h-[484px] md:w-[530px] md:h=[500px]">
           <p className="text-white flex mt-8 text-5xl md:text-[64px] leading-[38.40px]">
-          25%
-          <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none">
+          {
+            percentage >= 0 ? (
+              <div className='flex items-center justify-center'>
+                <p>{percentage?.toFixed(4)}%</p>
+<svg xmlns="http://www.w3.org/2000/svg" width="30" height="30" viewBox="0 0 30 30" fill="none">
   <path d="M12 19V5" stroke="#14F195" strokeWidth="2" stroke-linecap="round" stroke-linejoin="round"/>
   <path d="M5 12L12 5L19 12" stroke="#14F195" strokeWidth="2" stroke-linecap="round" stroke-linejoin="round"/>
 </svg>
+              </div>
+            ) : (
+              <div>
+                {percentage?.toFixed(4)}%
+                <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none">
+  <path d="M12 19V5" stroke="#14F195" strokeWidth="2" stroke-linecap="round" stroke-linejoin="round"/>
+  <path d="M5 12L12 5L19 12" stroke="#14F195" strokeWidth="2" stroke-linecap="round" stroke-linejoin="round"/>
+</svg>
+              </div>
+            )
+          }
           </p>
           <p className="text-white md:mt-8 text-white  text-base md:text-lg leading-[38.40px]">
           Wallet Portfolio Gains          </p>

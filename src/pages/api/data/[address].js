@@ -127,6 +127,7 @@ const getDataFromTransaction = async (transactions, address, balance) => {
   let total_sol_received = 0;
   let diff_wallet_address = 0;
   let balance_a_year_ago = 0;
+  let portfolio_profit_loss_percentage = 0;
 
   let highest_sold_nft = {
     sol: 0,
@@ -226,6 +227,11 @@ const getDataFromTransaction = async (transactions, address, balance) => {
     }
   }
 
+  portfolio_profit_loss_percentage =
+    (balance - balance_a_year_ago) / balance_a_year_ago;
+
+    console.log("Portfolio profit loss percentage: ", portfolio_profit_loss_percentage)
+
   return {
     total_gas_spent: total_gas_spent / LAMPORTS_PER_SOL,
     total_sol_sent: total_sol_sent / LAMPORTS_PER_SOL,
@@ -234,6 +240,7 @@ const getDataFromTransaction = async (transactions, address, balance) => {
     balance_a_year_ago: balance_a_year_ago / LAMPORTS_PER_SOL,
     highest_sold_nft,
     highest_purchased_nft,
+    portfolio_profit_loss_percentage,
   };
 };
 
@@ -329,8 +336,8 @@ export default async function handler(req, res) {
         if (address.includes(".sol")) {
           account = await getPublicKeyFromSolDomain(address);
         }
-        // let cached_data = null;
-        let cached_data = await redis.get(`sol-${account}`);
+        let cached_data = null;
+        // let cached_data = await redis.get(`sol-${account}`);
         if (cached_data) {
           console.log("Data from cache");
           // console.log("Cached data: ", cached_data);
@@ -366,7 +373,8 @@ export default async function handler(req, res) {
             balance
           );
 
-          const airdropData = await getAllAirdrops(account);
+          let airdropData = null;
+          // const airdropData = await getAllAirdrops(account);
 
           try {
             await redis.set(`sol-${account}`, {

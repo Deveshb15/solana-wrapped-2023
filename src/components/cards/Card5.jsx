@@ -4,6 +4,10 @@ import Image from "next/image";
 const Card5 = ({ airdrop }) => {
   // console.log('transactions are', transactions)
 
+  let total = airdrop ? airdrop
+  .map((item) => item.usdc)
+  .reduce((prev, next) => prev + next)?.toFixed(4) : 0
+
   return (
     <div className="relative">
       <div
@@ -30,13 +34,11 @@ const Card5 = ({ airdrop }) => {
         ></div>
 
         <div className="ml-12 md:mt-[72px] font-dm absolute z-10 w-[312px] h-[484px] md:w-[530px] md:h=[500px]">
-          {airdrop?.length > 0 ? (
+          {total > 0 ? (
             <div>
               <p className="text-white mt-8 text-dm text-5xl md:text-[64px] leading-[38.40px]">
                 {/* loop and add all airdrop.usdc */}
-                {airdrop
-                  .map((item) => item.usdc)
-                  .reduce((prev, next) => prev + next)?.toFixed(4)}
+                {total}
               </p>
               <p className="text-white md:mt-8 text-white  text-base md:text-lg leading-[38.40px]">
                 Worth Airdrop Received{" "}
@@ -44,7 +46,7 @@ const Card5 = ({ airdrop }) => {
             </div>
           ) : (
             <div>
-              <p className="text-white md:mt-8 text-white  text-base md:text-lg leading-[38.40px]">
+              <p className="text-white md:mt-8 text-xl leading-[38.40px]">
                 You haven&apos;t received any airdrops
               </p>
             </div>
