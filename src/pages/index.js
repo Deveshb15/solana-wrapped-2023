@@ -7,41 +7,23 @@ const inter = Inter({ subsets: ["latin"] });
 
 export default function Home() {
   return (
-    <div className="flex flex-col min-h-screen justify-between">
-      <main
-        className={`flex flex-col bg-black h-screen items-center justify-center ${inter.className}`}
-      >
-        {/* <div style={{
-  position: 'fixed',
-  top: 0,
-  left: 0,
-  width: '100vw',
-  height: '100vh',
-  background: 'url(/noise.png), lightgray',
-  backgroundSize: 'cover',
-  backgroundRepeat: 'no-repeat',
-  zIndex: -1,
-}}/> */}
-        {/* <div className="noise-wrapper"></div>
-        <div className="noise"></div> */}
-
-        <div
-          className="rounded-full"
-          style={{
-            position: "absolute",
-            top: "-20%",
-            left: "50%",
-            transform: "translateX(-50%)",
-            width: "50vw",
-            height: "50vh",
-            // borderRadius: '1067px',
-            background:
-              "linear-gradient(45deg, #9945FF 10.43%, #8752F3 30.84%, #5497D5 49.4%, #43B4CA 58.68%, #28E0B9 69.81%, #19FB9B 93.01%), linear-gradient(151deg, #1D9D5A 0%, #11553A 82.01%)",
-            filter: "blur(75px)",
-            flexShrink: 0,
-          }}
-        />
-
+<div className='flex flex-col h-screen justify-between'>
+    <main
+      className={`flex flex-col bg-black h-screen items-center justify-center ${inter.className}`}
+    >
+      <div className='rounded-full' style={{
+        position: 'absolute',
+        top: '-20%',
+        left: '50%',
+        transform: 'translateX(-50%)',
+        width: '50vw',
+        height: '50vh',
+        // borderRadius: '1067px',
+        background: 'linear-gradient(45deg, #9945FF 10.43%, #8752F3 30.84%, #5497D5 49.4%, #43B4CA 58.68%, #28E0B9 69.81%, #19FB9B 93.01%), linear-gradient(151deg, #1D9D5A 0%, #11553A 82.01%)',
+        filter: 'blur(75px)',
+        flexShrink: 0,
+      }}/>
+     
         <Head>
           <title>Solana Wrappd</title>
         </Head>
