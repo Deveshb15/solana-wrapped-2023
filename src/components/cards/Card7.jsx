@@ -37,11 +37,7 @@ const Card7 = ({ transactions }) => {
               <div>
                 <img
                   className="mr-2 w-[102px] h-[102px] rounded-xl md:w-40 md:h-40"
-                  src={
-                    transactions
-                      ? transactions.highest_purchased_nft.nft?.nft_image
-                      : "/nft1.png"
-                  }
+                  src={'/nft1.png'}
                 />
                 <p className="mt-4 text-sm md:text-md text-ash text-center">
                   {transactions?.highest_purchased_nft.nft?.nft_name}
@@ -60,10 +56,7 @@ const Card7 = ({ transactions }) => {
               <div>
                 <img
                   className="mr-2 w-[102px] h-[102px] rounded-xl md:w-40 md:h-40"
-                  src={
-                    transactions
-                      ? transactions.highest_sold_nft.nft?.nft_image
-                      : "/nft2.png"
+                  src={                       "/nft2.png"
                   }
                 />
                 <p className="mt-4 text-sm md:text-md text-ash text-center">
