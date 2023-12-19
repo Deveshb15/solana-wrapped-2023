@@ -92,7 +92,7 @@ const Card8 = ({ data }) => {
               {total_airdrop > 0 ? (
                 <div>
                   <p className="text-white pt-6 flex justify-center md:text-lg leading-[38.40px]">
-                    2,000${" "}
+                    {total_airdrop}
                   </p>
                   <p className="text-fade text-[8px]">Worth Airdrop Recevied</p>
                 </div>
@@ -148,9 +148,76 @@ const Card8 = ({ data }) => {
                   }}
                 >
                   <p className="text-white mt-3 flex justify-center md:text-lg leading-[38.40px]">
-                    523
+                    {data?.nft_data?.profitAndLossPercentage ? (
+                      data?.nft_data?.profitAndLossPercentage >= 0 ? (
+                        <div className="flex items-center justify-center flex-row pt-3">
+                          <p>{data?.nft_data?.profitAndLossPercentage}</p>
+                          <p className="text-white flex justify-center md:text-lg leading-[38.40px]">
+                            {data?.nft_data?.profitAndLossPercentage ? data?.nft_data?.profitAndLossPercentage?.toFixed(2)
+                              : 0}
+                            %
+                          </p>
+                          <svg
+                            xmlns="http://www.w3.org/2000/svg"
+                            width="30"
+                            height="30"
+                            viewBox="0 0 30 30"
+                            fill="none"
+                          >
+                            <path
+                              d="M12 19V5"
+                              stroke="#14F195"
+                              strokeWidth="2"
+                              stroke-linecap="round"
+                              stroke-linejoin="round"
+                            />
+                            <path
+                              d="M5 12L12 5L19 12"
+                              stroke="#14F195"
+                              strokeWidth="2"
+                              stroke-linecap="round"
+                              stroke-linejoin="round"
+                            />
+                          </svg>
+                        </div>
+                      ) : (
+                        <div className="flex items-center justify-center flex-row">
+                          <p className="text-white flex justify-center md:text-lg leading-[38.40px]">
+                            {data?.nft_data?.profitAndLossPercentage ? data?.nft_data?.profitAndLossPercentage?.toFixed(2)
+                              : 0}
+                            %
+                          </p>
+                          <svg
+                            width="24"
+                            height="24"
+                            viewBox="0 0 24 24"
+                            fill="none"
+                            xmlns="http://www.w3.org/2000/svg"
+                          >
+                            <path
+                              d="M12 5L12 19"
+                              stroke="#F2688A"
+                              stroke-width="2"
+                              stroke-linecap="round"
+                              stroke-linejoin="round"
+                            />
+                            <path
+                              d="M19 12L12 19L5 12"
+                              stroke="#F2688A"
+                              stroke-width="2"
+                              stroke-linecap="round"
+                              stroke-linejoin="round"
+                            />
+                          </svg>
+                        </div>
+                      )
+                    ) : (
+                      <div>
+                        <p>0</p>
+                      </div>
+                    )}
                   </p>
-                  <p className="text-fade text-[8px]">Biggest NFT W of 2023</p>
+                  <p className="text-fade text-[8px]">NFT W of 2023</p>
                 </div>
                 <div
                   className="mt-2 ml-2 rounded-lg md:w-36 md:h-16 justify-center text-center"
@@ -161,7 +228,12 @@ const Card8 = ({ data }) => {
                   {data?.txn_data?.most_transacted_wallet?.length > 0 ? (
                     <div>
                       <p className="text-white mt-3 flex justify-center text-xs leading-[38.40px]">
-                        {data?.txn_data?.most_transacted_wallet?.substr(0,4)}...{data?.txn_data?.most_transacted_wallet?.substr(data?.txn_data?.most_transacted_wallet?.length-4,4)}
+                        {data?.txn_data?.most_transacted_wallet?.substr(0, 4)}
+                        ...
+                        {data?.txn_data?.most_transacted_wallet?.substr(
+                          data?.txn_data?.most_transacted_wallet?.length - 4,
+                          4
+                        )}
                       </p>
                       <p className="text-fade text-[8px]">
                         Wallet you most interacted with
@@ -182,14 +254,73 @@ const Card8 = ({ data }) => {
                   background: "rgba(37, 43, 53, 0.30)",
                 }}
               >
-                <p className="text-white pt-3 flex justify-center md:text-lg leading-[38.40px]">
-                  {data?.txn_data
-                    ? data?.txn_data?.portfolio_profit_loss_percentage?.toFixed(
-                        4
-                      )
-                    : 0}
-                  %
-                </p>
+                {data?.txn_data?.portfolio_profit_loss_percentage >= 0 ? (
+                  <div className="flex items-center justify-center flex-row pt-3">
+                    <p className="text-white flex justify-center md:text-lg leading-[38.40px]">
+                      {data?.txn_data
+                        ? data?.txn_data?.portfolio_profit_loss_percentage?.toFixed(
+                            4
+                          )
+                        : 0}
+                      %
+                    </p>
+                    <svg
+                      xmlns="http://www.w3.org/2000/svg"
+                      width="30"
+                      height="30"
+                      viewBox="0 0 30 30"
+                      fill="none"
+                    >
+                      <path
+                        d="M12 19V5"
+                        stroke="#14F195"
+                        strokeWidth="2"
+                        stroke-linecap="round"
+                        stroke-linejoin="round"
+                      />
+                      <path
+                        d="M5 12L12 5L19 12"
+                        stroke="#14F195"
+                        strokeWidth="2"
+                        stroke-linecap="round"
+                        stroke-linejoin="round"
+                      />
+                    </svg>
+                  </div>
+                ) : (
+                  <div className="flex items-center justify-center flex-row pt-3">
+                    <p className="text-white flex justify-center md:text-lg leading-[38.40px]">
+                      {data?.txn_data
+                        ? data?.txn_data?.portfolio_profit_loss_percentage?.toFixed(
+                            4
+                          )
+                        : 0}
+                      %
+                    </p>
+                    <svg
+                      width="24"
+                      height="24"
+                      viewBox="0 0 24 24"
+                      fill="none"
+                      xmlns="http://www.w3.org/2000/svg"
+                    >
+                      <path
+                        d="M12 5L12 19"
+                        stroke="#F2688A"
+                        stroke-width="2"
+                        stroke-linecap="round"
+                        stroke-linejoin="round"
+                      />
+                      <path
+                        d="M19 12L12 19L5 12"
+                        stroke="#F2688A"
+                        stroke-width="2"
+                        stroke-linecap="round"
+                        stroke-linejoin="round"
+                      />
+                    </svg>
+                  </div>
+                )}
                 <p className="text-fade text-[8px]">
                   Increase in Wallet Balance
                 </p>
