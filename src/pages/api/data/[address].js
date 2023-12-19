@@ -12,8 +12,7 @@ const redis = new Redis({
 
 // const data = await redis.set('foo', 'bar');
 
-const QUICKNODE_RPC =
-  `https://winter-evocative-frog.solana-mainnet.quiknode.pro/${process.env.QUICKNODE_API_KEY}/`;
+const QUICKNODE_RPC = `https://winter-evocative-frog.solana-mainnet.quiknode.pro/${process.env.QUICKNODE_API_KEY}/`;
 const SOLANA_CONNECTION = new Connection(QUICKNODE_RPC);
 
 const sleep = async (ms) => {
@@ -42,8 +41,7 @@ const cleanIpfsUrl = (url) => {
 };
 
 const getNFTMetadata = async (addresses) => {
-  const url =
-    `https://api.helius.xyz/v0/token-metadata?api-key=${process.env.HELIUS_API_KEY}`;
+  const url = `https://api.helius.xyz/v0/token-metadata?api-key=${process.env.HELIUS_API_KEY}`;
   const nftAddresses = addresses;
 
   try {
@@ -128,6 +126,8 @@ const getDataFromTransaction = async (transactions, address, balance) => {
   let diff_wallet_address = 0;
   let balance_a_year_ago = 0;
   let portfolio_profit_loss_percentage = 0;
+  let most_transacted_wallet = null;
+  let wallet_map = {};
 
   let highest_sold_nft = {
     sol: 0,
@@ -158,6 +158,22 @@ const getDataFromTransaction = async (transactions, address, balance) => {
         if (transfer?.toUserAccount?.toLowerCase() === address) {
           total_sol_received += transfer.amount;
           diff_wallet_address += 1;
+        }
+
+        if (transfer?.toUserAccount?.toLowerCase() === address?.toLowerCase()) {
+          wallet_map[transfer?.fromUserAccount] = wallet_map[
+            transfer?.fromUserAccount
+          ]
+            ? wallet_map[transfer?.fromUserAccount] + 1
+            : 1;
+        } else if (
+          transfer?.fromUserAccount?.toLowerCase() === address?.toLowerCase()
+        ) {
+          wallet_map[transfer?.toUserAccount] = wallet_map[
+            transfer?.toUserAccount
+          ]
+            ? wallet_map[transfer?.toUserAccount] + 1
+            : 1;
         }
       }
     }
@@ -230,7 +246,21 @@ const getDataFromTransaction = async (transactions, address, balance) => {
   portfolio_profit_loss_percentage =
     (balance - balance_a_year_ago) / balance_a_year_ago;
 
-    console.log("Portfolio profit loss percentage: ", portfolio_profit_loss_percentage)
+  console.log(
+    "Portfolio profit loss percentage: ",
+    portfolio_profit_loss_percentage
+  );
+
+   // get most transacted wallet
+   let max = 0
+   for (const [key, value] of Object.entries(wallet_map)) {
+     if(value > max) {
+         max = value
+         most_transacted_wallet = key
+     }
+   }
+
+   console.log("Most Transacted wallet")
 
   return {
     total_gas_spent: total_gas_spent / LAMPORTS_PER_SOL,
@@ -241,6 +271,7 @@ const getDataFromTransaction = async (transactions, address, balance) => {
     highest_sold_nft,
     highest_purchased_nft,
     portfolio_profit_loss_percentage,
+    most_transacted_wallet
   };
 };
 
@@ -377,15 +408,19 @@ export default async function handler(req, res) {
           // const airdropData = await getAllAirdrops(account);
 
           try {
-            await redis.set(`sol-${account}`, {
-              balance: balance / LAMPORTS_PER_SOL,
-              nft_data: nftData,
-              txn_data,
-              airdrop_data: airdropData,
-              total_transactions: total_transactions
-            }, {
-              ex: 86400
-            });
+            await redis.set(
+              `sol-${account}`,
+              {
+                balance: balance / LAMPORTS_PER_SOL,
+                nft_data: nftData,
+                txn_data,
+                airdrop_data: airdropData,
+                total_transactions: total_transactions,
+              },
+              {
+                ex: 86400,
+              }
+            );
           } catch (err) {
             console.log(err);
           }
@@ -396,7 +431,7 @@ export default async function handler(req, res) {
             balance: balance / LAMPORTS_PER_SOL,
             txn_data,
             airdrop_data: airdropData,
-            total_transactions: total_transactions
+            total_transactions: total_transactions,
           });
         }
       } catch (error) {
