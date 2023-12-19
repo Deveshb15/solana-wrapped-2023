@@ -7,16 +7,36 @@ import Image from "next/image";
 function Login() {
   const [walletID, setWalletID] = useState("");
   const router = useRouter();
-  const [errorMessage, setErrorMessage] = useState('');
+  const [errorMessage, setErrorMessage] = useState("");
 
-  const handleNavigation = () => {
-    if(walletID.trim() === '') {
-      setErrorMessage('Address field cannot be empty');
-  } else {
-      setErrorMessage('');
-      router.push(`/stats/${walletID}`);
+  const [wallets, setWallets] = useState([]);
+
+  const handleNavigation = (e) => {
+    e.preventDefault();
+    if (walletID.trim() === "") {
+      setErrorMessage("Address field cannot be empty");
+    } else {
+      setErrorMessage("");
+      if(wallets?.length > 0) {
+        router.push(`/stats/${wallets[0]}+${walletID}`);
+      } else {
+        router.push(`/stats/${walletID}`);
       }
+    }
+  };
 
+  const handleAddWallet = () => {
+    if (wallets?.length >= 2) {
+      setErrorMessage("You can only add 2 wallets");
+    } else {
+      if (walletID.trim() === "") {
+        setErrorMessage("Address field cannot be empty");
+      } else {
+        setErrorMessage("");
+        setWallets([...wallets, walletID]);
+        setWalletID("");
+      }
+    }
   };
 
   return (
@@ -53,9 +73,24 @@ function Login() {
           </div>
         </div>
         {/* <div className="flex text-dm lg:flex-row flex-col w-full justify-center lg:items-start items-center"> */}
-        <div
+        {wallets?.length > 0 && (
+          <div className="flex items-center justify-center flex-col mt-4 mb-2">
+            {wallets?.map((wallet, i) => {
+              return wallet?.includes(".sol") ? (
+                <p className="bg-[#1E1E1E] px-4 py-2 rounded-full" key={i}>{wallet}</p>
+              ) : (
+                <p className="bg-[#1E1E1E] px-4 py-2 rounded-full" key={i}>
+                  {wallet?.substr(0, 4)}...
+                  {wallet?.substr(wallet?.length - 5, wallet.length - 1)}
+                </p>
+              );
+            })}
+          </div>
+        )}
+        <form
           style={{ backgroundColor: "#1E1E1E" }}
           className="flex bg-grey mt-4 md:w-[376px] h-16 rounded-full lg:p-3 p-1 w-5/6 items-center"
+          onSubmit={(e) => handleNavigation(e)}
         >
           <input
             type="text"
@@ -65,13 +100,12 @@ function Login() {
             style={{ backgroundColor: "#1E1E1E" }}
             onChange={(e) => setWalletID(e.target.value)}
             onKeyDown={(event) => {
-              if (event.key === 'Enter') {
-                handleNavigation();
+              if (event.key === "Enter") {
+                handleNavigation(event);
               }
             }}
-        
           />
-          <button onClick={handleNavigation}>
+          <button type="submit">
             <svg
               xmlns="http://www.w3.org/2000/svg"
               width="16"
@@ -84,13 +118,17 @@ function Login() {
                 d="M6 12.8359L10 8.83594L6 4.83594"
                 stroke="white"
                 strokeWidth="1.375"
-                stroke-linecap="round"
-                stroke-linejoin="round"
+                strokeLinecap="round"
+                strokeLinejoin="round"
               />
             </svg>
           </button>
-        </div>
-        {errorMessage && <p className="mt-1 text-xs md:text-base text-red-300">{errorMessage}</p>}
+        </form>
+        {errorMessage && (
+          <p className="mt-1 text-xs md:text-base text-red-300">
+            {errorMessage}
+          </p>
+        )}
 
         {console.log("wallet id", walletID)}
 
@@ -100,7 +138,7 @@ function Login() {
             Have more than 1 wallet ?
           </p>
           <div className="w-8 h-8 rounded-full flex justify-center items-center bg-gray">
-            +
+            <button onClick={handleAddWallet}>+</button>
           </div>
         </div>
       </div>

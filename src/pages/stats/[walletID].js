@@ -8,6 +8,7 @@ import Card5 from "@/components/cards/Card5";
 import Card6 from "@/components/cards/Card6";
 import Card7 from "@/components/cards/Card7";
 import Card8 from "@/components/cards/Card8";
+import { mergeData } from "@/constants/functions";
 
 import TopNav from "@/components/TopNav";
 import Loading from "@/components/loading";
@@ -20,6 +21,16 @@ const Carousel = ({ address }) => {
   const router = useRouter();
   const { walletID } = router.query;
   console.log("wallet id is", walletID);
+  const [wallets, setWallets] = useState([]);
+
+  useEffect(() => {
+    if (walletID?.includes("+")) {
+      const wallets = walletID.split("+");
+      setWallets(wallets);
+    } else {
+      setWallets([walletID]);
+    }
+  }, [walletID]);
 
   const goToSlide = (index) => {
     setActiveSlide(index);
@@ -35,21 +46,38 @@ const Carousel = ({ address }) => {
 
   useEffect(() => {
     setLoading(true);
-    if (walletID) {
+    if (wallets.length > 0) {
       console.log("inside data");
       try {
-        fetch(`/api/data/${walletID}`)
-          .then((response) => response.json())
-          .then((fetchedData) => {
-            setData(fetchedData);
-            setLoading(false);
-          });
+        if (wallets.length > 1) {
+          fetch(`/api/data/${wallets[0]}`)
+            .then((response) => response.json())
+            .then((fetchedData) => {
+              setData(fetchedData);
+            });
+
+          fetch(`/api/data/${wallets[1]}`)
+            .then((response) => response.json())
+            .then((fetchedData) => {
+              setData((prevData) => {
+                return mergeData(prevData, fetchedData);
+              });
+              setLoading(false);
+            });
+        } else {
+          fetch(`/api/data/${wallets[0]}`)
+            .then((response) => response.json())
+            .then((fetchedData) => {
+              setData(fetchedData);
+              setLoading(false);
+            });
+        }
       } catch (error) {
         console.log(error);
         setLoading(false);
       }
     }
-  }, [walletID]);
+  }, [wallets]);
 
   console.log("data is", activeSlide);
 
@@ -153,37 +181,37 @@ const Carousel = ({ address }) => {
               {activeSlide < slides.length - 1 && (
                 <div>
                   <button
-                  onClick={goToNextSlide}
-                  className="flex sm:hidden cursor-pointer bg-gray rounded-full md:mt-64 z-0 shadow-md p-1 m-0 absolute bottom-1/2 right-2"
-                >
-                  <svg
-                    className="w-6 h-6 text-gray-800"
-                    fill="none"
-                    strokeLinecap="round"
-                    strokeLinejoin="round"
-                    strokeWidth="2"
-                    viewBox="0 0 24 24"
-                    stroke="currentColor"
+                    onClick={goToNextSlide}
+                    className="flex sm:hidden cursor-pointer bg-gray rounded-full md:mt-64 z-0 shadow-md p-1 m-0 absolute bottom-1/2 right-2"
                   >
-                    <path d="M9 5l7 7-7 7"></path>
-                  </svg>
-                </button>
+                    <svg
+                      className="w-6 h-6 text-gray-800"
+                      fill="none"
+                      strokeLinecap="round"
+                      strokeLinejoin="round"
+                      strokeWidth="2"
+                      viewBox="0 0 24 24"
+                      stroke="currentColor"
+                    >
+                      <path d="M9 5l7 7-7 7"></path>
+                    </svg>
+                  </button>
                   <button
-                  onClick={goToNextSlide}
-                  className="hidden sm:flex cursor-pointer bg-gray rounded-full md:mt-64 z-0 shadow-md p-1 m-0"
-                >
-                  <svg
-                    className="w-6 h-6 text-gray-800"
-                    fill="none"
-                    strokeLinecap="round"
-                    strokeLinejoin="round"
-                    strokeWidth="2"
-                    viewBox="0 0 24 24"
-                    stroke="currentColor"
+                    onClick={goToNextSlide}
+                    className="hidden sm:flex cursor-pointer bg-gray rounded-full md:mt-64 z-0 shadow-md p-1 m-0"
                   >
-                    <path d="M9 5l7 7-7 7"></path>
-                  </svg>
-                </button>
+                    <svg
+                      className="w-6 h-6 text-gray-800"
+                      fill="none"
+                      strokeLinecap="round"
+                      strokeLinejoin="round"
+                      strokeWidth="2"
+                      viewBox="0 0 24 24"
+                      stroke="currentColor"
+                    >
+                      <path d="M9 5l7 7-7 7"></path>
+                    </svg>
+                  </button>
                 </div>
               )}
             </div>
