@@ -4,7 +4,7 @@ import Image from "next/image";
 const Card5 = ({ airdrop }) => {
   // console.log('transactions are', transactions)
 
-  let total = airdrop ? airdrop
+  let total = airdrop?.length>0 ? airdrop
   .map((item) => item.usdc)
   .reduce((prev, next) => prev + next)?.toFixed(4) : 0
 

@@ -432,8 +432,8 @@ export default async function handler(req, res) {
             nftSoldVolume: nftData?.nftSoldVolume,
           }
 
-          let airdropData = null;
-          // const airdropData = await getAllAirdrops(account);
+          // let airdropData = null;
+          const airdropData = await getAllAirdrops(account);
 
           try {
             await redis.set(

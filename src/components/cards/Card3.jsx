@@ -47,15 +47,15 @@ const Card3 = ({ transactions }) => {
                     d="M12 19V5"
                     stroke="#14F195"
                     strokeWidth="2"
-                    stroke-linecap="round"
-                    stroke-linejoin="round"
+                    strokeLinecap="round"
+                    strokeLinejoin="round"
                   />
                   <path
                     d="M5 12L12 5L19 12"
                     stroke="#14F195"
                     strokeWidth="2"
-                    stroke-linecap="round"
-                    stroke-linejoin="round"
+                    strokeLinecap="round"
+                    strokeLinejoin="round"
                   />
                 </svg>
               </div>
@@ -73,15 +73,15 @@ const Card3 = ({ transactions }) => {
                     d="M12 5L12 19"
                     stroke="#F2688A"
                     stroke-width="2"
-                    stroke-linecap="round"
-                    stroke-linejoin="round"
+                    strokeLinecap="round"
+                    strokeLinejoin="round"
                   />
                   <path
                     d="M19 12L12 19L5 12"
                     stroke="#F2688A"
                     stroke-width="2"
-                    stroke-linecap="round"
-                    stroke-linejoin="round"
+                    strokeLinecap="round"
+                    strokeLinejoin="round"
                   />
                 </svg>
               </div>
