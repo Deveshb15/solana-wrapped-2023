@@ -36,40 +36,40 @@ const Card8 = ({ data }) => {
           }}
         ></div>
 
-        <div className="ml-12 md:mt-[72px] md:flex font-dm absolute z-10 w-[312px] h-[484px] md:w-[670px] md:h-[391px]]">
+        <div className="md:ml-12 md:mt-[72px] md:flex font-dm absolute z-10 w-[312px] h-[484px] md:w-[670px] md:h-[391px]]">
           <div>
-            <div className="flex">
+            <div className="flex justify-evenly">
               <div className="flex flex-col">
                 <div
-                  className="mt-12 rounded-lg md:w-36 md:h-16 justify-center text-center"
+                  className="mt-4 md:mt-12 rounded-lg w-28 md:w-36 md:h-16 justify-center text-center"
                   style={{
                     background: "rgba(37, 43, 53, 0.30)",
                   }}
                 >
-                  <p className="text-white mt-3 flex justify-center md:text-lg leading-[38.40px]">
+                  <p className="text-white mt-1 md:mt-3 flex justify-center md:text-lg leading-[38.40px]">
                     {data?.total_transactions}
                   </p>
-                  <p className="text-fade text-[8px]">Transactions</p>
+                  <p className="text-fade text-[8px] pb-2 md:pb-0">Transactions</p>
                 </div>
                 <div
-                  className="mt-2 rounded-lg md:w-36 md:h-16 justify-center text-center"
+                  className="mt-2 rounded-lg w-28 md:w-36 md:h-16 justify-center text-center"
                   style={{
                     background: "rgba(37, 43, 53, 0.30)",
                   }}
                 >
-                  <p className="text-white mt-3 flex justify-center md:text-lg leading-[38.40px]">
+                  <p className="text-white mt-1 md:mt-3 flex justify-center md:text-lg leading-[38.40px]">
                     {data?.txn_data ? data?.txn_data.total_gas_spent : 0}
                   </p>
-                  <p className="text-fade text-[8px]">Total txn fees paid</p>
+                  <p className="text-fade text-[8px] pb-2 md:pb-0">Total txn fees paid</p>
                 </div>
               </div>
               <div
-                className="mt-12 ml-2 rounded-lg md:w-36 md:h-36 justify-center text-center"
+                className="mt-4 md:mt-12 ml-2 rounded-lg w-28 md:w-36 md:h-36 justify-center text-center"
                 style={{
                   background: "rgba(37, 43, 53, 0.30)",
                 }}
               >
-                <p className="text-white pt-6 flex justify-center md:text-lg leading-[38.40px]">
+                <p className="text-white pt-3 md:pt-6 flex justify-center md:text-lg leading-[38.40px]">
                   {data?.txn_data
                     ? data?.txn_data.total_sol_sent?.toFixed(4)
                     : 0}
@@ -83,8 +83,9 @@ const Card8 = ({ data }) => {
                 <p className="text-fade text-[8px]">SOL Received</p>
               </div>
             </div>
+            <div className="flex justify-center">
             <div
-              className="mt-2 ml-1 rounded-lg md:w-72 md:h-36 justify-center text-center"
+              className="mt-2 ml-1 rounded-lg w-64 md:w-72 md:h-36 justify-center text-center"
               style={{
                 background: "rgba(37, 43, 53, 0.30)",
               }}
@@ -126,10 +127,12 @@ const Card8 = ({ data }) => {
                 />
               </div>
             </div>
+            </div>
           </div>
           <div>
+            <div className="flex justify-center">
             <div
-              className="mt-12 ml-5 rounded-lg md:w-72 md:h-36 flex flex-col justify-center text-center"
+              className="mt-4 md:mt-12 md:ml-5 rounded-lg w-64 md:w-72 md:h-36 flex flex-col justify-center text-center"
               style={{
                 background: "rgba(37, 43, 53, 0.30)",
               }}
@@ -137,12 +140,12 @@ const Card8 = ({ data }) => {
               <p className="text-white mt-3 flex justify-center  font-dm md:text-[32px]">
                 {data?.nft_data?.purchased + data?.nft_data?.minted} NFTs
               </p>
-              <p className="text-fade text-[8px]">Collected in 2023</p>
-            </div>
+              <p className="text-fade text-[8px] pb-4 md:pb-0">Collected in 2023</p>
+            </div></div>
             <div>
-              <div className="flex ml-5 flex-row">
+              <div className="flex ml-0 md:ml-5 justify-center flex-row">
                 <div
-                  className="mt-2 rounded-lg md:w-36 md:h-16 justify-center text-center"
+                  className="mt-2 rounded-lg w-28 md:w-36 md:h-16 justify-center text-center"
                   style={{
                     background: "rgba(37, 43, 53, 0.30)",
                   }}
@@ -220,7 +223,7 @@ const Card8 = ({ data }) => {
                   <p className="text-fade text-[8px]">NFT W of 2023</p>
                 </div>
                 <div
-                  className="mt-2 ml-2 rounded-lg md:w-36 md:h-16 justify-center text-center"
+                  className="mt-2 ml-2 rounded-lg w-28 md:w-36 md:h-16 justify-center text-center"
                   style={{
                     background: "rgba(37, 43, 53, 0.30)",
                   }}
@@ -248,8 +251,9 @@ const Card8 = ({ data }) => {
                   )}
                 </div>
               </div>
+              <div className="flex justify-center ">
               <div
-                className="ml-5 mt-3 rounded-lg md:w-72 md:h-16 justify-center text-center"
+                className="md:ml-5 mt-3 rounded-lg w-64 md:w-72 md:h-16 justify-center text-center"
                 style={{
                   background: "rgba(37, 43, 53, 0.30)",
                 }}
@@ -288,7 +292,7 @@ const Card8 = ({ data }) => {
                     </svg>
                   </div>
                 ) : (
-                  <div className="flex items-center justify-center flex-row pt-3">
+                  <div className="flex items-center justify-center flex-row pt-1 md:pt-3">
                     <p className="text-white flex justify-center md:text-lg leading-[38.40px]">
                       {data?.txn_data
                         ? data?.txn_data?.portfolio_profit_loss_percentage?.toFixed(
@@ -321,9 +325,10 @@ const Card8 = ({ data }) => {
                     </svg>
                   </div>
                 )}
-                <p className="text-fade text-[8px]">
+                <p className="text-fade text-[8px] pb-2 md:pb-0">
                   Increase in Wallet Balance
                 </p>
+              </div>
               </div>
             </div>
           </div>
