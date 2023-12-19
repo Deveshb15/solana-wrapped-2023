@@ -7,9 +7,16 @@ import Image from "next/image";
 function Login() {
   const [walletID, setWalletID] = useState("");
   const router = useRouter();
+  const [errorMessage, setErrorMessage] = useState('');
 
   const handleNavigation = () => {
-    router.push(`/stats/${walletID}`);
+    if(walletID.trim() === '') {
+      setErrorMessage('Address field cannot be empty');
+  } else {
+      setErrorMessage('');
+      router.push(`/stats/${walletID}`);
+      }
+
   };
 
   return (
@@ -35,11 +42,11 @@ function Login() {
             </div>
 
             <div className="flex font-dm flex-col justify-center items-center lg:overflow-hidden">
-              <p className=" font-bold text-4xl md:text-7xl animate__animated animate__bounceInDown">
+              <p className=" font-bold text-4xl md:text-7xl">
                 Solana Wrapped,
                 <br />
               </p>
-              <span className="text-green-400 animate__animated animate__slideInLeft text-4xl font-bold md:text-7xl ">
+              <span className="text-green-400 text-4xl font-bold md:text-7xl ">
                 2023
               </span>
             </div>
@@ -83,6 +90,7 @@ function Login() {
             </svg>
           </button>
         </div>
+        {errorMessage && <p className="mt-1 text-xs md:text-base text-red-300">{errorMessage}</p>}
 
         {console.log("wallet id", walletID)}
 

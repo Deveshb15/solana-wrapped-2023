@@ -85,7 +85,7 @@ const Carousel = ({ address }) => {
         </div>
       ) : (
         <div>
-        <div className="w-[312px] md:w-[520px] mx-auto flex justify-center mt-32 md:mt-28 mb-4">
+        <div className="w-[312px] md:w-[520px] mx-auto flex justify-center mt-32 md:mt-16 mb-4">
           {slides.map((_, index) => (
             <div
               key={index}

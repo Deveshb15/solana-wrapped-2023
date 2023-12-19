@@ -8,24 +8,10 @@ const inter = Inter({ subsets: ['latin'] })
 export default function Home() {
   
   return (
-<div className='flex flex-col min-h-screen justify-between'>
+<div className='flex flex-col h-screen justify-between'>
     <main
       className={`flex flex-col bg-black h-screen items-center justify-center ${inter.className}`}
     >
- {/* <div style={{
-  position: 'fixed',
-  top: 0,
-  left: 0,
-  width: '100vw',
-  height: '100vh',
-  background: 'url(/noise.png), lightgray',
-  backgroundSize: 'cover',
-  backgroundRepeat: 'no-repeat',
-  zIndex: -1,
-}}/> */}
-        {/* <div className="noise-wrapper"></div>
-        <div className="noise"></div> */}
-
       <div className='rounded-full' style={{
         position: 'absolute',
         top: '-20%',
@@ -43,13 +29,14 @@ export default function Home() {
         <title>Solana Wrappd</title>
         </Head>
         <Login/>
-        <div className="w-full flex justify-center text-center border-grey p-4 bottom-0 bg-gray-200">
+        <div className="w-full flex justify-center fixed text-center border-grey p-4 bottom-3 bg-gray-200">
       <p className='mr-2 text-[#969696]'>Built by Team 7 under</p> 
         <svg xmlns="http://www.w3.org/2000/svg" width="25" height="19" viewBox="0 0 25 19" fill="none">
         <path d="M19.4086 2.94776H24.5947V4.951C24.5947 7.66741 22.3996 9.86293 19.6828 9.86293H19.4083V2.94776H19.4086ZM12.0273 0.0390625H19.4086V18.9451H18.5307C13.1798 18.9451 12.1099 15.2131 12.1099 11.893L12.0273 0.0390625ZM0.0361328 4.31971C0.0361328 7.69489 2.45081 8.9296 5.14003 9.34137H0.0361328V19.0001H4.94807C9.8872 19.0001 10.4634 16.8049 10.4634 14.7195C10.4634 12.1675 8.70717 10.3841 5.9908 9.6978H10.4634V0.0390625H5.55147C0.612367 0.0390625 0.0361328 2.23426 0.0361328 4.31971Z" fill="#D9D9D9"/>
       </svg>
       </div>
        </main>
+      
        </div>
   )
 }
