@@ -51,7 +51,7 @@ const Carousel = ({ address }) => {
     }
   }, [walletID]);
 
-  console.log("data is", data);
+  console.log("data is", activeSlide);
 
   const slides = [
     <Card1 key={1} />,
@@ -63,6 +63,7 @@ const Carousel = ({ address }) => {
     <Card7 transactions={data?.txn_data} key={7} />,
     <Card8 data={data} key={8} />,
   ];
+  console.log("slide len is", slides.length);
 
   //  console.log('txs', data.txn_data)
   const Loading = () => {
@@ -84,20 +85,39 @@ const Carousel = ({ address }) => {
         </div>
       ) : (
         <div>
-          <div className="md:w-64 mx-auto flex justify-center mt-12 mb-4">
-            {slides.map((_, index) => (
-              <div
-                key={index}
-                className={`flex-1 h-2 w-5 rounded-full md:w-16 mx-1 ${
-                  index === activeSlide ? "bg-green-500" : "bg-dark-blue"
-                }`}
-              ></div>
-            ))}
-          </div>
+        <div className="w-[312px] md:w-[520px] mx-auto flex justify-center mt-32 md:mt-28 mb-4">
+          {slides.map((_, index) => (
+            <div
+              key={index}
+              className={`flex-1 h-2 w-5 rounded-full md:w-16 mx-1 ${
+                index <= activeSlide ? "bg-green-500" : "bg-dark-blue"
+              }`}
+            ></div>
+          ))}
+        </div>
+        <div className="flex justify-around">
+        
           <div
-            className="md:w-96 mx-auto"
+            className=" flex justify-between bottom-2 mx-auto"
             style={{ scrollSnapType: "x mandatory" }}
           >
+      <button
+        onClick={goToPrevSlide}
+        className={`cursor-pointer bg-gray md:mt-64 md:mr-[320px] rounded-full shadow-md z-[2] p-1 m-0 ${activeSlide === 0 ? 'opacity-0' : 'opacity-100'}`}
+      >
+        <svg
+          className="w-6 h-6 text-gray-800"
+          fill="none"
+          strokeLinecap="round"
+          strokeLinejoin="round"
+          strokeWidth="2"
+          viewBox="0 0 24 24"
+          stroke="currentColor"
+        >
+          <path d="M15 19l-7-7 7-7"></path>
+        </svg>
+      </button>
+          <div className="md:w-96">
             {slides.map((Slide, index) => (
               <div
                 key={index}
@@ -107,29 +127,16 @@ const Carousel = ({ address }) => {
               >
                 {Slide}
               </div>
+              
             ))}
-            <div className="absolute top-1/2 left-0 right-0 flex justify-between px-12 md:px-48 z-20">
-              <button
-                onClick={goToPrevSlide}
-                className="cursor-pointer bg-gray rounded-full shadow-md p-2"
-              >
-                <svg
-                  className="w-6 h-6 text-gray-800"
-                  fill="none"
-                  strokeLinecap="round"
-                  strokeLinejoin="round"
-                  strokeWidth="2"
-                  viewBox="0 0 24 24"
-                  stroke="currentColor"
-                >
-                  <path d="M15 19l-7-7 7-7"></path>
-                </svg>
-              </button>
-              <button
-                onClick={goToNextSlide}
-                className="cursor-pointer bg-gray rounded-full shadow-md p-2"
-              >
-                <svg
+            </div>
+            {activeSlide < slides.length - 1 && (
+
+                  <button
+            onClick={goToNextSlide}
+            className="cursor-pointer bg-gray rounded-full md:mt-64 z-0 shadow-md p-1 m-0"
+            >
+                  <svg
                   className="w-6 h-6 text-gray-800"
                   fill="none"
                   strokeLinecap="round"
@@ -140,11 +147,15 @@ const Carousel = ({ address }) => {
                 >
                   <path d="M9 5l7 7-7 7"></path>
                 </svg>
-              </button>
-            </div>
+          </button>
+)}
           </div>
+    
         </div>
+       </div>
+       
       )}
+     
     </div>
   );
 };

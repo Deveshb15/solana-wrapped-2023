@@ -48,7 +48,7 @@ function Login() {
         {/* <div className="flex text-dm lg:flex-row flex-col w-full justify-center lg:items-start items-center"> */}
         <div
           style={{ backgroundColor: "#1E1E1E" }}
-          className="flex bg-grey mt-4 w-[376px] h-16 rounded-full lg:p-3 p-1 w-5/6 items-center"
+          className="flex bg-grey mt-4 md:w-[376px] h-16 rounded-full lg:p-3 p-1 w-5/6 items-center"
         >
           <input
             type="text"
@@ -57,6 +57,12 @@ function Login() {
             value={walletID}
             style={{ backgroundColor: "#1E1E1E" }}
             onChange={(e) => setWalletID(e.target.value)}
+            onKeyDown={(event) => {
+              if (event.key === 'Enter') {
+                handleNavigation();
+              }
+            }}
+        
           />
           <button onClick={handleNavigation}>
             <svg
