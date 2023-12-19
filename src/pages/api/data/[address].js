@@ -380,8 +380,8 @@ export default async function handler(req, res) {
         if (address.includes(".sol")) {
           account = await getPublicKeyFromSolDomain(address);
         }
-        let cached_data = null;
-        // let cached_data = await redis.get(`sol-${account}`);
+        // let cached_data = null;
+        let cached_data = await redis.get(`sol-${account}`);
         if (cached_data) {
           console.log("Data from cache");
           // console.log("Cached data: ", cached_data);
