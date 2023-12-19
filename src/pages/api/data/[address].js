@@ -125,6 +125,9 @@ const getDataFromTransaction = async (transactions, address, balance) => {
   let total_sol_received = 0;
   let diff_wallet_address = 0;
   let balance_a_year_ago = 0;
+  let total_nft_mints = 0;
+  let total_nft_sold = 0;
+  let total_nft_purchased = 0;
   let portfolio_profit_loss_percentage = 0;
   let most_transacted_wallet = null;
   let wallet_map = {};
@@ -184,6 +187,7 @@ const getDataFromTransaction = async (transactions, address, balance) => {
           transaction?.events?.nft?.seller?.toLowerCase() ===
           address?.toLowerCase()
         ) {
+          total_nft_sold += 1;
           if (transaction?.events?.nft?.amount > highest_sold_nft.sol) {
             highest_sold_nft.sol = transaction?.events?.nft?.amount;
             highest_sold_nft.nft = transaction?.events?.nft?.nfts[0]?.mint;
@@ -192,11 +196,16 @@ const getDataFromTransaction = async (transactions, address, balance) => {
           transaction?.events?.nft?.buyer?.toLowerCase() ===
           address?.toLowerCase()
         ) {
+          total_nft_purchased += 1;
           if (transaction?.events?.nft?.amount > highest_purchased_nft.sol) {
             highest_purchased_nft.sol = transaction?.events?.nft?.amount;
             highest_purchased_nft.nft = transaction?.events?.nft?.nfts[0]?.mint;
           }
         }
+      }
+
+      if (transaction?.events?.nft?.type === "NFT_MINT") {
+        total_nft_mints += 1;
       }
     }
 
@@ -243,6 +252,7 @@ const getDataFromTransaction = async (transactions, address, balance) => {
     }
   }
 
+  console.log("A YEAR AGO BALANCE ", balance_a_year_ago)
   portfolio_profit_loss_percentage =
     (balance - balance_a_year_ago) / balance_a_year_ago;
 
@@ -266,6 +276,9 @@ const getDataFromTransaction = async (transactions, address, balance) => {
     total_gas_spent: total_gas_spent / LAMPORTS_PER_SOL,
     total_sol_sent: total_sol_sent / LAMPORTS_PER_SOL,
     total_sol_received: total_sol_received / LAMPORTS_PER_SOL,
+    total_nft_mints,
+    total_nft_sold,
+    total_nft_purchased,
     diff_wallet_address: diff_wallet_address,
     balance_a_year_ago: balance_a_year_ago / LAMPORTS_PER_SOL,
     highest_sold_nft,
@@ -386,7 +399,6 @@ export default async function handler(req, res) {
           console.log("Balance: ", balance / LAMPORTS_PER_SOL);
 
           // GET NFT STATS FIRST
-          const nftData = await getNftStats(account);
 
           // Now let's get the transactions from helius
           let url = `https://api.helius.xyz/v0/addresses/${account}/transactions?api-key=${process.env.HELIUS_API_KEY}`;
@@ -404,6 +416,22 @@ export default async function handler(req, res) {
             balance
           );
 
+          console.log("MINTs ", txn_data?.total_nft_mints)
+          console.log("SOLD ", txn_data?.total_nft_sold)
+          console.log("PURCHASED ", txn_data?.total_nft_purchased)
+
+          const nftData = await getNftStats(account);
+          let nft_data_obj = {
+            realizedProfits: nftData?.realizedProfits,
+            volume: nftData?.volume,
+            minted: txn_data?.total_nft_mints >0 ?  nftData?.minted + txn_data?.total_nft_mints : nftData?.minted,
+            sold: txn_data?.total_nft_sold > 0 ? nftData?.sold + txn_data?.total_nft_sold : nftData?.sold,
+            purchased: txn_data?.total_nft_purchased > 0 ? nftData?.purchased + txn_data?.total_nft_purchased : nftData?.purchased,
+            profitAndLossPercentage: nftData?.profitAndLossPercentage,
+            nftVolumeTraded: nftData?.nftVolumeTraded,
+            nftSoldVolume: nftData?.nftSoldVolume,
+          }
+
           let airdropData = null;
           // const airdropData = await getAllAirdrops(account);
 
@@ -412,7 +440,7 @@ export default async function handler(req, res) {
               `sol-${account}`,
               {
                 balance: balance / LAMPORTS_PER_SOL,
-                nft_data: nftData,
+                nft_data: nft_data_obj,
                 txn_data,
                 airdrop_data: airdropData,
                 total_transactions: total_transactions,
@@ -427,7 +455,7 @@ export default async function handler(req, res) {
 
           res.status(200).json({
             success: true,
-            nft_data: nftData,
+            nft_data: nft_data_obj,
             balance: balance / LAMPORTS_PER_SOL,
             txn_data,
             airdrop_data: airdropData,
