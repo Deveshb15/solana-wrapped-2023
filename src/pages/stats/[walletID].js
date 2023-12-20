@@ -13,6 +13,7 @@ import { mergeData } from "@/constants/functions";
 import TopNav from "@/components/TopNav";
 import Loading from "@/components/loading";
 import Head from "next/head";
+import ShareModal from "@/components/ShareModal";
 
 const Carousel = ({ address }) => {
   const [activeSlide, setActiveSlide] = useState(0);
@@ -22,6 +23,8 @@ const Carousel = ({ address }) => {
   const { walletID } = router.query;
   console.log("wallet id is", walletID);
   const [wallets, setWallets] = useState([]);
+  const [isOpen, setIsOpen] = useState(false);
+
 
   useEffect(() => {
     if (walletID?.includes("+")) {
@@ -43,6 +46,27 @@ const Carousel = ({ address }) => {
   const goToNextSlide = () => {
     setActiveSlide(activeSlide + 1 < slides.length ? activeSlide + 1 : 0);
   };
+
+  const handleClose = () => {
+    setIsOpen(false);
+  };
+
+  useEffect(() => {
+    const handleKeyDown = (event) => {
+        if (event.key === 'ArrowRight') {
+            goToNextSlide();
+        }
+        else if (event.key === 'ArrowLeft' && activeSlide > 0) {
+            goToPrevSlide();
+        }
+    }
+
+    window.addEventListener('keydown', handleKeyDown);
+
+    return () => {
+        window.removeEventListener('keydown', handleKeyDown);
+    }
+}, [activeSlide]); //
 
   useEffect(() => {
     setLoading(true);
@@ -251,6 +275,15 @@ const Carousel = ({ address }) => {
                 </div>
               )}
             </div>
+            {isOpen && <ShareModal handleClose={handleClose} />}
+
+            {activeSlide < slides.length - 1 && (
+            <div className="hidden md:fixed bottom-[50px] md:right-3 md:flex justify-between items-center w-full">
+          <button onClick={()=>setIsOpen(true)} className="bg-[#1E1E1E] font-dm text-white text-sm px-5 py-2.5 mr-2 rounded-3xl ml-auto">
+            Share Solana Wrapped
+          </button>
+          </div>
+            )}
           </div>
         </div> 
       )}
