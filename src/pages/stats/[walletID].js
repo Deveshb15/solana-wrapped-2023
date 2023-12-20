@@ -104,7 +104,35 @@ const Carousel = ({ address }) => {
   return (
     <div className="min-h-screen p-8 bg-black relative">
       <Head>
-        <title>Solana Wrappd</title>
+        <title>Your Solana Wallet Wrapped - 2023</title>
+        <meta
+          name="description"
+          content="Where Solana wallet users get a deep dive into their top transactional moments of the year."
+        />
+        <link rel="icon" href="/favicon.ico" />
+        <meta property="og:title" content="Watch Something Wonderful" />
+        <meta
+          property="og:description"
+          content="Where Solana wallet users get a deep dive into their top transactional moments of the year."
+        />
+        <meta
+          property="og:image"
+          content="https://i.ibb.co/X5SwdM7/Solana-Wrapped-Preview.png"
+        />
+        <meta
+          property="og:url"
+          content="https://www.solanawrapped.xyz/"
+        />
+        <meta name="twitter:title" content="Watch Something Wonderful" />
+        <meta
+          name="twitter:description"
+          content="Where Solana wallet users get a deep dive into their top transactional moments of the year."
+        />
+        <meta
+          name="twitter:image"
+          content="https://i.ibb.co/X5SwdM7/Solana-Wrapped-Preview.png"
+        />
+        <meta name="twitter:card" content="summary_large_image" />
       </Head>
       <TopNav />
       {loading ? (
@@ -113,7 +141,7 @@ const Carousel = ({ address }) => {
         </div>
       ) : (
         <div>
-          <div className="w-[312px] md:w-[520px] mx-auto flex justify-center mt-32 md:mt-28 mb-4">
+          <div className="w-[312px] md:w-[520px] mx-auto flex justify-center mt-20 md:mt-20 mb-4">
             {slides.map((_, index) => (
               <div
                 key={index}
@@ -170,8 +198,7 @@ const Carousel = ({ address }) => {
                 >
                   <path d="M15 19l-7-7 7-7"></path>
                 </svg>
-              </button>
-  {/* )} */}
+              </button> 
               <div className="md:w-96">
                 {slides.map((Slide, index) => (
                   <div
@@ -179,7 +206,7 @@ const Carousel = ({ address }) => {
                     className={`absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 transition-all duration-300 ${
                       index === activeSlide
                         ? "opacity-100 z-10"
-                        : "opacity-0 z-0"
+                        : "opacity-0 z-1"
                     }`}
                   >
                     {Slide}
@@ -191,7 +218,7 @@ const Carousel = ({ address }) => {
                   <button
                     onClick={goToNextSlide}
                     style={{marginRight:'40%'}}
-                  className="flex sm:hidden cursor-pointer bg-gray rounded-full md:mt-64 z-0 shadow-md p-1 m-0 absolute bottom-[10%] right-2"
+                  className="flex sm:hidden cursor-pointer bg-gray rounded-full md:mt-64 z-1 shadow-md p-1 m-0 absolute bottom-[10%] right-2"
                   >
                     <svg
                       className="w-6 h-6 text-gray-800"
@@ -207,7 +234,7 @@ const Carousel = ({ address }) => {
                   </button>
                   <button
                     onClick={goToNextSlide}
-                    className="hidden sm:flex cursor-pointer bg-gray rounded-full md:mt-64 z-0 shadow-md p-1 m-0"
+                    className="hidden sm:flex cursor-pointer bg-gray rounded-full md:mt-64 z-1 shadow-md p-1 m-0"
                   >
                     <svg
                       className="w-6 h-6 text-gray-800"
@@ -225,7 +252,7 @@ const Carousel = ({ address }) => {
               )}
             </div>
           </div>
-        </div>
+        </div> 
       )}
     </div>
   );

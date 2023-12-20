@@ -7,6 +7,38 @@ const inter = Inter({ subsets: ["latin"] });
 
 export default function Home() {
   return (
+    <>
+        <Head>
+        <title>Your Solana Wallet Wrapped - 2023</title>
+        <meta
+          name="description"
+          content="Where Solana wallet users get a deep dive into their top transactional moments of the year."
+        />
+        <link rel="icon" href="/favicon.ico" />
+        <meta property="og:title" content="Watch Something Wonderful" />
+        <meta
+          property="og:description"
+          content="Where Solana wallet users get a deep dive into their top transactional moments of the year."
+        />
+        <meta
+          property="og:image"
+          content="https://i.ibb.co/X5SwdM7/Solana-Wrapped-Preview.png"
+        />
+        <meta
+          property="og:url"
+          content="https://www.solanawrapped.xyz/"
+        />
+        <meta name="twitter:title" content="Watch Something Wonderful" />
+        <meta
+          name="twitter:description"
+          content="Where Solana wallet users get a deep dive into their top transactional moments of the year."
+        />
+        <meta
+          name="twitter:image"
+          content="https://i.ibb.co/X5SwdM7/Solana-Wrapped-Preview.png"
+        />
+        <meta name="twitter:card" content="summary_large_image" />
+      </Head>
 <div className='flex flex-col h-screen justify-between'>
     <main
       className={`flex flex-col bg-black h-screen items-center justify-center ${inter.className}`}
@@ -23,10 +55,6 @@ export default function Home() {
         filter: 'blur(75px)',
         flexShrink: 0,
       }}/>
-     
-        <Head>
-          <title>Solana Wrappd</title>
-        </Head>
         <Login />
         <div className="fixed bottom-0 w-full flex justify-center text-center border-grey p-4 bg-gray-200">
           <p className="mr-2 text-[#969696]">Built by Team 7 under</p>
@@ -45,5 +73,6 @@ export default function Home() {
         </div>
       </main>
     </div>
+    </>
   );
 }

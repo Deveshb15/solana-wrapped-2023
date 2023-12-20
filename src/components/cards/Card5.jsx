@@ -20,7 +20,7 @@ const Card5 = ({ airdrop }) => {
         }}
       >
         <div
-          className="rounded-full absolute z-0 w-full h-full"
+          className="rounded-full absolute z-1 w-full h-full"
           style={{
             top: "-60%",
             left: "10%",
@@ -46,7 +46,7 @@ const Card5 = ({ airdrop }) => {
             </div>
           ) : (
             <div>
-              <p className="text-white md:mt-8 text-xl leading-[38.40px]">
+              <p className="text-white md:mt-8 md:text-xl leading-[38.40px]">
                 You haven&apos;t received any airdrops
               </p>
             </div>

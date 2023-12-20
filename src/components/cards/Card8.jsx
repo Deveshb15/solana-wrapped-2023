@@ -1,8 +1,12 @@
-import React from "react";
+import React, { useRef, useState } from 'react';
 import Image from "next/image";
+import html2canvas from 'html2canvas';
+import ShareModal from "@/components/ShareModal";
+
 
 const Card8 = ({ data }) => {
   // console.log('transactions are', transactions)
+  const [isOpen, setIsOpen] = useState(false);
 
   let total_airdrop = data?.airdrop_data?.length > 0
     ? data?.airdrop_data
@@ -11,9 +15,49 @@ const Card8 = ({ data }) => {
         ?.toFixed(4)
     : 0;
 
+    const divRef = useRef(null);
+
+const captureDivAsImage = () => {
+  const divToCapture = divRef.current;
+
+  html2canvas(divToCapture).then((canvas) => {
+    // Create an anchor element to download the image
+    const a = document.createElement('a');
+    a.href = canvas.toDataURL();
+    a.download = 'div-image.png';
+    a.click();
+  });
+};
+
+const shareAsImage = () => {
+  const divToCapture = divRef.current;
+
+  html2canvas(divToCapture).then((canvas) => {
+    canvas.toBlob(blob => {
+      if (navigator.share) {
+        const file = new File([blob], 'share.png', { type: 'image/png' });
+        navigator.share({
+          title: 'Share Image',
+          text: 'Check out this awesome image!',
+          files: [file],
+        })
+        .then(() => console.log('Share was successful.'))
+        .catch((error) => console.log('Sharing failed', error));
+      } else {
+        setIsOpen(true);
+      }
+    });
+  });
+};
+
+const handleClose = () => {
+  setIsOpen(false);
+};
+
   return (
     <div className="relative">
       <div
+      ref={divRef}
         className="flex items-center w-[312px] h-[484px] md:w-[670px] md:h-[391px] justify-center m-1 rounded-3xl relative overflow-hidden"
         style={{
           // width: '530px',
@@ -23,7 +67,7 @@ const Card8 = ({ data }) => {
         }}
       >
         <div
-          className="rounded-full absolute z-0 w-full h-full"
+          className="rounded-full absolute z-1 w-full h-full"
           style={{
             top: "-60%",
             left: "10%",
@@ -339,20 +383,54 @@ const Card8 = ({ data }) => {
           <path d="M212.445 150.592L177.189 188.394C176.427 189.215 175.503 189.87 174.476 190.318C173.449 190.767 172.341 190.999 171.221 191H4.09621C3.29913 191 2.51945 190.767 1.85267 190.33C1.1859 189.893 0.660973 189.271 0.342144 188.541C0.0233145 187.81 -0.0755674 187.003 0.0576147 186.217C0.190797 185.431 0.550233 184.701 1.09195 184.116L36.3074 146.314C37.07 145.493 37.9934 144.838 39.0204 144.389C40.0472 143.941 41.1556 143.709 42.2762 143.708H209.4C210.204 143.691 210.996 143.913 211.675 144.345C212.353 144.777 212.89 145.4 213.214 146.136C213.541 146.872 213.64 147.688 213.503 148.481C213.366 149.273 212.998 150.008 212.445 150.592ZM177.189 74.4507C176.424 73.6334 175.5 72.9808 174.473 72.5325C173.447 72.0845 172.34 71.8503 171.221 71.8445H4.09621C3.29913 71.8449 2.51945 72.0777 1.85267 72.5146C1.1859 72.9513 0.660973 73.5731 0.342144 74.3036C0.0233145 75.0342 -0.0755674 75.8418 0.0576147 76.6277C0.190797 77.4136 0.550233 78.1437 1.09195 78.7285L36.3074 116.55C37.0728 117.368 37.997 118.02 39.0232 118.468C40.0494 118.916 41.1564 119.151 42.2762 119.156H209.4C210.196 119.152 210.972 118.916 211.637 118.478C212.301 118.04 212.823 117.418 213.139 116.688C213.455 115.959 213.553 115.152 213.417 114.368C213.284 113.584 212.926 112.856 212.385 112.273L177.189 74.4507ZM4.09621 47.293H171.221C172.341 47.292 173.449 47.0598 174.476 46.6113C175.503 46.1631 176.427 45.5077 177.189 44.6866L212.445 6.8848C212.998 6.3009 213.366 5.56633 213.503 4.77351C213.64 3.98068 213.541 3.16501 213.214 2.42915C212.89 1.69329 212.353 1.07011 211.675 0.638023C210.996 0.20594 210.204 -0.0157433 209.4 0.000869847H42.2762C41.1556 0.00204935 40.0472 0.234084 39.0204 0.682506C37.9934 1.13093 37.07 1.78612 36.3074 2.60722L1.09195 40.409C0.550233 40.9938 0.190797 41.724 0.0576147 42.5098C-0.0755674 43.2957 0.0233145 44.1033 0.342144 44.8339C0.660973 45.5644 1.1859 46.1862 1.85267 46.6229C2.51945 47.0598 3.29913 47.2926 4.09621 47.293Z" fill="white" fill-opacity="0.05"/>
         </svg>
         </div> */}
+                {isOpen && <ShareModal handleClose={handleClose} />}
+
       </div>
-      <div className="hidden sm:flex justify-center mt-8">
+      <div className="sm:flex md:flex-col justify-center mt-8">
+        <div className='flex justify-center'>
         <button
-          className="flex justify-center font-dm items-center gap-2.5 py-4 px-8 rounded-full border border-white"
-          style={{ width: "242px" }}
+          className="flex justify-center md:w-[242px] font-dm items-center md:gap-2.5 py-2 px-2 md:py-4 md:px-8 rounded-full border border-white"
+          onClick={captureDivAsImage}
         >
           Download
         </button>
         <button
-          className="flex ml-2 justify-center font-dm bg-white text-black items-center gap-2.5 py-4 px-8 rounded-full"
-          style={{ width: "242px" }}
+          className="flex ml-2 justify-center md:w-[242px] font-dm bg-white text-black items-center md:gap-2.5 py-2 px-2 md:py-4 md:px-8 rounded-full"
+          onClick={shareAsImage}
         >
-          Share on X
+          <p>Share on</p>
+          <svg xmlns="http://www.w3.org/2000/svg" width="20" height="21" viewBox="1 0 20 21" fill="none">
+          <path fill-rule="evenodd" clip-rule="evenodd" d="M15.8333 18H4.16667C3.24625 18 2.5 17.2537 2.5 16.3333V4.66667C2.5 3.74625 3.24625 3 4.16667 3H15.8333C16.7537 3 17.5 3.74625 17.5 4.66667V16.3333C17.5 17.2537 16.7537 18 15.8333 18Z" fill="#212121"/>
+          <path d="M14.2714 14.6673H11.5893L5.75977 6.33398H8.44185L14.2714 14.6673ZM11.9089 13.9607H12.9768L8.12227 7.04065H7.05435L11.9089 13.9607Z" fill="white"/>
+          <path d="M6.60906 14.667L9.61031 11.1903L9.21781 10.6699L5.75781 14.667H6.60906Z" fill="white"/>
+          <path d="M10.1895 9.55107L10.5665 10.0882L13.8086 6.33398H12.9753L10.1895 9.55107Z" fill="white"/>
+          </svg>
         </button>
+        </div>
+        {/* <div className='flex justify-center'>
+   
+      <button
+          className="mt-8 flex items-center"
+          // style={{ width: "242px" }}
+          // onClick={shareAsImage}
+        >
+               <svg xmlns="http://www.w3.org/2000/svg" className='mr-2' width="17" height="17" viewBox="0 0 17 17" fill="none">
+        <g clip-path="url(#clip0_1529_2109)">
+          <path d="M11.834 1.16602L14.5007 3.83268L11.834 6.49935" stroke="white" stroke-width="1.33333" stroke-linecap="round" stroke-linejoin="round"/>
+          <path d="M2.5 7.83398V6.50065C2.5 5.79341 2.78095 5.11513 3.28105 4.61503C3.78115 4.11494 4.45942 3.83398 5.16667 3.83398H14.5" stroke="white" stroke-width="1.33333" stroke-linecap="round" stroke-linejoin="round"/>
+          <path d="M5.16667 15.8333L2.5 13.1667L5.16667 10.5" stroke="white" stroke-width="1.33333" stroke-linecap="round" stroke-linejoin="round"/>
+          <path d="M14.5 9.16602V10.4993C14.5 11.2066 14.219 11.8849 13.719 12.385C13.2189 12.8851 12.5406 13.166 11.8333 13.166H2.5" stroke="white" stroke-width="1.33333" stroke-linecap="round" stroke-linejoin="round"/>
+        </g>
+        <defs>
+          <clipPath id="clip0_1529_2109">
+            <rect width="16" height="16" fill="white" transform="translate(0.5 0.5)"/>
+          </clipPath>
+        </defs>
+      </svg>
+         <p className='pl-2 pb-4 contents '>Replay the wrap</p> 
+        </button>
+        </div> */}
+     
       </div>
     </div>
   );

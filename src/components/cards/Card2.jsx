@@ -15,7 +15,7 @@ const Card2 = ({ total_transactions }) => {
         }}
       >
         <div 
-          className='rounded-full absolute z-0 w-full h-full'
+          className='rounded-full absolute z-1 w-full h-full'
           style={{
             top: '-60%',
             left: '10%',
