@@ -76,8 +76,11 @@ const fetchAndParseTransactions = async (url, lastSignature) => {
       i++;
       // console.log("Fetching transactions from: ", url);
       console.log("Iteration: ", i);
-      if (i > 8) {
+      if (i > 10) {
         return total_transactions;
+      }
+      if (i == 6) {
+        await sleep(500);
       }
       const response = await fetch(url);
       const transactions = await response.json();
