@@ -76,14 +76,9 @@ const fetchAndParseTransactions = async (url, lastSignature) => {
       i++;
       // console.log("Fetching transactions from: ", url);
       console.log("Iteration: ", i);
-      if (i > 10) {
+      if (i > 8) {
         return total_transactions;
       }
-
-      if (i == 6) {
-        await sleep(500);
-      }
-
       const response = await fetch(url);
       const transactions = await response.json();
 
@@ -252,7 +247,7 @@ const getDataFromTransaction = async (transactions, address, balance) => {
     }
   }
 
-  console.log("A YEAR AGO BALANCE ", balance_a_year_ago)
+  console.log("A YEAR AGO BALANCE ", balance_a_year_ago);
   portfolio_profit_loss_percentage =
     (balance - balance_a_year_ago) / balance_a_year_ago;
 
@@ -261,16 +256,16 @@ const getDataFromTransaction = async (transactions, address, balance) => {
     portfolio_profit_loss_percentage
   );
 
-   // get most transacted wallet
-   let max = 0
-   for (const [key, value] of Object.entries(wallet_map)) {
-     if(value > max) {
-         max = value
-         most_transacted_wallet = key
-     }
-   }
+  // get most transacted wallet
+  let max = 0;
+  for (const [key, value] of Object.entries(wallet_map)) {
+    if (value > max) {
+      max = value;
+      most_transacted_wallet = key;
+    }
+  }
 
-   console.log("Most Transacted wallet")
+  console.log("Most Transacted wallet");
 
   return {
     total_gas_spent: total_gas_spent / LAMPORTS_PER_SOL,
@@ -284,7 +279,7 @@ const getDataFromTransaction = async (transactions, address, balance) => {
     highest_sold_nft,
     highest_purchased_nft,
     portfolio_profit_loss_percentage,
-    most_transacted_wallet
+    most_transacted_wallet,
   };
 };
 
@@ -416,21 +411,30 @@ export default async function handler(req, res) {
             balance
           );
 
-          console.log("MINTs ", txn_data?.total_nft_mints)
-          console.log("SOLD ", txn_data?.total_nft_sold)
-          console.log("PURCHASED ", txn_data?.total_nft_purchased)
+          console.log("MINTs ", txn_data?.total_nft_mints);
+          console.log("SOLD ", txn_data?.total_nft_sold);
+          console.log("PURCHASED ", txn_data?.total_nft_purchased);
 
           const nftData = await getNftStats(account);
           let nft_data_obj = {
             realizedProfits: nftData?.realizedProfits,
             volume: nftData?.volume,
-            minted: txn_data?.total_nft_mints >0 ?  nftData?.minted + txn_data?.total_nft_mints : nftData?.minted,
-            sold: txn_data?.total_nft_sold > 0 ? nftData?.sold + txn_data?.total_nft_sold : nftData?.sold,
-            purchased: txn_data?.total_nft_purchased > 0 ? nftData?.purchased + txn_data?.total_nft_purchased : nftData?.purchased,
+            minted:
+              txn_data?.total_nft_mints > 0
+                ? nftData?.minted + txn_data?.total_nft_mints
+                : nftData?.minted,
+            sold:
+              txn_data?.total_nft_sold > 0
+                ? nftData?.sold + txn_data?.total_nft_sold
+                : nftData?.sold,
+            purchased:
+              txn_data?.total_nft_purchased > 0
+                ? nftData?.purchased + txn_data?.total_nft_purchased
+                : nftData?.purchased,
             profitAndLossPercentage: nftData?.profitAndLossPercentage,
             nftVolumeTraded: nftData?.nftVolumeTraded,
             nftSoldVolume: nftData?.nftSoldVolume,
-          }
+          };
 
           // let airdropData = null;
           const airdropData = await getAllAirdrops(account);
