@@ -116,7 +116,7 @@ button:focus-visible {
   border-top-right-radius: 562px;
   border-bottom-right-radius: 562px;
   background: linear-gradient(45deg, #9945FF 10.43%, #8752F3 30.84%, #5497D5 49.4%, #43B4CA 58.68%, #28E0B9 69.81%, #19FB9B 93.01%), linear-gradient(151deg, #1D9D5A 0%, #11553A 82.01%);
-  z-index: -1;
+  z-index: 1;
 }
 
 @keyframes noise {
