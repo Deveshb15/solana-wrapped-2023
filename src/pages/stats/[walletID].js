@@ -141,8 +141,6 @@ const Carousel = ({ address }) => {
     <Card7 transactions={data?.txn_data} key={7} />,
     <Card8 data={data} key={8} />,
   ];
-  console.log("slide len is", slides.length);
-
   //  console.log('txs', data.txn_data)
   const Loading = () => {
     return (
@@ -203,47 +201,32 @@ const Carousel = ({ address }) => {
               className="w-full sm:w-auto flex justify-between bottom-2 mx-auto"
               style={{ scrollSnapType: "x mandatory" }}
             >
-              {activeSlide !== 0 && (
-                <button
-                  onClick={goToPrevSlide}
-                  style={{ marginLeft: "35%" }}
-                  className={`flex sm:hidden cursor-pointer bg-gray md:mt-64 md:mr-[320px] rounded-full shadow-md z-[2] p-1 m-0 absolute bottom-[10%] left-2 ${
-                    activeSlide === 0 ? "opacity-0" : "opacity-100"
-                  }`}
-                >
-                  <svg
-                    className="w-6 h-6 text-gray-800"
-                    fill="none"
-                    strokeLinecap="round"
-                    strokeLinejoin="round"
-                    strokeWidth="2"
-                    viewBox="0 0 24 24"
-                    stroke="currentColor"
-                  >
-                    <path d="M15 19l-7-7 7-7"></path>
-                  </svg>
-                </button>
-              )}
+              {
+  activeSlide !== 0 && (
+
+              <button
+                onClick={goToPrevSlide}
+                style={{marginLeft:'35%'}}
+                className={`flex sm:hidden cursor-pointer bg-[#252B35] md:mt-64 md:mr-[320px] rounded-full shadow-md z-[2] p-1 m-0 absolute bottom-[10%] left-2 ${
+                  activeSlide === 0 ? "opacity-0" : "opacity-100"
+                }`}
+              >
+                <svg xmlns="http://www.w3.org/2000/svg" width="25" height="25" viewBox="0 0 25 25" fill="none">
+                <path d="M16.3594 17.2812L11.5885 12.5L16.3594 7.71875L14.8906 6.25L8.64062 12.5L14.8906 18.75L16.3594 17.2812Z" fill="white"/>
+              </svg>
+              </button>
+)}
               {/* {
     activeSlide !== 0 && ( */}
               <button
                 onClick={goToPrevSlide}
-                className={`hidden sm:flex cursor-pointer bg-gray md:mt-64 md:mr-[320px] rounded-full shadow-md z-[2] p-1 m-0 ${
-                  activeSlide === 0 ? "opacity-0" : "opacity-100"
-                }`}
+                className={`hidden sm:flex cursor-pointer bg-[#252B35] md:mt-64 md:mr-[200px] rounded-full shadow-md z-[2] p-1 m-0 ${
+                  activeSlide === 0 ? "opacity-0" : "opacity-100", activeSlide === 8 ? "md:mr-[270px]" : "md:mr-[360px]"}`}
               >
-                <svg
-                  className="w-6 h-6 text-gray-800"
-                  fill="none"
-                  strokeLinecap="round"
-                  strokeLinejoin="round"
-                  strokeWidth="2"
-                  viewBox="0 0 24 24"
-                  stroke="currentColor"
-                >
-                  <path d="M15 19l-7-7 7-7"></path>
-                </svg>
-              </button>
+                <svg xmlns="http://www.w3.org/2000/svg" width="25" height="25" viewBox="0 0 25 25" fill="none">
+                <path d="M16.3594 17.2812L11.5885 12.5L16.3594 7.71875L14.8906 6.25L8.64062 12.5L14.8906 18.75L16.3594 17.2812Z" fill="white"/>
+              </svg>
+              </button> 
               <div className="md:w-96">
                 {slides.map((Slide, index) => (
                   <div
@@ -262,35 +245,19 @@ const Carousel = ({ address }) => {
                 <div>
                   <button
                     onClick={goToNextSlide}
-                    style={{ marginRight: "40%" }}
-                    className="flex sm:hidden cursor-pointer bg-gray rounded-full md:mt-64 z-1 shadow-md p-1 m-0 absolute bottom-[10%] right-2"
+                    style={{marginRight:'40%'}}
+                  className="flex sm:hidden cursor-pointer bg-[#252B35] rounded-full md:mt-64 z-1 shadow-md p-1 m-0 absolute bottom-[10%] right-2"
                   >
-                    <svg
-                      className="w-6 h-6 text-gray-800"
-                      fill="none"
-                      strokeLinecap="round"
-                      strokeLinejoin="round"
-                      strokeWidth="2"
-                      viewBox="0 0 24 24"
-                      stroke="currentColor"
-                    >
-                      <path d="M9 5l7 7-7 7"></path>
-                    </svg>
+                <svg xmlns="http://www.w3.org/2000/svg" width="25" height="25" viewBox="0 0 25 25" fill="none">
+                  <path d="M8.64062 7.71875L13.4115 12.5L8.64062 17.2813L10.1094 18.75L16.3594 12.5L10.1094 6.25L8.64062 7.71875Z" fill="white"/>
+                </svg>
                   </button>
                   <button
                     onClick={goToNextSlide}
-                    className="hidden sm:flex cursor-pointer bg-gray rounded-full md:mt-64 z-1 shadow-md p-1 m-0"
+                    className="hidden sm:flex cursor-pointer bg-[#252B35] rounded-full md:mt-64 z-1 shadow-md p-1 m-0"
                   >
-                    <svg
-                      className="w-6 h-6 text-gray-800"
-                      fill="none"
-                      strokeLinecap="round"
-                      strokeLinejoin="round"
-                      strokeWidth="2"
-                      viewBox="0 0 24 24"
-                      stroke="currentColor"
-                    >
-                      <path d="M9 5l7 7-7 7"></path>
+                    <svg xmlns="http://www.w3.org/2000/svg" width="25" height="25" viewBox="0 0 25 25" fill="none">
+                      <path d="M8.64062 7.71875L13.4115 12.5L8.64062 17.2813L10.1094 18.75L16.3594 12.5L10.1094 6.25L8.64062 7.71875Z" fill="white"/>
                     </svg>
                   </button>
                 </div>
@@ -299,14 +266,22 @@ const Carousel = ({ address }) => {
             {isOpen && <ShareModal handleClose={handleClose} />}
 
             {activeSlide < slides.length - 1 && (
-              <div className="hidden md:fixed bottom-[50px] md:right-3 md:flex justify-between items-center w-full">
-                <button
-                  onClick={() => setIsOpen(true)}
-                  className="bg-[#1E1E1E] font-dm text-white text-sm px-5 py-2.5 mr-2 rounded-3xl ml-auto"
-                >
-                  Share Solana Wrapped
-                </button>
-              </div>
+           
+
+          <div className="hidden md:fixed bottom-[50px] md:right-3 md:flex justify-between items-center">
+            
+            <div className="relative inline-flex rounded-full group">
+                <div
+                    className="absolute transition-all duration-500 opacity-0 -inset-px bg-gradient-to-r from-[#44BCFF] via-[#FF44EC] to-[#FF675E] rounded-full blur-lg group-hover:opacity-40 group-hover:-inset-1 group-hover:duration-200 animate-tilt">
+                </div>
+                <a href="#"
+                  onClick={()=>setIsOpen(true)}
+                  className="relative bg-gray inline-flex items-center justify-center text-sm px-8 py-4 text-white transition-all duration-200 bg-gray-900 font-pj rounded-full focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-gray-900 group-hover:bg-white group-hover:text-black"
+                  role="button">Share Solana Wrapped
+                </a>
+            </div>
+          </div>
+
             )}
           </div>
         </div>
