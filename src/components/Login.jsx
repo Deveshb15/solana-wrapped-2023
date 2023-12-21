@@ -1,15 +1,27 @@
 import "animate.css";
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import TopNav from "./TopNav";
 import { useRouter } from "next/router";
 import Image from "next/image";
+import { app, database } from "@/constants/firebase";
+import { collection, getDocs, addDoc } from "firebase/firestore";
 
 function Login() {
   const [walletID, setWalletID] = useState("");
   const router = useRouter();
   const [errorMessage, setErrorMessage] = useState("");
+  const [totalWallets, setTotalWallets] = useState(0);
 
   const [wallets, setWallets] = useState([]);
+
+  const getWallets = async () => {
+    const querySnapshot = await getDocs(collection(database, "wallets"));
+    const wallets = [];
+    querySnapshot.forEach((doc) => {
+      wallets.push(doc.data().wallet);
+    });
+    setTotalWallets(wallets.length);
+  }
 
   const handleNavigation = (e) => {
     e.preventDefault();
@@ -17,8 +29,8 @@ function Login() {
       setErrorMessage("Address field cannot be empty");
     } else {
       setErrorMessage("");
-      if(wallets?.length > 0) {
-        router.push(`/stats/${wallets[0]}+${walletID}`);
+      if (wallets?.length > 1) {
+        router.push(`/stats/${wallets[0]}+${wallets[1]}`);
       } else {
         router.push(`/stats/${walletID}`);
       }
@@ -26,18 +38,30 @@ function Login() {
   };
 
   const handleAddWallet = () => {
-    if (wallets?.length >= 2) {
-      setErrorMessage("You can only add 2 wallets");
+    const walletExists = wallets?.find(
+      (wallet) => wallet?.toLowerCase() === walletID?.toLowerCase()
+    );
+    if (walletExists) {
+      setErrorMessage("Wallet already exists");
+      return;
     } else {
-      if (walletID.trim() === "") {
-        setErrorMessage("Address field cannot be empty");
+      if (wallets?.length >= 2) {
+        setErrorMessage("You can only add 2 wallets");
       } else {
-        setErrorMessage("");
-        setWallets([...wallets, walletID]);
-        setWalletID("");
+        if (walletID.trim() === "") {
+          setErrorMessage("Address field cannot be empty");
+        } else {
+          setErrorMessage("");
+          setWallets([...wallets, walletID]);
+          setWalletID("");
+        }
       }
     }
   };
+
+  useEffect(() => {
+    getWallets();
+  }, [])
 
   return (
     <>
@@ -56,7 +80,7 @@ function Login() {
               />
 
               <p className="text-center text-xs font-dm md:text-sm mb-7 text-gray-400">
-                <span className="text-white">50+ wallets</span> checked and
+                <span className="text-white">{totalWallets+50}+ wallets</span> checked and
                 wrapped in last 1hr
               </p>
             </div>
@@ -77,7 +101,9 @@ function Login() {
           <div className="flex items-center justify-center flex-col mt-4 mb-2">
             {wallets?.map((wallet, i) => {
               return wallet?.includes(".sol") ? (
-                <p className="bg-[#1E1E1E] px-4 py-2 rounded-full" key={i}>{wallet}</p>
+                <p className="bg-[#1E1E1E] px-4 py-2 rounded-full" key={i}>
+                  {wallet}
+                </p>
               ) : (
                 <p className="bg-[#1E1E1E] px-4 py-2 rounded-full" key={i}>
                   {wallet?.substr(0, 4)}...

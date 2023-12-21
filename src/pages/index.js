@@ -1,11 +1,16 @@
+/* eslint-disable @next/next/inline-script-id */
 import Image from "next/image";
 import { Inter } from "next/font/google";
 import Login from "@/components/Login";
 import Head from "next/head";
+import Script from "next/script";
+import { useEffect } from "react";
+import { app } from "@/constants/firebase";
 
 const inter = Inter({ subsets: ["latin"] });
 
 export default function Home() {
+
   return (
     <>
         <Head>
@@ -39,6 +44,19 @@ export default function Home() {
         />
         <meta name="twitter:card" content="summary_large_image" />
       </Head>
+      <Script
+        src="https://www.googletagmanager.com/gtag/js?id=G-2RPFE42SJX"
+        strategy="afterInteractive"
+      />
+      <Script strategy="afterInteractive">
+        {`window.dataLayer = window.dataLayer || [];
+        function gtag(){dataLayer.push(arguments);}
+        gtag('js', new Date());`}
+      </Script>
+      <Script strategy="afterInteractive">
+        {`gtag('config', 'G-2RPFE42SJX');`}
+      </Script>
+      
 <div className='flex flex-col h-screen justify-between'>
     <main
       className={`flex flex-col bg-black h-screen items-center justify-center ${inter.className}`}
