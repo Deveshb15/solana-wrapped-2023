@@ -20,7 +20,7 @@ function Login() {
     querySnapshot.forEach((doc) => {
       wallets.push(doc.data().wallet);
     });
-    setTotalWallets(wallets.length);
+    setTotalWallets(wallets.length+50);
   }
 
   const handleNavigation = (e) => {
@@ -80,7 +80,7 @@ function Login() {
               />
 
               <p className="text-center text-xs font-dm md:text-sm mb-7 text-gray-400">
-                <span className="text-white">{totalWallets+50}+ wallets</span> checked and
+                <span className="text-white">{totalWallets}+ wallets</span> checked and
                 wrapped in last 1hr
               </p>
             </div>
