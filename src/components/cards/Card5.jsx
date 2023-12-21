@@ -38,7 +38,7 @@ const Card5 = ({ airdrop }) => {
             <div>
               <p className="text-white mt-8 text-dm text-5xl md:text-[64px] leading-[38.40px]">
                 {/* loop and add all airdrop.usdc */}
-                {total}
+                ${total}
               </p>
               <p className="text-white md:mt-8 text-white  text-base md:text-lg leading-[38.40px]">
                 Worth Airdrop Received{" "}
