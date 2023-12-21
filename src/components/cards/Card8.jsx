@@ -37,8 +37,8 @@ const shareAsImage = () => {
       if (navigator.share) {
         const file = new File([blob], 'share.png', { type: 'image/png' });
         navigator.share({
-          title: 'Share Image',
-          text: 'Check out this awesome image!',
+          title: 'Solana Wrapped',
+          text: 'Just got my Solana Wrapped 🎉 \nget yours here👉 https://www.solanawrapped.xyz',
           files: [file],
         })
         .then(() => console.log('Share was successful.'))

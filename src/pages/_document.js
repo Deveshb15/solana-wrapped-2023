@@ -5,7 +5,6 @@ export default function Document() {
     <Html lang="en">
       <Head>
           <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;700&display=swap" rel="stylesheet" />
-        <title>Your Solana Wallet Wrapped - 2023</title>
         <meta
           name="description"
           content="Where Solana wallet users get a deep dive into their top transactional moments of the year."
