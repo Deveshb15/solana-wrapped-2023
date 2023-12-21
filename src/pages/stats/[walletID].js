@@ -9,6 +9,8 @@ import Card6 from "@/components/cards/Card6";
 import Card7 from "@/components/cards/Card7";
 import Card8 from "@/components/cards/Card8";
 import { mergeData } from "@/constants/functions";
+import { app, database } from "@/constants/firebase";
+import { collection, getDocs, addDoc } from "firebase/firestore";
 
 import TopNav from "@/components/TopNav";
 import Loading from "@/components/loading";
@@ -21,10 +23,8 @@ const Carousel = ({ address }) => {
   const [loading, setLoading] = useState(true);
   const router = useRouter();
   const { walletID } = router.query;
-  console.log("wallet id is", walletID);
   const [wallets, setWallets] = useState([]);
   const [isOpen, setIsOpen] = useState(false);
-
 
   useEffect(() => {
     if (walletID?.includes("+")) {
@@ -53,27 +53,52 @@ const Carousel = ({ address }) => {
 
   useEffect(() => {
     const handleKeyDown = (event) => {
-        if (event.key === 'ArrowRight') {
-            goToNextSlide();
-        }
-        else if (event.key === 'ArrowLeft' && activeSlide > 0) {
-            goToPrevSlide();
-        }
-    }
+      if (event.key === "ArrowRight") {
+        goToNextSlide();
+      } else if (event.key === "ArrowLeft" && activeSlide > 0) {
+        goToPrevSlide();
+      }
+    };
 
-    window.addEventListener('keydown', handleKeyDown);
+    window.addEventListener("keydown", handleKeyDown);
 
     return () => {
-        window.removeEventListener('keydown', handleKeyDown);
+      window.removeEventListener("keydown", handleKeyDown);
+    };
+  }, [activeSlide]); //
+
+  const fetchAndSaveData = async (wallet) => {
+    try {
+      if (wallet?.length > 0) {
+        let exists;
+        const snapshot = await getDocs(collection(database, "wallets"));
+        snapshot.forEach((doc) => {
+          // console.log(doc.id, "=>", doc.data());
+          if (doc.data().wallet?.toLowerCase() === wallet?.toLowerCase()) {
+            exists = true;
+          }
+        });
+        if (!exists) {
+          addDoc(collection(database, "wallets"), {
+            wallet: wallet,
+            timestamp: Date.now(),
+          });
+        }
+      }
+    } catch (error) {
+      console.log(error);
     }
-}, [activeSlide]); //
+  };
 
   useEffect(() => {
+    console.log("wallets are", wallets);
     setLoading(true);
     if (wallets.length > 0) {
       console.log("inside data");
       try {
         if (wallets.length > 1) {
+          fetchAndSaveData(wallets[0]);
+          fetchAndSaveData(wallets[1]);
           fetch(`/api/data/${wallets[0]}`)
             .then((response) => response.json())
             .then((fetchedData) => {
@@ -89,6 +114,9 @@ const Carousel = ({ address }) => {
               setLoading(false);
             });
         } else {
+          // get all wallets from database
+          fetchAndSaveData(wallets[0]);
+
           fetch(`/api/data/${wallets[0]}`)
             .then((response) => response.json())
             .then((fetchedData) => {
@@ -102,8 +130,6 @@ const Carousel = ({ address }) => {
       }
     }
   }, [wallets]);
-
-  console.log("data is", activeSlide);
 
   const slides = [
     <Card1 key={1} />,
@@ -143,10 +169,7 @@ const Carousel = ({ address }) => {
           property="og:image"
           content="https://i.ibb.co/X5SwdM7/Solana-Wrapped-Preview.png"
         />
-        <meta
-          property="og:url"
-          content="https://www.solanawrapped.xyz/"
-        />
+        <meta property="og:url" content="https://www.solanawrapped.xyz/" />
         <meta name="twitter:title" content="Watch Something Wonderful" />
         <meta
           name="twitter:description"
@@ -180,29 +203,27 @@ const Carousel = ({ address }) => {
               className="w-full sm:w-auto flex justify-between bottom-2 mx-auto"
               style={{ scrollSnapType: "x mandatory" }}
             >
-              {
-  activeSlide !== 0 && (
-
-              <button
-                onClick={goToPrevSlide}
-                style={{marginLeft:'35%'}}
-                className={`flex sm:hidden cursor-pointer bg-gray md:mt-64 md:mr-[320px] rounded-full shadow-md z-[2] p-1 m-0 absolute bottom-[10%] left-2 ${
-                  activeSlide === 0 ? "opacity-0" : "opacity-100"
-                }`}
-              >
-                <svg
-                  className="w-6 h-6 text-gray-800"
-                  fill="none"
-                  strokeLinecap="round"
-                  strokeLinejoin="round"
-                  strokeWidth="2"
-                  viewBox="0 0 24 24"
-                  stroke="currentColor"
+              {activeSlide !== 0 && (
+                <button
+                  onClick={goToPrevSlide}
+                  style={{ marginLeft: "35%" }}
+                  className={`flex sm:hidden cursor-pointer bg-gray md:mt-64 md:mr-[320px] rounded-full shadow-md z-[2] p-1 m-0 absolute bottom-[10%] left-2 ${
+                    activeSlide === 0 ? "opacity-0" : "opacity-100"
+                  }`}
                 >
-                  <path d="M15 19l-7-7 7-7"></path>
-                </svg>
-              </button>
-)}
+                  <svg
+                    className="w-6 h-6 text-gray-800"
+                    fill="none"
+                    strokeLinecap="round"
+                    strokeLinejoin="round"
+                    strokeWidth="2"
+                    viewBox="0 0 24 24"
+                    stroke="currentColor"
+                  >
+                    <path d="M15 19l-7-7 7-7"></path>
+                  </svg>
+                </button>
+              )}
               {/* {
     activeSlide !== 0 && ( */}
               <button
@@ -222,7 +243,7 @@ const Carousel = ({ address }) => {
                 >
                   <path d="M15 19l-7-7 7-7"></path>
                 </svg>
-              </button> 
+              </button>
               <div className="md:w-96">
                 {slides.map((Slide, index) => (
                   <div
@@ -241,8 +262,8 @@ const Carousel = ({ address }) => {
                 <div>
                   <button
                     onClick={goToNextSlide}
-                    style={{marginRight:'40%'}}
-                  className="flex sm:hidden cursor-pointer bg-gray rounded-full md:mt-64 z-1 shadow-md p-1 m-0 absolute bottom-[10%] right-2"
+                    style={{ marginRight: "40%" }}
+                    className="flex sm:hidden cursor-pointer bg-gray rounded-full md:mt-64 z-1 shadow-md p-1 m-0 absolute bottom-[10%] right-2"
                   >
                     <svg
                       className="w-6 h-6 text-gray-800"
@@ -278,14 +299,17 @@ const Carousel = ({ address }) => {
             {isOpen && <ShareModal handleClose={handleClose} />}
 
             {activeSlide < slides.length - 1 && (
-            <div className="hidden md:fixed bottom-[50px] md:right-3 md:flex justify-between items-center w-full">
-          <button onClick={()=>setIsOpen(true)} className="bg-[#1E1E1E] font-dm text-white text-sm px-5 py-2.5 mr-2 rounded-3xl ml-auto">
-            Share Solana Wrapped
-          </button>
-          </div>
+              <div className="hidden md:fixed bottom-[50px] md:right-3 md:flex justify-between items-center w-full">
+                <button
+                  onClick={() => setIsOpen(true)}
+                  className="bg-[#1E1E1E] font-dm text-white text-sm px-5 py-2.5 mr-2 rounded-3xl ml-auto"
+                >
+                  Share Solana Wrapped
+                </button>
+              </div>
             )}
           </div>
-        </div> 
+        </div>
       )}
     </div>
   );
