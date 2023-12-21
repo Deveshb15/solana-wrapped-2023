@@ -3,11 +3,15 @@ import React, { useState } from "react";
 import TopNav from "./TopNav";
 import { useRouter } from "next/router";
 import Image from "next/image";
+import ShareModal from "@/components/ShareModal";
+
 
 function Login() {
   const [walletID, setWalletID] = useState("");
   const router = useRouter();
   const [errorMessage, setErrorMessage] = useState("");
+  const [isOpen, setIsOpen] = useState(false);
+
 
   const [wallets, setWallets] = useState([]);
 
@@ -39,6 +43,10 @@ function Login() {
     }
   };
 
+  const handleClose = () => {
+    setIsOpen(false);
+  };
+
   return (
     <>
       <div className="flex flex-col items-center">
@@ -55,7 +63,7 @@ function Login() {
                 alt="wallet-images"
               />
 
-              <p className="text-center text-xs font-dm md:text-sm mb-7 text-gray-400">
+              <p className="text-center z-[1] text-xs font-dm md:text-sm mb-7 text-gray-400">
                 <span className="text-white">50+ wallets</span> checked and
                 wrapped in last 1hr
               </p>
@@ -74,12 +82,12 @@ function Login() {
         </div>
         {/* <div className="flex text-dm lg:flex-row flex-col w-full justify-center lg:items-start items-center"> */}
         {wallets?.length > 0 && (
-          <div className="flex items-center justify-center flex-col mt-4 mb-2">
+          <div className="flex items-center justify-center flex-row mt-4 mb-2">
             {wallets?.map((wallet, i) => {
               return wallet?.includes(".sol") ? (
-                <p className="bg-[#1E1E1E] px-4 py-2 rounded-full" key={i}>{wallet}</p>
+                <p className="bg-[#1E1E1E] px-4 py-2 mr-2 rounded-full" key={i}>{wallet}</p>
               ) : (
-                <p className="bg-[#1E1E1E] px-4 py-2 rounded-full" key={i}>
+                <p className="bg-[#1E1E1E] px-4 py-2 mr-2 rounded-full" key={i}>
                   {wallet?.substr(0, 4)}...
                   {wallet?.substr(wallet?.length - 5, wallet.length - 1)}
                 </p>
@@ -142,12 +150,21 @@ function Login() {
           </div>
         </div>
       </div>
+      {isOpen && <ShareModal handleClose={handleClose} />}
       {/* <div className="fixed bottom-16 lg:left-1/2 md:bottom-0 transform flex  justify-between items-center w-full"> */}
-      <div className="hidden md:fixed bottom-[50px] md:right-3 md:flex justify-between items-center w-full">
-        <button className="bg-white font-dm text-black text-sm px-5 py-2.5 mr-2 rounded-3xl ml-auto">
-          Share Solana Wrapped
-        </button>
+      <div className="hidden md:fixed bottom-[50px] md:right-3 md:flex justify-between items-center">
+
+    <div className="relative inline-flex rounded-full group">
+        <div
+            className="absolute transition-all duration-500 opacity-0 -inset-px bg-gradient-to-r from-[#44BCFF] via-[#FF44EC] to-[#FF675E] rounded-full blur-lg group-hover:opacity-40 group-hover:-inset-1 group-hover:duration-200 animate-tilt">
+        </div>
+        <a href="#"
+          onClick={()=>setIsOpen(true)}
+          className="relative bg-gray inline-flex items-center justify-center text-sm px-8 py-4 text-white transition-all duration-200 bg-gray-900 font-pj rounded-full focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-gray-900 group-hover:bg-white group-hover:text-black"
+          role="button">Share Solana Wrapped
+          </a>
       </div>
+    </div>
     </>
   );
 }

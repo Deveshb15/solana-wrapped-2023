@@ -27,7 +27,7 @@ const Card2 = ({ total_transactions }) => {
           }}
         ></div>
          
-        <div className="ml-12 md:mt-[72px] font-dm absolute z-10 w-[312px] h-[484px] md:w-[530px] md:h=[500px]">
+        <div className="pl-10 md:mt-[72px] font-dm absolute z-10 w-[312px] h-[484px] md:w-[530px] md:h=[500px]">
           <p className="text-white mt-8 text-5xl md:text-[64px] leading-[38.40px]">
             {total_transactions}
           </p>

@@ -6,8 +6,6 @@ const Card1 = () => {
   <div 
     className="flex items-center w-[312px] h-[484px] md:w-[530px] md:h=[500px] justify-center m-1 rounded-3xl relative overflow-hidden" 
     style={{
-      // width: '530px',
-      // height: '500px',
       backgroundColor: '#181818',
       position: 'relative'
     }}
