@@ -23,8 +23,8 @@ function Login() {
     const wallets = [];
     querySnapshot.forEach((doc) => {
       wallets.push(doc.data().wallet);
-    });
-    setTotalWallets(wallets.length+50);
+    })
+    setTotalWallets(wallets.length+50)
   }
 
   const handleNavigation = (e) => {
