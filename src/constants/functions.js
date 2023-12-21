@@ -74,7 +74,7 @@ export const mergeData = (prevData, fetchedData) => {
         fetchedData?.txn_data?.portfolio_profit_loss_percentage,
       most_transacted_wallet: prevData?.txn_data?.most_transacted_wallet,
     },
-    airdrop_data: [...prevData.airdrop_data, ...fetchedData.airdrop_data],
+    airdrop_data: fetchedData?.length > 0 ? [...prevData?.airdrop_data, ...fetchedData?.airdrop_data] : prevData?.airdrop_data,
     total_transactions:
       prevData?.total_transactions + fetchedData?.total_transactions,
   };

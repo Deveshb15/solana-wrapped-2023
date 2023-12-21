@@ -29,8 +29,8 @@ function Login() {
       setErrorMessage("Address field cannot be empty");
     } else {
       setErrorMessage("");
-      if (wallets?.length > 0) {
-        router.push(`/stats/${wallets[0]}+${walletID}`);
+      if (wallets?.length > 1) {
+        router.push(`/stats/${wallets[0]}+${wallets[1]}`);
       } else {
         router.push(`/stats/${walletID}`);
       }
