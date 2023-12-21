@@ -71,7 +71,8 @@ const fetchAndParseTransactions = async (url, lastSignature) => {
     let total_transactions = [];
     while (true) {
       if (lastSignature) {
-        url += `&before=${lastSignature}`;
+        // url = `${url}&before=${lastSignature}`;
+        url = url?.split("&before=")[0] + `&before=${lastSignature}`;
       }
       i++;
       // console.log("Fetching transactions from: ", url);
@@ -203,13 +204,14 @@ const getDataFromTransaction = async (transactions, address, balance) => {
         total_nft_mints += 1;
       }
     }
-
-    // calculate balance a year ago
-    let diff = total_sol_received - total_sol_sent;
-    if (diff > 0 && balance_a_year_ago === 0) {
-      balance_a_year_ago = balance - diff;
-    }
   }
+
+  // calculate balance a year ago
+  console.log("Total sol sent: ", total_sol_sent);
+  console.log("Total sol received: ", total_sol_received);
+  let diff = total_sol_received - total_sol_sent;
+  console.log("DIFF: ", diff);
+  balance_a_year_ago = balance - diff;
 
   let nft_metadata_array = [];
   if (highest_sold_nft?.nft) {
@@ -248,8 +250,7 @@ const getDataFromTransaction = async (transactions, address, balance) => {
   }
 
   console.log("A YEAR AGO BALANCE ", balance_a_year_ago);
-  portfolio_profit_loss_percentage =
-    (balance - balance_a_year_ago) / balance_a_year_ago;
+  portfolio_profit_loss_percentage = ((balance - balance_a_year_ago) / balance) * 100;
 
   console.log(
     "Portfolio profit loss percentage: ",
@@ -375,8 +376,8 @@ export default async function handler(req, res) {
         if (address.includes(".sol")) {
           account = await getPublicKeyFromSolDomain(address);
         }
-        // let cached_data = null;
-        let cached_data = await redis.get(`sol-${account}`);
+        let cached_data = null;
+        // let cached_data = await redis.get(`sol-${account}`);
         if (cached_data) {
           console.log("Data from cache");
           // console.log("Cached data: ", cached_data);
