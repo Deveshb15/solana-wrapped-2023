@@ -20,7 +20,7 @@ export default function Home() {
           content="Where Solana wallet users get a deep dive into their top transactional moments of the year."
         />
         <link rel="icon" href="/favicon.ico" />
-        <meta property="og:title" content="Watch Something Wonderful" />
+        <meta property="og:title" content="Your Solana Wallet Wrapped - 2023" />
         <meta
           property="og:description"
           content="Where Solana wallet users get a deep dive into their top transactional moments of the year."
@@ -33,7 +33,7 @@ export default function Home() {
           property="og:url"
           content="https://www.solanawrapped.xyz/"
         />
-        <meta name="twitter:title" content="Watch Something Wonderful" />
+        <meta name="twitter:title" content="Your Solana Wallet Wrapped - 2023" />
         <meta
           name="twitter:description"
           content="Where Solana wallet users get a deep dive into their top transactional moments of the year."
