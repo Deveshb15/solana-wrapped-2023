@@ -33,8 +33,12 @@ function Login() {
       setErrorMessage("Address field cannot be empty");
     } else {
       setErrorMessage("");
-      if (wallets?.length > 1) {
+      console.log("wallets", wallets);
+      console.log("walletID", walletID);
+      if (wallets?.length == 2) {
         router.push(`/stats/${wallets[0]}+${wallets[1]}`);
+      } else if (wallets?.length == 1) {
+        router.push(`/stats/${wallets[0]}+${walletID}`);
       } else {
         router.push(`/stats/${walletID}`);
       }
@@ -46,15 +50,18 @@ function Login() {
       (wallet) => wallet?.toLowerCase() === walletID?.toLowerCase()
     );
     if (walletExists) {
-      setErrorMessage("Wallet already exists");
+      setErrorMessage("You've already added this wallet");
       return;
     } else {
       if (wallets?.length >= 2) {
         setErrorMessage("You can only add 2 wallets");
+        setWalletID(wallets[1])
       } else {
         if (walletID.trim() === "") {
           setErrorMessage("Address field cannot be empty");
         } else {
+          console.log("wallets 2", wallets);
+          console.log("walletID 2", walletID);
           setErrorMessage("");
           setWallets([...wallets, walletID]);
           setWalletID("");
@@ -160,8 +167,6 @@ function Login() {
             {errorMessage}
           </p>
         )}
-
-        {console.log("wallet id", walletID)}
 
         {/* </div> */}
         <div className="flex flex-col items-center justify-center">
