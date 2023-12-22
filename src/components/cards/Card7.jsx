@@ -34,7 +34,7 @@ const Card7 = ({ transactions }) => {
           <div className="md:flex justify-center items-center gap-4">
             {transactions?.highest_purchased_nft?.nft ||
             transactions?.highest_sold_nft?.nft ? (
-              <div>
+              <div className="flex flex-row gap-4 sm:gap-8">
                 {transactions?.highest_purchased_nft?.nft && (
                   <div className="flex flex-col justifty-center items-center">
                     <img

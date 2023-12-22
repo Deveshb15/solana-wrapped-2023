@@ -4,6 +4,9 @@ const Card9 = ({ nft }) => {
   // console.log('transactions are', transactions)
 
   let percentage = nft?.profitAndLossPercentage;
+  if (percentage == null) {
+    percentage = 0;
+  }
   // let percentage = -22
 
   return (
