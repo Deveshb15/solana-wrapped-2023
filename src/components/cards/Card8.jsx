@@ -4,7 +4,7 @@ import html2canvas from 'html2canvas';
 import ShareModal from "@/components/ShareModal";
 
 
-const Card8 = ({ data }) => {
+const Card8 = ({ data, activeSlide, slideLen }) => {
   // console.log('transactions are', transactions)
   const [isOpen, setIsOpen] = useState(false);
 
@@ -389,13 +389,13 @@ const handleClose = () => {
       <div className="sm:flex md:flex-col justify-center mt-8">
         <div className='flex justify-center'>
         <button
-          className="flex justify-center md:w-[242px] font-dm items-center md:gap-2.5 py-4 px-4 md:py-4 md:px-8 rounded-full border border-white"
+          className={`justify-center md:w-[242px] font-dm items-center md:gap-2.5 py-4 px-4 md:py-4 md:px-8 rounded-full border border-white ${activeSlide === slideLen-1 ? 'flex' : 'hidden'}`}
           onClick={captureDivAsImage}
         >
           Download
         </button>
         <button
-          className="flex ml-2 justify-center md:w-[242px] font-dm bg-white text-black items-center md:gap-2.5 py-4 px-4 md:py-4 md:px-8 rounded-full"
+          className={`flex ml-2 justify-center md:w-[242px] font-dm bg-white text-black items-center md:gap-2.5 py-4 px-4 md:py-4 md:px-8 rounded-full ${activeSlide === slideLen-1 ? 'flex' : 'hidden'}`}
           onClick={shareAsImage}
         >
           <p>Share on</p>

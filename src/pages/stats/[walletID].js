@@ -141,7 +141,7 @@ const Carousel = ({ address }) => {
     <Card6 nft={data?.nft_data} key={6} />,
     <Card9 nft={data?.nft_data} key={9} />,
     <Card7 transactions={data?.txn_data} key={7} />,
-    <Card8 data={data} key={8} />,
+    <Card8 data={data} key={8} activeSlide={activeSlide} slideLen={9} />,
   ];
   //  console.log('txs', data.txn_data)
   const Loading = () => {
@@ -170,7 +170,10 @@ const Carousel = ({ address }) => {
           content="https://i.ibb.co/X5SwdM7/Solana-Wrapped-Preview.png"
         />
         <meta property="og:url" content="https://www.solanawrapped.xyz/" />
-        <meta name="twitter:title" content="Your Solana Wallet Wrapped - 2023" />
+        <meta
+          name="twitter:title"
+          content="Your Solana Wallet Wrapped - 2023"
+        />
         <meta
           name="twitter:description"
           content="Where Solana wallet users get a deep dive into their top transactional moments of the year."
@@ -203,45 +206,95 @@ const Carousel = ({ address }) => {
               className=" flex justify-between mx-auto"
               style={{ scrollSnapType: "x mandatory" }}
             >
-              {
-  activeSlide !== 0 && (
-
-              <button
-                onClick={goToPrevSlide}
-                style={{marginLeft:'35%'}}
-                className={`flex sm:hidden cursor-pointer bg-[#252B35] rounded-full shadow-md z-[2] p-1 m-0 absolute
-                ${activeSlide === slides.length - 1 ? "bottom-[2%]" : "bottom-[10%]"}
-                 left-2 ${
-                  activeSlide === 0 ? "opacity-0" : "opacity-100"
-                }`}
-              >
-                <svg xmlns="http://www.w3.org/2000/svg" width="25" height="25" viewBox="0 0 25 25" fill="none">
-                <path d="M16.3594 17.2812L11.5885 12.5L16.3594 7.71875L14.8906 6.25L8.64062 12.5L14.8906 18.75L16.3594 17.2812Z" fill="white"/>
-              </svg>
-              </button>
-)}
+              {activeSlide !== 0 && (
+                <button
+                  onClick={goToPrevSlide}
+                  style={{ marginLeft: "35%" }}
+                  className={`flex sm:hidden cursor-pointer bg-[#252B35] rounded-full shadow-md z-[2] p-1 m-0 absolute
+                ${
+                  activeSlide === slides.length - 1
+                    ? "bottom-[2%]"
+                    : "bottom-[10%]"
+                }
+                 left-2 ${activeSlide === 0 ? "opacity-0" : "opacity-100"}`}
+                >
+                  <svg
+                    xmlns="http://www.w3.org/2000/svg"
+                    width="25"
+                    height="25"
+                    viewBox="0 0 25 25"
+                    fill="none"
+                  >
+                    <path
+                      d="M16.3594 17.2812L11.5885 12.5L16.3594 7.71875L14.8906 6.25L8.64062 12.5L14.8906 18.75L16.3594 17.2812Z"
+                      fill="white"
+                    />
+                  </svg>
+                </button>
+              )}
               {/* {
     activeSlide !== 0 && ( */}
-              <button
-                onClick={goToPrevSlide}
-                className={`hidden sm:flex justify-center items-center cursor-pointer bg-[#252B35] rounded-full h-12 w-12 mt-[32%] shadow-md z-[20] p-1 ${
-                  activeSlide === 0 ? "opacity-0" : "opacity-100"}`}
-              >
-                <svg xmlns="http://www.w3.org/2000/svg" width="25" height="25" viewBox="0 0 25 25" fill="none">
-                <path d="M16.3594 17.2812L11.5885 12.5L16.3594 7.71875L14.8906 6.25L8.64062 12.5L14.8906 18.75L16.3594 17.2812Z" fill="white"/>
-              </svg>
-              </button> 
+              {/* main button left */}
               <div>
+                <button
+                  onClick={goToPrevSlide}
+                  style={{
+                    top: "50%",
+                  }}
+                  className={`hidden sm:flex absolute cursor-pointer bg-[#252B35] rounded-full h-12 w-12 shadow-md items-center justify-center ${
+                    activeSlide === 0 ? "hidden" : "flex"
+                  }
+                  ${
+                    activeSlide === slides.length - 1 ? "left-[14%]" : "left-[24%]"
+                  }
+                  `}
+                >
+                  <svg
+                    xmlns="http://www.w3.org/2000/svg"
+                    width="25"
+                    height="25"
+                    viewBox="0 0 25 25"
+                    fill="none"
+                  >
+                    <path
+                      d="M16.3594 17.2812L11.5885 12.5L16.3594 7.71875L14.8906 6.25L8.64062 12.5L14.8906 18.75L16.3594 17.2812Z"
+                      fill="white"
+                    />
+                  </svg>
+                </button>
+                <button
+                  onClick={goToNextSlide}
+                  style={{
+                    top: "50%",
+                  }}
+                  className={`hidden sm:flex absolute cursor-pointer bg-[#252B35] rounded-full h-12 w-12 shadow-md items-center justify-center ${activeSlide === slides.length - 1 ? 'hidden' : 'flex'} right-[24%]`}
+                >
+                  <svg
+                    xmlns="http://www.w3.org/2000/svg"
+                    width="25"
+                    height="25"
+                    viewBox="0 0 25 25"
+                    fill="none"
+                  >
+                    <path
+                      d="M8.64062 7.71875L13.4115 12.5L8.64062 17.2813L10.1094 18.75L16.3594 12.5L10.1094 6.25L8.64062 7.71875Z"
+                      fill="white"
+                    />
+                  </svg>
+                </button>
                 {slides.map((Slide, index) => (
                   <div
                     key={index}
                     className={`absolute w-[80%] ${
-                      activeSlide === slides.length - 1 ? "md:w-[60%]" : "md:w-[40%]"}   
+                      activeSlide === slides.length - 1
+                        ? "md:w-[60%]"
+                        : "md:w-[40%]"
+                    }   
                       h-[60%] top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 transition-all duration-300 ${
-                      index === activeSlide
-                        ? "opacity-100 z-10"
-                        : "opacity-0 z-1"
-                    }`}
+                        index === activeSlide
+                          ? "opacity-100 z-10"
+                          : "opacity-0 z-1"
+                      }`}
                   >
                     {Slide}
                   </div>
@@ -251,20 +304,25 @@ const Carousel = ({ address }) => {
                 <div>
                   <button
                     onClick={goToNextSlide}
-                    style={{marginRight:'40%'}}
-                  className={`flex sm:hidden cursor-pointer bg-[#252B35] h-12 w-12 z-[20] rounded-full md:mt-64 z-1 shadow-md p-1 m-0 absolute 
-                  ${activeSlide === slides.length - 1 ? "bottom-[2%]" : "bottom-[10%]"} right-2`}
+                    style={{ marginRight: "40%" }}
+                    className={`flex sm:hidden cursor-pointer bg-[#252B35] z-[20] rounded-full md:mt-64 z-1 shadow-md p-1 m-0 absolute 
+                  ${
+                    activeSlide === slides.length - 1
+                      ? "bottom-[2%]"
+                      : "bottom-[10%]"
+                  } right-2`}
                   >
-                <svg xmlns="http://www.w3.org/2000/svg" width="25" height="25" viewBox="0 0 25 25" fill="none">
-                  <path d="M8.64062 7.71875L13.4115 12.5L8.64062 17.2813L10.1094 18.75L16.3594 12.5L10.1094 6.25L8.64062 7.71875Z" fill="white"/>
-                </svg>
-                  </button>
-                  <button
-                    onClick={goToNextSlide}
-                    className="hidden sm:flex cursor-pointer bg-[#252B35] rounded-full md:mt-64 z-1 shadow-md p-1 m-0"
-                  >
-                    <svg xmlns="http://www.w3.org/2000/svg" width="25" height="25" viewBox="0 0 25 25" fill="none">
-                      <path d="M8.64062 7.71875L13.4115 12.5L8.64062 17.2813L10.1094 18.75L16.3594 12.5L10.1094 6.25L8.64062 7.71875Z" fill="white"/>
+                    <svg
+                      xmlns="http://www.w3.org/2000/svg"
+                      width="25"
+                      height="25"
+                      viewBox="0 0 25 25"
+                      fill="none"
+                    >
+                      <path
+                        d="M8.64062 7.71875L13.4115 12.5L8.64062 17.2813L10.1094 18.75L16.3594 12.5L10.1094 6.25L8.64062 7.71875Z"
+                        fill="white"
+                      />
                     </svg>
                   </button>
                 </div>
@@ -273,22 +331,19 @@ const Carousel = ({ address }) => {
             {isOpen && <ShareModal handleClose={handleClose} />}
 
             {activeSlide < slides.length - 1 && (
-           
-
-          <div className="hidden md:fixed bottom-[50px] md:right-3 md:flex justify-between items-center">
-            
-            <div className="relative inline-flex rounded-full group">
-                <div
-                    className="absolute transition-all duration-500 opacity-0 -inset-px bg-gradient-to-r from-[#44BCFF] via-[#FF44EC] to-[#FF675E] rounded-full blur-lg group-hover:opacity-40 group-hover:-inset-1 group-hover:duration-200 animate-tilt">
+              <div className="hidden md:fixed bottom-[50px] md:right-3 md:flex justify-between items-center">
+                <div className="relative inline-flex rounded-full group">
+                  <div className="absolute transition-all duration-500 opacity-0 -inset-px bg-gradient-to-r from-[#44BCFF] via-[#FF44EC] to-[#FF675E] rounded-full blur-lg group-hover:opacity-40 group-hover:-inset-1 group-hover:duration-200 animate-tilt"></div>
+                  <a
+                    href="#"
+                    onClick={() => setIsOpen(true)}
+                    className="relative bg-gray inline-flex items-center justify-center text-sm px-8 py-4 text-white transition-all duration-200 bg-gray-900 font-pj rounded-full focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-gray-900 group-hover:bg-white group-hover:text-black"
+                    role="button"
+                  >
+                    Share Solana Wrapped
+                  </a>
                 </div>
-                <a href="#"
-                  onClick={()=>setIsOpen(true)}
-                  className="relative bg-gray inline-flex items-center justify-center text-sm px-8 py-4 text-white transition-all duration-200 bg-gray-900 font-pj rounded-full focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-gray-900 group-hover:bg-white group-hover:text-black"
-                  role="button">Share Solana Wrapped
-                </a>
-            </div>
-          </div>
-
+              </div>
             )}
           </div>
         </div>
