@@ -7,14 +7,12 @@ import { app, database } from "@/constants/firebase";
 import { collection, getDocs, addDoc } from "firebase/firestore";
 import ShareModal from "@/components/ShareModal";
 
-
 function Login() {
   const [walletID, setWalletID] = useState("");
   const router = useRouter();
   const [errorMessage, setErrorMessage] = useState("");
   const [totalWallets, setTotalWallets] = useState(0);
   const [isOpen, setIsOpen] = useState(false);
-
 
   const [wallets, setWallets] = useState([]);
 
@@ -23,9 +21,9 @@ function Login() {
     const wallets = [];
     querySnapshot.forEach((doc) => {
       wallets.push(doc.data().wallet);
-    })
-    setTotalWallets(wallets.length+50)
-  }
+    });
+    setTotalWallets(wallets.length + 50);
+  };
 
   const handleNavigation = (e) => {
     e.preventDefault();
@@ -33,8 +31,12 @@ function Login() {
       setErrorMessage("Address field cannot be empty");
     } else {
       setErrorMessage("");
-      if (wallets?.length > 1) {
+      console.log("wallets", wallets);
+      console.log("walletID", walletID);
+      if (wallets?.length == 2) {
         router.push(`/stats/${wallets[0]}+${wallets[1]}`);
+      } else if (wallets?.length == 1) {
+        router.push(`/stats/${wallets[0]}+${walletID}`);
       } else {
         router.push(`/stats/${walletID}`);
       }
@@ -46,15 +48,18 @@ function Login() {
       (wallet) => wallet?.toLowerCase() === walletID?.toLowerCase()
     );
     if (walletExists) {
-      setErrorMessage("Wallet already exists");
+      setErrorMessage("You've already added this wallet");
       return;
     } else {
       if (wallets?.length >= 2) {
         setErrorMessage("You can only add 2 wallets");
+        setWalletID(wallets[1]);
       } else {
         if (walletID.trim() === "") {
           setErrorMessage("Address field cannot be empty");
         } else {
+          console.log("wallets 2", wallets);
+          console.log("walletID 2", walletID);
           setErrorMessage("");
           setWallets([...wallets, walletID]);
           setWalletID("");
@@ -65,7 +70,7 @@ function Login() {
 
   useEffect(() => {
     getWallets();
-  }, [])
+  }, []);
   const handleClose = () => {
     setIsOpen(false);
   };
@@ -92,8 +97,8 @@ function Login() {
               />
 
               <p className="text-center text-xs z-[1] font-dm md:text-sm mb-7 text-gray-400">
-                <span className="text-white">{totalWallets}+ wallets</span> checked and
-                wrapped in last 1hr
+                <span className="text-white">{totalWallets}+ wallets</span>{" "}
+                checked and wrapped in last 1hr
               </p>
             </div>
 
@@ -113,7 +118,9 @@ function Login() {
           <div className="flex items-center justify-center flex-row mt-4 mb-2">
             {wallets?.map((wallet, i) => {
               return wallet?.includes(".sol") ? (
-                <p className="bg-[#1E1E1E] px-4 py-2 mr-2 rounded-full" key={i}>{wallet}</p>
+                <p className="bg-[#1E1E1E] px-4 py-2 mr-2 rounded-full" key={i}>
+                  {wallet}
+                </p>
               ) : (
                 <p className="bg-[#1E1E1E] px-4 py-2 mr-2 rounded-full" key={i}>
                   {wallet?.substr(0, 4)}...
@@ -131,7 +138,11 @@ function Login() {
           <input
             type="text"
             className="text-white text-sm focus:outline-none pl-2 flex-grow rounded-3xl"
-            placeholder="  Enter your SOL address"
+            placeholder={
+              wallets?.length == 0
+                ? "Enter your wallet address"
+                : "Enter your second wallet address"
+            }
             value={walletID}
             style={{ backgroundColor: "#1E1E1E" }}
             onChange={(e) => setWalletID(e.target.value)}
@@ -166,31 +177,32 @@ function Login() {
           </p>
         )}
 
-        {/* </div> */}
-        <div className="flex flex-col items-center justify-center">
-          <p className="font-heading text-green-400 mt-3">
-            Have more than 1 wallet ?
-          </p>
-          <div className="w-8 h-8 rounded-full flex justify-center items-center bg-gray">
-            <button onClick={handleAddWallet}>+</button>
+        {wallets?.length == 0 && (
+          <div className="flex flex-col items-center justify-center">
+            <p className="font-heading text-green-400 mt-3">
+              Have more than 1 wallet ?
+            </p>
+            <div className="w-8 h-8 rounded-full flex justify-center items-center bg-gray">
+              <button onClick={handleAddWallet}>+</button>
+            </div>
           </div>
-        </div>
+        )}
       </div>
       {isOpen && <ShareModal handleClose={handleClose} />}
       {/* <div className="fixed bottom-16 lg:left-1/2 md:bottom-0 transform flex  justify-between items-center w-full"> */}
       <div className="hidden md:fixed bottom-[50px] md:right-3 md:flex justify-between items-center">
-
-    <div className="relative inline-flex rounded-full group">
-        <div
-            className="absolute transition-all duration-500 opacity-0 -inset-px bg-gradient-to-r from-[#44BCFF] via-[#FF44EC] to-[#FF675E] rounded-full blur-lg group-hover:opacity-40 group-hover:-inset-1 group-hover:duration-200 animate-tilt">
-        </div>
-        <a href="#"
-          onClick={()=>setIsOpen(true)}
-          className="relative bg-gray inline-flex items-center justify-center text-sm px-8 py-4 text-white transition-all duration-200 bg-gray-900 font-pj rounded-full focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-gray-900 group-hover:bg-white group-hover:text-black"
-          role="button">Share Solana Wrapped
+        <div className="relative inline-flex rounded-full group">
+          <div className="absolute transition-all duration-500 opacity-0 -inset-px bg-gradient-to-r from-[#44BCFF] via-[#FF44EC] to-[#FF675E] rounded-full blur-lg group-hover:opacity-40 group-hover:-inset-1 group-hover:duration-200 animate-tilt"></div>
+          <a
+            href="#"
+            onClick={() => setIsOpen(true)}
+            className="relative bg-gray inline-flex items-center justify-center text-sm px-8 py-4 text-white transition-all duration-200 bg-gray-900 font-pj rounded-full focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-gray-900 group-hover:bg-white group-hover:text-black"
+            role="button"
+          >
+            Share Solana Wrapped
           </a>
+        </div>
       </div>
-    </div>
     </>
   );
 }
