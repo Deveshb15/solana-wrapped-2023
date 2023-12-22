@@ -55,10 +55,10 @@ const handleClose = () => {
 };
 
   return (
-    <div className="relative">
+    <div className="relative h-full">
       <div
       ref={divRef}
-        className="flex items-center w-[312px] h-[484px] md:w-[670px] md:h-[391px] justify-center m-1 rounded-3xl relative overflow-hidden"
+      className="flex items-center h-full justify-center m-1 rounded-3xl relative overflow-hidden" 
         style={{
           // width: '530px',
           // height: '500px',
@@ -389,13 +389,13 @@ const handleClose = () => {
       <div className="sm:flex md:flex-col justify-center mt-8">
         <div className='flex justify-center'>
         <button
-          className="flex justify-center md:w-[242px] font-dm items-center md:gap-2.5 py-2 px-2 md:py-4 md:px-8 rounded-full border border-white"
+          className="flex justify-center md:w-[242px] font-dm items-center md:gap-2.5 py-4 px-4 md:py-4 md:px-8 rounded-full border border-white"
           onClick={captureDivAsImage}
         >
           Download
         </button>
         <button
-          className="flex ml-2 justify-center md:w-[242px] font-dm bg-white text-black items-center md:gap-2.5 py-2 px-2 md:py-4 md:px-8 rounded-full"
+          className="flex ml-2 justify-center md:w-[242px] font-dm bg-white text-black items-center md:gap-2.5 py-4 px-4 md:py-4 md:px-8 rounded-full"
           onClick={shareAsImage}
         >
           <p>Share on</p>

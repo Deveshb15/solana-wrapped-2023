@@ -186,7 +186,7 @@ const Carousel = ({ address }) => {
         </div>
       ) : (
         <div>
-          <div className="w-[312px] md:w-[520px] mx-auto flex justify-center mt-20 md:mt-20 mb-4">
+          <div className="w-[80%] md:w-[55%] mx-auto flex justify-center mt-[20%] md:mt-20 mb-4">
             {slides.map((_, index) => (
               <div
                 key={index}
@@ -198,7 +198,7 @@ const Carousel = ({ address }) => {
           </div>
           <div className="flex justify-around">
             <div
-              className="w-full sm:w-auto flex justify-between bottom-2 mx-auto"
+              className=" flex justify-between mx-auto"
               style={{ scrollSnapType: "x mandatory" }}
             >
               {
@@ -207,7 +207,9 @@ const Carousel = ({ address }) => {
               <button
                 onClick={goToPrevSlide}
                 style={{marginLeft:'35%'}}
-                className={`flex sm:hidden cursor-pointer bg-[#252B35] md:mt-64 md:mr-[320px] rounded-full shadow-md z-[2] p-1 m-0 absolute bottom-[10%] left-2 ${
+                className={`flex sm:hidden cursor-pointer bg-[#252B35] md:mt-[52%] md:mr-[20%] rounded-full shadow-md z-[2] p-1 m-0 absolute
+                ${activeSlide === slides.length - 1 ? "bottom-[2%]" : "bottom-[10%]"}
+                 left-2 ${
                   activeSlide === 0 ? "opacity-0" : "opacity-100"
                 }`}
               >
@@ -220,18 +222,20 @@ const Carousel = ({ address }) => {
     activeSlide !== 0 && ( */}
               <button
                 onClick={goToPrevSlide}
-                className={`hidden sm:flex cursor-pointer bg-[#252B35] md:mt-64 md:mr-[200px] rounded-full shadow-md z-[2] p-1 m-0 ${
-                  activeSlide === 0 ? "opacity-0" : "opacity-100", activeSlide === 8 ? "md:mr-[270px]" : "md:mr-[360px]"}`}
+                className={`hidden sm:flex cursor-pointer bg-[#252B35] rounded-full h-12 w-12 mt-[32%] shadow-md z-[20] p-1 ${
+                  activeSlide === 0 ? "opacity-0" : "opacity-100", activeSlide === 8 ? "md:mr-[270px]" : "md:mr-[50%]"}`}
               >
                 <svg xmlns="http://www.w3.org/2000/svg" width="25" height="25" viewBox="0 0 25 25" fill="none">
                 <path d="M16.3594 17.2812L11.5885 12.5L16.3594 7.71875L14.8906 6.25L8.64062 12.5L14.8906 18.75L16.3594 17.2812Z" fill="white"/>
               </svg>
               </button> 
-              <div className="md:w-96">
+              <div>
                 {slides.map((Slide, index) => (
                   <div
                     key={index}
-                    className={`absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 transition-all duration-300 ${
+                    className={`absolute w-[80%] ${
+                      activeSlide === slides.length - 1 ? "md:w-[60%]" : "md:w-[40%]"}   
+                      h-[60%] top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 transition-all duration-300 ${
                       index === activeSlide
                         ? "opacity-100 z-10"
                         : "opacity-0 z-1"
@@ -246,7 +250,8 @@ const Carousel = ({ address }) => {
                   <button
                     onClick={goToNextSlide}
                     style={{marginRight:'40%'}}
-                  className="flex sm:hidden cursor-pointer bg-[#252B35] rounded-full md:mt-64 z-1 shadow-md p-1 m-0 absolute bottom-[10%] right-2"
+                  className={`flex sm:hidden cursor-pointer bg-[#252B35] rounded-full md:mt-64 z-1 shadow-md p-1 m-0 absolute 
+                  ${activeSlide === slides.length - 1 ? "bottom-[2%]" : "bottom-[10%]"} right-2`}
                   >
                 <svg xmlns="http://www.w3.org/2000/svg" width="25" height="25" viewBox="0 0 25 25" fill="none">
                   <path d="M8.64062 7.71875L13.4115 12.5L8.64062 17.2813L10.1094 18.75L16.3594 12.5L10.1094 6.25L8.64062 7.71875Z" fill="white"/>
