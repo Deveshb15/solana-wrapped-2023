@@ -1,13 +1,11 @@
 import React from "react";
-import Image from "next/image";
 
-const Card5 = ({ airdrop }) => {
+const Card9 = ({ nft }) => {
   // console.log('transactions are', transactions)
 
-  let total = airdrop?.length>0 ? airdrop
-  .map((item) => item.usdc)
-  .reduce((prev, next) => prev + next)?.toFixed(4) : 0
-  
+  let percentage = nft?.profitAndLossPercentage;
+  // let percentage = -22
+
   return (
     <div className="relative">
       <div
@@ -34,53 +32,89 @@ const Card5 = ({ airdrop }) => {
         ></div>
 
         <div className="ml-12 md:mt-[72px] font-dm absolute z-10 w-[312px] h-[484px] md:w-[530px] md:h=[500px]">
-          {total > 0 ? (
-            <div>
-              <p className="text-white mt-8 text-dm text-5xl md:text-[64px] leading-[38.40px]">
-                {/* loop and add all airdrop.usdc */}
-                ${total}
-              </p>
-              <p className="text-white md:mt-8 text-white  text-base md:text-lg leading-[38.40px]">
-                Worth Airdrop Received{" "}
-              </p>
-            </div>
-          ) : (
-            <div>
-              <p className="text-white md:mt-8 md:text-xl leading-[38.40px]">
-                You haven&apos;t received any airdrops
-              </p>
-            </div>
-          )}
-          <div className="mt-3 flex">
-            <Image
-              className="mr-2"
-              src="/airdrop1.png"
-              height={24}
-              width={24}
-              alt="airdrop1"
-            />
-            <Image
-              className="mr-2"
-              src="/airdrop2.png"
-              height={24}
-              width={24}
-              alt="airdrop2"
-            />
-            <Image src="/airdrop3.png" height={24} width={24} alt="airdrop3" />
-          </div>
+          <p className="text-white flex mt-8 text-5xl md:text-[64px] leading-[38.40px]">
+            {percentage >= 0 ? (
+              <div className="flex items-center justify-center">
+                <p>
+                  {percentage?.toString()?.split(".").length > 1
+                    ? percentage?.toFixed(2)
+                    : percentage}
+                  %
+                </p>
+                <svg
+                  xmlns="http://www.w3.org/2000/svg"
+                  width="30"
+                  height="30"
+                  viewBox="0 0 30 30"
+                  fill="none"
+                >
+                  <path
+                    d="M12 19V5"
+                    stroke="#14F195"
+                    strokeWidth="2"
+                    strokeLinecap="round"
+                    strokeLinejoin="round"
+                  />
+                  <path
+                    d="M5 12L12 5L19 12"
+                    stroke="#14F195"
+                    strokeWidth="2"
+                    strokeLinecap="round"
+                    strokeLinejoin="round"
+                  />
+                </svg>
+              </div>
+            ) : (
+              <div className="flex items-center justify-center">
+                <p>
+                  {" "}
+                  {percentage?.toString()?.split(".").length > 1
+                    ? percentage?.toFixed(2)
+                    : percentage}
+                  %
+                </p>
+                <svg
+                  width="24"
+                  height="24"
+                  viewBox="0 0 24 24"
+                  fill="none"
+                  xmlns="http://www.w3.org/2000/svg"
+                >
+                  <path
+                    d="M12 5L12 19"
+                    stroke="#F2688A"
+                    stroke-width="2"
+                    strokeLinecap="round"
+                    strokeLinejoin="round"
+                  />
+                  <path
+                    d="M19 12L12 19L5 12"
+                    stroke="#F2688A"
+                    stroke-width="2"
+                    strokeLinecap="round"
+                    strokeLinejoin="round"
+                  />
+                </svg>
+              </div>
+            )}
+          </p>
+          <p className="text-white md:mt-8 text-white  text-base md:text-lg leading-[38.40px]">
+            NFT Gains{" "}
+          </p>
           <div className="mt-56 md:mt-44 w-[80%]">
-            {
-              total > 0 ? (
-                <p className="text-white text-lg md:text-2xl">
-                  <span className="text-ash">Despite the year&apos;s ups & downs,</span> you&apos;ve received free monies.
-                </p>
-              ) : (
-                <p className="text-white text-lg md:text-2xl">
-                  Airdrops MIA 🕵️‍♂️! Stay tuned, anon!
-                </p>
-              )
-            }
-            {/* <div className='h-[284px] md:h=[300px]'> */}
+            {percentage == 0 ? (
+              <p className="text-white text-lg md:text-2xl">
+                🚧 Under construction. Time to dive in maybe?
+              </p>
+            ) : percentage > 0 ? (
+              <p className="text-white text-lg md:text-2xl">
+                Your digital art game is strong 💪
+              </p>
+            ) : (
+              <p className="text-white text-lg md:text-2xl">
+                HODL strong, gains can be sneaky!
+              </p>
+            )}
           </div>
         </div>
 
@@ -104,4 +138,4 @@ const Card5 = ({ airdrop }) => {
   );
 };
 
-export default Card5;
+export default Card9;
