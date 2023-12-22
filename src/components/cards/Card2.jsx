@@ -32,12 +32,12 @@ const Card2 = ({ total_transactions }) => {
           <p className="text-white mt-8 text-5xl md:text-[64px] leading-[38.40px]">
             {total_transactions}
           </p>
-          <p className="text-white md:mt-8 text-white  text-base md:text-lg leading-[38.40px]">
+          <p className="text-white md:mt-8 text-base md:text-lg leading-[38.40px]">
           Transactions done on Solana          </p>
           <div className='mt-56 md:mt-44'>
           {/* <div className='h-[284px] md:h=[300px]'> */}
           <p className='text-ash text-lg md:text-2xl'>Looking at your participation in</p>
-          <p className='text-ash text-lg md:text-2xl'>the ecosystem, <span className='text-white'>you’re a builder!</span></p>
+          <p className='text-ash text-lg md:text-2xl'>the ecosystem, <span className='text-white'>you&apos;re a builder!</span></p>
         </div>
         </div>
     

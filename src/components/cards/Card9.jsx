@@ -4,7 +4,9 @@ const Card9 = ({ nft }) => {
   // console.log('transactions are', transactions)
 
   let percentage = nft?.profitAndLossPercentage;
-  // let percentage = -22
+  if (percentage == null) {
+    percentage = 0;
+  }
 
   return (
     <div className="relative">
@@ -96,7 +98,11 @@ const Card9 = ({ nft }) => {
                   />
                 </svg>
               </div>
+<<<<<<< HEAD
             )} 
+=======
+            )}
+>>>>>>> c9762d1fb23e3300a46c30a95fe1b304c492e4ce
           </p>
           <p className="text-white md:mt-8 text-white  text-base md:text-lg leading-[38.40px]">
             NFT Gains{" "}

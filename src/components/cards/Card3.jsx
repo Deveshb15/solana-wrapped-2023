@@ -90,13 +90,18 @@ const Card3 = ({ transactions }) => {
           <p className="text-white md:mt-8 text-white  text-base md:text-lg leading-[38.40px]">
             Wallet Portfolio Gains{" "}
           </p>
-          <div className="mt-56 md:mt-44">
-            <p className="text-ash text-lg md:text-2xl">
-              Despite the year&apos;s ups & downs,
-            </p>
-            <p className="text-white text-lg md:text-2xl">
-              you&apos;re here for the tech, right?
-            </p>
+          <div className="mt-56 md:mt-44 w-[80%]">
+            {
+              percentage >= 0 ? (
+                <p className="text-white text-lg md:text-2xl">
+                  Your gains are on 🔥!
+                </p>
+              ) : (
+                <p className="text-white text-lg md:text-2xl">
+                  <span className="text-ash">Despite the year&apos;s ups & downs,</span> you&apos;re here for the tech, right?
+                </p>
+              )
+            }
           </div>
         </div>
 

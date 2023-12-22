@@ -5,7 +5,6 @@ import Image from "next/image";
 
 const Card7 = ({ transactions }) => {
   // console.log('transactions are', transactions)
-
   return (
     <div className="relative h-full">
       <div 
@@ -32,56 +31,84 @@ const Card7 = ({ transactions }) => {
         ></div>
 
         <div className="mt-12 md:mt-[152px] font-dm absolute z-10 w-[312px] h-[484px] md:w-[530px] md:h-[500px]">
-          <div className="md:flex md:justify-around">
-            {transactions?.highest_purchased_nft?.nft ? (
-              <div className="flex flex-col justifty-center items-center">
+          <div className="md:flex justify-center items-center gap-4">
+            {transactions?.highest_purchased_nft?.nft ||
+            transactions?.highest_sold_nft?.nft ? (
+              <div className="flex flex-row gap-4 sm:gap-8">
+                {transactions?.highest_purchased_nft?.nft && (
+                  <div className="flex flex-col justifty-center items-center">
+                    <img
+                      className="mr-2 w-[102px] h-[102px] rounded-xl md:w-40 md:h-40"
+                      src={"/nft.png"}
+                    />
+                    <p className="mt-4 text-sm md:text-md text-ash text-center">
+                      {transactions?.highest_purchased_nft.nft?.nft_name}
+                    </p>
+                    <p className="mt-2 text-center text-fade">
+                      Highest Paid NFT
+                    </p>
+                    <p className="text-center">
+                      {transactions
+                        ? transactions.highest_purchased_nft?.sol
+                        : 0}
+                    </p>
+                  </div>
+                )}
+                {transactions?.highest_sold_nft?.nft && (
+                  <div className="flex flex-col justifty-center items-center">
+                    <img
+                      className="mr-2 w-[102px] h-[102px] rounded-xl md:w-40 md:h-40"
+                      src={"/nft2.png"}
+                    />
+                    <p className="mt-4 text-sm md:text-md text-ash text-center">
+                      {transactions?.highest_sold_nft?.nft?.nft_name}
+                    </p>
+                    <p className="mt-2 text-center text-fade">
+                      Most Profitable NFT
+                    </p>
+                    <p className="text-center">
+                      {transactions
+                        ? transactions.highest_sold_nft?.sol?.toFixed(4)
+                        : 0}
+                    </p>
+                  </div>
+                )}
+              </div>
+            ) : (
+              <div>
                 <img
-                  className="mr-2 w-[102px] h-[102px] rounded-xl md:w-40 md:h-40"
-                  src={'/nft.png'}
+                  className="w-[100%] h-48 sm:h-60 rounded-xl"
+                  src="https://c.tenor.com/Ofev06wBI64AAAAd/tenor.gif"
+                  alt="loading"
                 />
-                <p className="mt-4 text-sm md:text-md text-ash text-center">
-                  {transactions?.highest_purchased_nft.nft?.nft_name}
-                </p>
-                <p className="mt-2 text-center text-fade">Highest Paid NFT</p>
-                <p className="text-center">
-                  {transactions ? transactions.highest_purchased_nft?.sol : 0}
-                </p>
-              </div>
-            ) : (
-              <div>
-                <p className="text-base text-center mb-10 md:mb-0">You haven&apos;t purchased any new NFTs</p>
-              </div>
-            )}
-            {transactions?.highest_sold_nft?.nft ? (
-              <div className="flex flex-col justifty-center items-center">
-                  <img
-                  className="mr-2 w-[102px] h-[102px] rounded-xl md:w-40 md:h-40"
-                  src={'/nft2.png'}
-                />
-                <p className="mt-4 text-sm md:text-md text-ash text-center">
-                  {transactions?.highest_sold_nft?.nft?.nft_name}
-                </p>
-                <p className="mt-2 text-center text-fade">
-                  Most Profitable NFT
-                </p>
-                <p className="text-center">
-                  {transactions
-                    ? transactions.highest_sold_nft?.sol?.toFixed(4)
-                    : 0}
-                </p>
-              </div>
-            ) : (
-              <div>
-                <p className="text-base mb-10 md:mb-0">You haven&apos;t sold any NFTs</p>
               </div>
             )}
           </div>
-          <div className="ml-6 md:ml-12 mt-3 md:mt-11">
-            <p className="text-lg md:text-2xl">
-              Top digital collectible trades{" "}
-              <span className="text-ash">picked</span>{" "}
-            </p>
-            <p className="text-lg md:text-2xl text-ash">out of your wallet.</p>
+          <div className="ml-6 md:ml-12 mt-3 md:mt-11 w-[80%]">
+            {transactions?.highest_purchased_nft?.nft ||
+            transactions?.highest_sold_nft?.nft ? (
+              transactions?.highest_purchased_nft?.nft &&
+              transactions?.highest_sold_nft?.nft ? (
+                <p className="text-lg md:text-2xl">
+                  Top digital collectible trades picked
+                  <span className="text-ash">out of your wallet.</span>
+                </p>
+              ) : (
+                transactions?.highest_purchased_nft?.nft ? (
+                  <p className="text-lg md:text-2xl text-white">
+                    Show off your top NFT flex! This one&apos;s your crown jewel💎
+                  </p>
+                ) : (
+                  <p className="text-lg md:text-2xl text-white">
+                    Your most profitable NFT? This one&apos;s gold!💰
+                  </p>
+                )
+              )
+            ) : (
+              <p className="text-lg md:text-2xl">
+                The digital treasure hunt awaits!
+              </p>
+            )}
           </div>
         </div>
 
