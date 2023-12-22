@@ -7,7 +7,7 @@ const Card5 = ({ airdrop }) => {
   let total = airdrop?.length>0 ? airdrop
   .map((item) => item.usdc)
   .reduce((prev, next) => prev + next)?.toFixed(4) : 0
-
+  
   return (
     <div className="relative">
       <div
@@ -68,14 +68,19 @@ const Card5 = ({ airdrop }) => {
             />
             <Image src="/airdrop3.png" height={24} width={24} alt="airdrop3" />
           </div>
-          <div className="mt-56 md:mt-44">
+          <div className="mt-56 md:mt-44 w-[80%]">
+            {
+              total > 0 ? (
+                <p className="text-white text-lg md:text-2xl">
+                  <span className="text-ash">Despite the year&apos;s ups & downs,</span> you&apos;ve received free monies.
+                </p>
+              ) : (
+                <p className="text-white text-lg md:text-2xl">
+                  Airdrops MIA 🕵️‍♂️! Stay tuned, anon!
+                </p>
+              )
+            }
             {/* <div className='h-[284px] md:h=[300px]'> */}
-            <p className="text-ash text-lg md:text-2xl">
-              Despite the year&apos;s ups & downs,
-            </p>
-            <p className="text-white text-lg md:text-2xl">
-              you&apos;ve received free monies.
-            </p>
           </div>
         </div>
 
