@@ -27,44 +27,54 @@ function Login() {
 
   const handleNavigation = (e) => {
     e.preventDefault();
-    if (walletID.trim() === "") {
-      setErrorMessage("Address field cannot be empty");
-    } else {
-      setErrorMessage("");
-      console.log("wallets", wallets);
-      console.log("walletID", walletID);
-      if (wallets?.length == 2) {
-        router.push(`/stats/${wallets[0]}+${wallets[1]}`);
-      } else if (wallets?.length == 1) {
-        router.push(`/stats/${wallets[0]}+${walletID}`);
+    if (walletID?.includes(".sol") || walletID?.length === 44) {
+      if (walletID.trim() === "") {
+        setErrorMessage("Address field cannot be empty");
       } else {
-        router.push(`/stats/${walletID}`);
+        setErrorMessage("");
+        console.log("wallets", wallets);
+        console.log("walletID", walletID);
+        if (wallets?.length == 2) {
+          router.push(`/stats/${wallets[0]}+${wallets[1]}`);
+        } else if (wallets?.length == 1) {
+          router.push(`/stats/${wallets[0]}+${walletID}`);
+        } else {
+          router.push(`/stats/${walletID}`);
+        }
       }
+    } else {
+      setErrorMessage("Invalid wallet address");
+      return;
     }
   };
 
   const handleAddWallet = () => {
-    const walletExists = wallets?.find(
-      (wallet) => wallet?.toLowerCase() === walletID?.toLowerCase()
-    );
-    if (walletExists) {
-      setErrorMessage("You've already added this wallet");
-      return;
-    } else {
-      if (wallets?.length >= 2) {
-        setErrorMessage("You can only add 2 wallets");
-        setWalletID(wallets[1]);
+    if (walletID?.includes(".sol") || walletID?.key === 44) {
+      const walletExists = wallets?.find(
+        (wallet) => wallet?.toLowerCase() === walletID?.toLowerCase()
+      );
+      if (walletExists) {
+        setErrorMessage("You've already added this wallet");
+        return;
       } else {
-        if (walletID.trim() === "") {
-          setErrorMessage("Address field cannot be empty");
+        if (wallets?.length >= 2) {
+          setErrorMessage("You can only add 2 wallets");
+          setWalletID(wallets[1]);
         } else {
-          console.log("wallets 2", wallets);
-          console.log("walletID 2", walletID);
-          setErrorMessage("");
-          setWallets([...wallets, walletID]);
-          setWalletID("");
+          if (walletID.trim() === "") {
+            setErrorMessage("Address field cannot be empty");
+          } else {
+            console.log("wallets 2", wallets);
+            console.log("walletID 2", walletID);
+            setErrorMessage("");
+            setWallets([...wallets, walletID]);
+            setWalletID("");
+          }
         }
       }
+    } else {
+      setErrorMessage("Invalid wallet address");
+      return;
     }
   };
 
@@ -78,7 +88,7 @@ function Login() {
   const handleRemoveWallet = (wallet) => {
     const newWallets = wallets?.filter((w) => w !== wallet);
     setWallets(newWallets);
-  }
+  };
 
   return (
     <>
@@ -118,13 +128,61 @@ function Login() {
           <div className="flex items-center justify-center flex-row mt-4 mb-2">
             {wallets?.map((wallet, i) => {
               return wallet?.includes(".sol") ? (
-                <p className="bg-[#1E1E1E] px-4 py-2 mr-2 rounded-full" key={i}>
-                  {wallet}
+                <p
+                  className="bg-[#1E1E1E] px-4 py-2 mr-2 rounded-full flex justify-center items-center"
+                  key={i}
+                >
+                  {wallet}{" "}
+                  <button
+                    onClick={() => handleRemoveWallet(wallet)}
+                    className="text-white ml-4"
+                  >
+                    <svg
+                      className="w-4 h-4"
+                      xmlns="http://www.w3.org/2000/svg"
+                      width="24"
+                      height="24"
+                      viewBox="0 0 24 24"
+                      fill="none"
+                      stroke="currentColor"
+                      stroke-width="2"
+                      stroke-linecap="round"
+                      stroke-linejoin="round"
+                      class="feather feather-x"
+                    >
+                      <line x1="18" y1="6" x2="6" y2="18"></line>
+                      <line x1="6" y1="6" x2="18" y2="18"></line>
+                    </svg>
+                  </button>
                 </p>
               ) : (
-                <p className="bg-[#1E1E1E] px-4 py-2 mr-2 rounded-full" key={i}>
+                <p
+                  className="bg-[#1E1E1E] px-4 py-2 mr-2 rounded-full flex justify-center items-center"
+                  key={i}
+                >
                   {wallet?.substr(0, 4)}...
                   {wallet?.substr(wallet?.length - 5, wallet.length - 1)}
+                  <button
+                    onClick={() => handleRemoveWallet(wallet)}
+                    className="text-white ml-4"
+                  >
+                    <svg
+                      className="w-4 h-4"
+                      xmlns="http://www.w3.org/2000/svg"
+                      width="24"
+                      height="24"
+                      viewBox="0 0 24 24"
+                      fill="none"
+                      stroke="currentColor"
+                      stroke-width="2"
+                      stroke-linecap="round"
+                      stroke-linejoin="round"
+                      class="feather feather-x"
+                    >
+                      <line x1="18" y1="6" x2="6" y2="18"></line>
+                      <line x1="6" y1="6" x2="18" y2="18"></line>
+                    </svg>
+                  </button>
                 </p>
               );
             })}
