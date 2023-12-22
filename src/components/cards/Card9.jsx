@@ -7,7 +7,6 @@ const Card9 = ({ nft }) => {
   if (percentage == null) {
     percentage = 0;
   }
-  // let percentage = -22
 
   return (
     <div className="relative">
