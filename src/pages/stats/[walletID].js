@@ -16,6 +16,7 @@ import TopNav from "@/components/TopNav";
 import Loading from "@/components/loading";
 import Head from "next/head";
 import ShareModal from "@/components/ShareModal";
+import Card9 from "@/components/cards/Card9";
 
 const Carousel = ({ address }) => {
   const [activeSlide, setActiveSlide] = useState(0);
@@ -138,6 +139,7 @@ const Carousel = ({ address }) => {
     <Card4 transactions={data?.txn_data} key={4} />,
     <Card5 airdrop={data?.airdrop_data} key={5} />,
     <Card6 nft={data?.nft_data} key={6} />,
+    <Card9 nft={data?.nft_data} key={9} />,
     <Card7 transactions={data?.txn_data} key={7} />,
     <Card8 data={data} key={8} />,
   ];
