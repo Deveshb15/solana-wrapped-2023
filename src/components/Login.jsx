@@ -70,6 +70,11 @@ function Login() {
     setIsOpen(false);
   };
 
+  const handleRemoveWallet = (wallet) => {
+    const newWallets = wallets?.filter((w) => w !== wallet);
+    setWallets(newWallets);
+  }
+
   return (
     <>
       <div className="flex flex-col items-center">
@@ -160,8 +165,6 @@ function Login() {
             {errorMessage}
           </p>
         )}
-
-        {console.log("wallet id", walletID)}
 
         {/* </div> */}
         <div className="flex flex-col items-center justify-center">
