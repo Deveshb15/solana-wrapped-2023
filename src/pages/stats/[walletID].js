@@ -207,7 +207,7 @@ const Carousel = ({ address }) => {
               <button
                 onClick={goToPrevSlide}
                 style={{marginLeft:'35%'}}
-                className={`flex sm:hidden cursor-pointer bg-[#252B35] md:mt-[52%] md:mr-[20%] rounded-full shadow-md z-[2] p-1 m-0 absolute
+                className={`flex sm:hidden cursor-pointer bg-[#252B35] rounded-full shadow-md z-[2] p-1 m-0 absolute
                 ${activeSlide === slides.length - 1 ? "bottom-[2%]" : "bottom-[10%]"}
                  left-2 ${
                   activeSlide === 0 ? "opacity-0" : "opacity-100"
@@ -222,8 +222,8 @@ const Carousel = ({ address }) => {
     activeSlide !== 0 && ( */}
               <button
                 onClick={goToPrevSlide}
-                className={`hidden sm:flex cursor-pointer bg-[#252B35] rounded-full h-12 w-12 mt-[32%] shadow-md z-[20] p-1 ${
-                  activeSlide === 0 ? "opacity-0" : "opacity-100", activeSlide === 8 ? "md:mr-[270px]" : "md:mr-[50%]"}`}
+                className={`hidden sm:flex justify-center items-center cursor-pointer bg-[#252B35] rounded-full h-12 w-12 mt-[32%] shadow-md z-[20] p-1 ${
+                  activeSlide === 0 ? "opacity-0" : "opacity-100"}`}
               >
                 <svg xmlns="http://www.w3.org/2000/svg" width="25" height="25" viewBox="0 0 25 25" fill="none">
                 <path d="M16.3594 17.2812L11.5885 12.5L16.3594 7.71875L14.8906 6.25L8.64062 12.5L14.8906 18.75L16.3594 17.2812Z" fill="white"/>
@@ -250,7 +250,7 @@ const Carousel = ({ address }) => {
                   <button
                     onClick={goToNextSlide}
                     style={{marginRight:'40%'}}
-                  className={`flex sm:hidden cursor-pointer bg-[#252B35] rounded-full md:mt-64 z-1 shadow-md p-1 m-0 absolute 
+                  className={`flex sm:hidden cursor-pointer bg-[#252B35] h-12 w-12 z-[20] rounded-full md:mt-64 z-1 shadow-md p-1 m-0 absolute 
                   ${activeSlide === slides.length - 1 ? "bottom-[2%]" : "bottom-[10%]"} right-2`}
                   >
                 <svg xmlns="http://www.w3.org/2000/svg" width="25" height="25" viewBox="0 0 25 25" fill="none">
