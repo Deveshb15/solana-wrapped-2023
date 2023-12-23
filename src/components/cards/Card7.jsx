@@ -8,10 +8,9 @@ const Card7 = ({ transactions }) => {
   return (
     <div className="relative h-full">
       <div 
-    className="flex items-center h-full justify-center m-1 rounded-3xl relative overflow-hidden" 
+    className="flex items-center md:items-start h-full justify-center m-1 rounded-3xl relative overflow-hidden" 
+
         style={{
-          // width: '530px',
-          // height: '500px',
           backgroundColor: "#181818",
           position: "relative",
         }}
@@ -30,8 +29,8 @@ const Card7 = ({ transactions }) => {
           }}
         ></div>
 
-        <div className="mt-12 md:mt-[152px] font-dm absolute z-10 w-[312px] h-[484px] md:w-[530px] md:h-[500px]">
-          <div className="md:flex justify-center items-center gap-4">
+        <div className="mt-12 md:mt-20 font-dm absolute z-10 w-[312px] h-[484px] md:w-full md-full ml-5% md:ml-[2%] ">
+          <div className="flex justify-center items-center gap-4">
             {transactions?.highest_purchased_nft?.nft ||
             transactions?.highest_sold_nft?.nft ? (
               <div className="flex flex-row gap-4 sm:gap-8">
@@ -39,7 +38,7 @@ const Card7 = ({ transactions }) => {
                   <div className="flex flex-col justifty-center items-center">
                     <img
                       className="mr-2 w-[102px] h-[102px] rounded-xl md:w-40 md:h-40"
-                      src={"/nft.png"}
+                      src={"/nft1.png"}
                     />
                     <p className="mt-4 text-sm md:text-md text-ash text-center">
                       {transactions?.highest_purchased_nft.nft?.nft_name}
@@ -84,35 +83,36 @@ const Card7 = ({ transactions }) => {
               </div>
             )}
           </div>
-          <div className="ml-6 md:ml-12 mt-3 md:mt-11 w-[80%]">
+          {/* <div className="ml-6 md:ml-12 mt-3 md:mt-11 w-[80%]"> */}
+          <div className='mt-[60%] m-5 md:mt-8 md:ml-[10%]'>
             {transactions?.highest_purchased_nft?.nft ||
             transactions?.highest_sold_nft?.nft ? (
               transactions?.highest_purchased_nft?.nft &&
               transactions?.highest_sold_nft?.nft ? (
-                <p className="text-lg md:text-2xl">
+                <p className="text-lg md:text-xl lg:text-2xl">
                   Top digital collectible trades picked
                   <span className="text-ash">out of your wallet.</span>
                 </p>
               ) : (
                 transactions?.highest_purchased_nft?.nft ? (
-                  <p className="text-lg md:text-2xl text-white">
+                  <p className="text-lg md:text-xl lg:text-2xl text-white">
                     Show off your top NFT flex! This one&apos;s your crown jewel💎
                   </p>
                 ) : (
-                  <p className="text-lg md:text-2xl text-white">
+                  <p className="text-lg md:text-xl lg:text-2xl text-white">
                     Your most profitable NFT? This one&apos;s gold!💰
                   </p>
                 )
               )
             ) : (
-              <p className="text-lg md:text-2xl">
+              <p className="text-lg md:text-xl lg:text-2xl">
                 The digital treasure hunt awaits!
               </p>
             )}
           </div>
         </div>
 
-        <div className="flex w-[530px] justify-end mr-14 mb-10">
+        <div className='flex w-full h-full justify-end items-center px-5 md:px-14 mb-10'>
           <svg
             xmlns="http://www.w3.org/2000/svg"
             width="214"

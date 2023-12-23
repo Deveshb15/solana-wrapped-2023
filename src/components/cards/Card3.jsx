@@ -11,16 +11,14 @@ const Card3 = ({ transactions }) => {
       <div 
     className="flex items-center h-full justify-center m-1 rounded-3xl relative overflow-hidden" 
         style={{
-          // width: '530px',
-          // height: '500px',
           backgroundColor: "#181818",
           position: "relative",
         }}
       >
         <div
-          className="rounded-full absolute z-1 w-full h-full"
+          className="rounded-full top-[-50%] md:top-[-60%] absolute z-1 w-full h-full"
           style={{
-            top: "-60%",
+            // top: "-60%",
             left: "10%",
             transform: "translateX(-50%)",
             zIndex: 0,
@@ -31,8 +29,8 @@ const Card3 = ({ transactions }) => {
           }}
         ></div>
 
-        <div className="ml-12 md:mt-[72px] font-dm absolute z-10 w-[312px] h-[484px] md:w-[530px] md:h=[500px]">
-          <p className="text-white flex mt-8 text-5xl md:text-[64px] leading-[38.40px]">
+        <div className="pl-7 md:pl-0 mt-10 md:mt-20 font-dm absolute z-10 w-[312px] h-[484px] md:w-full md:ml-[20%]">
+          <p className="text-white mt-8 flex text-5xl md:text-[64px]">
             {percentage >= 0 ? (
               <div className="flex items-center justify-center">
                 <p>{percentage?.toString()?.split(".").length > 1 ? percentage?.toFixed(2) : percentage}%</p>
@@ -87,17 +85,17 @@ const Card3 = ({ transactions }) => {
               </div>
             )}
           </p>
-          <p className="text-white md:mt-8 text-white  text-base md:text-lg leading-[38.40px]">
+          <p className="text-white md:mt-4 text-white  text-base md:text-lg leading-[38.40px]">
             Wallet Portfolio Gains{" "}
           </p>
-          <div className="mt-56 md:mt-44 w-[80%]">
+          <div className="mt-[80%] md:mt-48 w-[80%]">
             {
               percentage >= 0 ? (
-                <p className="text-white text-lg md:text-2xl">
+                <p className="text-white text-lg md:text-xl lg:text-2xl">
                   Your gains are on 🔥!
                 </p>
               ) : (
-                <p className="text-white text-lg md:text-2xl">
+                <p className="text-white text-lg md:text-xl lg:text-2xl">
                   <span className="text-ash">Despite the year&apos;s ups & downs,</span> you&apos;re here for the tech, right?
                 </p>
               )
@@ -105,7 +103,7 @@ const Card3 = ({ transactions }) => {
           </div>
         </div>
 
-        <div className="flex w-[530px] justify-end mr-14 mb-10">
+        <div className='flex w-full h-full justify-end items-center px-5 md:px-14 mb-10'>
           <svg
             xmlns="http://www.w3.org/2000/svg"
             width="214"

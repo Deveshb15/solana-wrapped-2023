@@ -236,6 +236,8 @@ const Carousel = ({ address }) => {
     activeSlide !== 0 && ( */}
               {/* main button left */}
               <div>
+              {activeSlide === 0  ? "" :
+
                 <button
                   onClick={goToPrevSlide}
                   style={{
@@ -262,6 +264,8 @@ const Carousel = ({ address }) => {
                     />
                   </svg>
                 </button>
+}
+                {activeSlide === slides.length - 1  ? "" :
                 <button
                   onClick={goToNextSlide}
                   style={{
@@ -282,15 +286,16 @@ const Carousel = ({ address }) => {
                     />
                   </svg>
                 </button>
+}
                 {slides.map((Slide, index) => (
                   <div
                     key={index}
                     className={`absolute w-[80%] ${
                       activeSlide === slides.length - 1
-                        ? "md:w-[60%]"
+                        ? "md:w-[50%]"
                         : "md:w-[40%]"
                     }   
-                      h-[60%] top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 transition-all duration-300 ${
+                      h-[55%] md:h-[60%] top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 transition-all duration-300 ${
                         index === activeSlide
                           ? "opacity-100 z-10"
                           : "opacity-0 z-1"
@@ -327,6 +332,7 @@ const Carousel = ({ address }) => {
                   </button>
                 </div>
               )}
+
             </div>
             {isOpen && <ShareModal handleClose={handleClose} />}
 
