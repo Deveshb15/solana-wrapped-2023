@@ -11,10 +11,8 @@ const Card5 = ({ airdrop }) => {
   return (
     <div className="relative h-full">
       <div 
-    className="flex items-center h-full justify-center m-1 rounded-3xl relative overflow-hidden" 
+    className="flex items-center md:items-start h-full justify-center m-1 rounded-3xl relative overflow-hidden" 
         style={{
-          // width: '530px',
-          // height: '500px',
           backgroundColor: "#181818",
           position: "relative",
         }}
@@ -33,10 +31,10 @@ const Card5 = ({ airdrop }) => {
           }}
         ></div>
 
-        <div className="ml-12 md:mt-[72px] font-dm absolute z-10 w-[312px] h-[484px] md:w-[530px] md:h=[500px]">
-          {total > 0 ? (
+        <div className="ml-12 md:mt-20 font-dm absolute z-10 w-[312px] h-[484px] md:w-full md:ml-[20%]">
+          {total === 0 ? (
             <div>
-              <p className="text-white mt-8 text-dm text-5xl md:text-[64px] leading-[38.40px]">
+              <p className="text-white mt-8 md:mt-0 text-dm text-5xl md:text-[64px] leading-[38.40px]">
                 {/* loop and add all airdrop.usdc */}
                 ${total}
               </p>
@@ -45,8 +43,8 @@ const Card5 = ({ airdrop }) => {
               </p>
             </div>
           ) : (
-            <div>
-              <p className="text-white md:mt-8 md:text-xl leading-[38.40px]">
+            <div className=" mt-8 md:mt-0">
+              <p className="text-white md:text-xl leading-[38.40px]">
                 You haven&apos;t received any airdrops
               </p>
             </div>
@@ -68,14 +66,14 @@ const Card5 = ({ airdrop }) => {
             />
             <Image src="/airdrop3.png" height={24} width={24} alt="airdrop3" />
           </div>
-          <div className="mt-56 md:mt-44 w-[80%]">
+          <div className="mt-56 w-[80%]">
             {
               total > 0 ? (
-                <p className="text-white text-lg md:text-2xl">
+                <p className="text-white text-lg md:text-xl lg:text-2xl">
                   <span className="text-ash">Despite the year&apos;s ups & downs,</span> you&apos;ve received free monies.
                 </p>
               ) : (
-                <p className="text-white text-lg md:text-2xl">
+                <p className="text-white text-lg md:text-xl lg:text-2xl">
                   Airdrops MIA 🕵️‍♂️! Stay tuned, anon!
                 </p>
               )
@@ -84,7 +82,7 @@ const Card5 = ({ airdrop }) => {
           </div>
         </div>
 
-        <div className="flex w-[530px] justify-end mr-14 mb-10">
+        <div className='flex w-full h-full justify-end items-center px-5 md:px-14 mb-10'>
           <svg
             xmlns="http://www.w3.org/2000/svg"
             width="214"
