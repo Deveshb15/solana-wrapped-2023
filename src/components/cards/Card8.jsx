@@ -60,8 +60,6 @@ const handleClose = () => {
       ref={divRef}
       className="flex items-center h-full justify-center m-1 rounded-3xl relative overflow-hidden" 
         style={{
-          // width: '530px',
-          // height: '500px',
           backgroundColor: "#181818",
           position: "relative",
         }}
