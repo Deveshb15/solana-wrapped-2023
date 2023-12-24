@@ -38,7 +38,7 @@ const Card7 = ({ transactions }) => {
                   <div className="flex flex-col justifty-center items-center">
                     <img
                       className="mr-2 w-[102px] h-[102px] rounded-xl md:w-40 md:h-40"
-                      src={"/nft1.png"}
+                      src={transactions.highest_purchased_nft.nft?.nft_image} 
                     />
                     <p className="mt-4 text-sm md:text-md text-ash text-center">
                       {transactions?.highest_purchased_nft.nft?.nft_name}
@@ -57,7 +57,7 @@ const Card7 = ({ transactions }) => {
                   <div className="flex flex-col justifty-center items-center">
                     <img
                       className="mr-2 w-[102px] h-[102px] rounded-xl md:w-40 md:h-40"
-                      src={"/nft2.png"}
+                      src={transactions.highest_sold_nft.nft?.nft_image}  
                     />
                     <p className="mt-4 text-sm md:text-md text-ash text-center">
                       {transactions?.highest_sold_nft?.nft?.nft_name}
