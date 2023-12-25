@@ -1,6 +1,6 @@
 {
     "functions": {
-      "api/data/[address].js": {
+      "api/data/*.js": {
         "maxDuration": 60
       }
     }
