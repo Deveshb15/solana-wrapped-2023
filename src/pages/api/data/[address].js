@@ -212,6 +212,7 @@ const getDataFromTransaction = async (transactions, address, balance) => {
   let diff = total_sol_received - total_sol_sent;
   console.log("DIFF: ", diff);
   balance_a_year_ago = balance - diff;
+  balance_a_year_ago = Math.max(0, balance_a_year_ago);
 
   let nft_metadata_array = [];
   if (highest_sold_nft?.nft) {
@@ -249,13 +250,8 @@ const getDataFromTransaction = async (transactions, address, balance) => {
     }
   }
 
-  console.log("A YEAR AGO BALANCE ", balance_a_year_ago);
   portfolio_profit_loss_percentage = ((balance - balance_a_year_ago) / balance_a_year_ago) * 100;
-
-  console.log(
-    "Portfolio profit loss percentage: ",
-    portfolio_profit_loss_percentage
-  );
+  portfolio_profit_loss_percentage = Math.min(100, Math.max(-100, portfolio_profit_loss_percentage))
 
   // get most transacted wallet
   let max = 0;

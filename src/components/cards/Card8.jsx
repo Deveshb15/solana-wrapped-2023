@@ -180,7 +180,7 @@ const handleClose = () => {
               }}
             >
               <p className="text-white mt-3 flex justify-center  font-dm md:text-[32px]">
-                {data?.nft_data?.purchased + data?.nft_data?.minted} NFTs
+                {isNaN(data?.nft_data?.purchased + data?.nft_data?.minted) ? 0 : (data?.nft_data?.purchased + data?.nft_data?.minted)} NFTs
               </p>
               <p className="text-fade text-[8px] pb-4 md:pb-0">Collected in 2023</p>
             </div></div>
@@ -242,14 +242,14 @@ const handleClose = () => {
                             <path
                               d="M12 5L12 19"
                               stroke="#F2688A"
-                              stroke-width="2"
+                              strokeWidth="2"
                               strokeLinecap="round"
                               strokeLinejoin="round"
                             />
                             <path
                               d="M19 12L12 19L5 12"
                               stroke="#F2688A"
-                              stroke-width="2"
+                              strokeWidth="2"
                               strokeLinecap="round"
                               strokeLinejoin="round"
                             />
@@ -304,9 +304,7 @@ const handleClose = () => {
                   <div className="flex items-center justify-center flex-row pt-3">
                     <p className="text-white flex justify-center md:text-lg leading-[38.40px]">
                       {data?.txn_data
-                        ? data?.txn_data?.portfolio_profit_loss_percentage?.toFixed(
-                            4
-                          )
+                        ? data?.txn_data?.portfolio_profit_loss_percentage?.toFixed(2)
                         : 0}
                       %
                     </p>
@@ -353,14 +351,14 @@ const handleClose = () => {
                       <path
                         d="M12 5L12 19"
                         stroke="#F2688A"
-                        stroke-width="2"
+                        strokeWidth="2"
                         strokeLinecap="round"
                         strokeLinejoin="round"
                       />
                       <path
                         d="M19 12L12 19L5 12"
                         stroke="#F2688A"
-                        stroke-width="2"
+                        strokeWidth="2"
                         strokeLinecap="round"
                         strokeLinejoin="round"
                       />
@@ -420,10 +418,10 @@ const handleClose = () => {
         >
                <svg xmlns="http://www.w3.org/2000/svg" className='mr-2' width="17" height="17" viewBox="0 0 17 17" fill="none">
         <g clip-path="url(#clip0_1529_2109)">
-          <path d="M11.834 1.16602L14.5007 3.83268L11.834 6.49935" stroke="white" stroke-width="1.33333" stroke-linecap="round" stroke-linejoin="round"/>
-          <path d="M2.5 7.83398V6.50065C2.5 5.79341 2.78095 5.11513 3.28105 4.61503C3.78115 4.11494 4.45942 3.83398 5.16667 3.83398H14.5" stroke="white" stroke-width="1.33333" stroke-linecap="round" stroke-linejoin="round"/>
-          <path d="M5.16667 15.8333L2.5 13.1667L5.16667 10.5" stroke="white" stroke-width="1.33333" stroke-linecap="round" stroke-linejoin="round"/>
-          <path d="M14.5 9.16602V10.4993C14.5 11.2066 14.219 11.8849 13.719 12.385C13.2189 12.8851 12.5406 13.166 11.8333 13.166H2.5" stroke="white" stroke-width="1.33333" stroke-linecap="round" stroke-linejoin="round"/>
+          <path d="M11.834 1.16602L14.5007 3.83268L11.834 6.49935" stroke="white" strokeWidth="1.33333" strokeLinecap="round" strokeLinejoin="round"/>
+          <path d="M2.5 7.83398V6.50065C2.5 5.79341 2.78095 5.11513 3.28105 4.61503C3.78115 4.11494 4.45942 3.83398 5.16667 3.83398H14.5" stroke="white" strokeWidth="1.33333" strokeLinecap="round" strokeLinejoin="round"/>
+          <path d="M5.16667 15.8333L2.5 13.1667L5.16667 10.5" stroke="white" strokeWidth="1.33333" strokeLinecap="round" strokeLinejoin="round"/>
+          <path d="M14.5 9.16602V10.4993C14.5 11.2066 14.219 11.8849 13.719 12.385C13.2189 12.8851 12.5406 13.166 11.8333 13.166H2.5" stroke="white" strokeWidth="1.33333" strokeLinecap="round" strokeLinejoin="round"/>
         </g>
         <defs>
           <clipPath id="clip0_1529_2109">

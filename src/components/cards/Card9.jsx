@@ -82,14 +82,14 @@ const Card9 = ({ nft }) => {
                   <path
                     d="M12 5L12 19"
                     stroke="#F2688A"
-                    stroke-width="2"
+                    strokeWidth="2"
                     strokeLinecap="round"
                     strokeLinejoin="round"
                   />
                   <path
                     d="M19 12L12 19L5 12"
                     stroke="#F2688A"
-                    stroke-width="2"
+                    strokeWidth="2"
                     strokeLinecap="round"
                     strokeLinejoin="round"
                   />
