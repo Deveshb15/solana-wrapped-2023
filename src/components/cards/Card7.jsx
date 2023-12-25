@@ -89,17 +89,17 @@ const Card7 = ({ transactions }) => {
             transactions?.highest_sold_nft?.nft ? (
               transactions?.highest_purchased_nft?.nft &&
               transactions?.highest_sold_nft?.nft ? (
-                <p className="text-lg mt-[60%] md:text-xl md:ml-[10%] lg:text-2xl">
+                <p className="text-lg md:text-xl md:ml-[10%] lg:text-2xl">
                   Top digital collectible trades picked
                   <span className="text-ash">out of your wallet.</span>
                 </p>
               ) : (
                 transactions?.highest_purchased_nft?.nft ? (
-                  <p className="text-lg mt-[60%] md:text-xl lg:text-2xl text-white">
+                  <p className="text-lg md:text-xl lg:text-2xl text-white">
                     Show off your top NFT flex! This one&apos;s your crown jewel💎
                   </p>
                 ) : (
-                  <p className="text-lg mt-[60%] md:text-xl lg:text-2xl text-white">
+                  <p className="text-lg md:text-xl lg:text-2xl text-white">
                     Your most profitable NFT? This one&apos;s gold!💰
                   </p>
                 )
