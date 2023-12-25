@@ -1,8 +1,7 @@
 {
-    "api/**/*.js": {
-        "maxDuration": 300
-    },
-    "api/*.js": {
-        "maxDuration": 300
+    "functions": {
+      "api/data/[address].js": {
+        "maxDuration": 60
+      }
     }
-}
+  }
