@@ -1,3 +1,4 @@
+/* eslint-disable @next/next/no-img-element */
 import React, { useState, useEffect } from "react";
 import { useRouter } from "next/router";
 import Card1 from "@/components/cards/Card1";
@@ -26,6 +27,7 @@ const Carousel = ({ address }) => {
   const { walletID } = router.query;
   const [wallets, setWallets] = useState([]);
   const [isOpen, setIsOpen] = useState(false);
+  const [error, setError] = useState(false);
 
   useEffect(() => {
     if (walletID?.includes("+")) {
@@ -102,18 +104,30 @@ const Carousel = ({ address }) => {
           fetch(`/api/data/${wallets[0]}`)
             .then((response) => response.json())
             .then((fetchedData) => {
-              setData(fetchedData);
-              fetchAndSaveData(wallets[0], fetchedData?.balance);
+              if (fetchedData?.success === true) {
+                setData(fetchedData);
+                fetchAndSaveData(wallets[0], fetchedData?.balance);
+              }
+            })
+            .catch((error) => {
+              console.log(error);
             });
 
           fetch(`/api/data/${wallets[1]}`)
             .then((response) => response.json())
             .then((fetchedData) => {
-              fetchAndSaveData(wallets[1], fetchedData?.balance);
-              setData((prevData) => {
-                return mergeData(prevData, fetchedData);
-              });
-              setLoading(false);
+              if (fetchedData?.success === false) {
+                setError(true);
+              } else {
+                fetchAndSaveData(wallets[1], fetchedData?.balance);
+                setData((prevData) => {
+                  return mergeData(prevData, fetchedData);
+                });
+                setLoading(false);
+              }
+            })
+            .catch((error) => {
+              setError(true);
             });
         } else {
           // get all wallets from database
@@ -122,14 +136,23 @@ const Carousel = ({ address }) => {
           fetch(`/api/data/${wallets[0]}`)
             .then((response) => response.json())
             .then((fetchedData) => {
-              fetchAndSaveData(wallets[0], fetchedData?.balance);
-              setData(fetchedData);
-              setLoading(false);
+              if (fetchedData?.success === false) {
+                setError(true);
+              } else {
+                fetchAndSaveData(wallets[0], fetchedData?.balance);
+                setData(fetchedData);
+                setLoading(false);
+              }
+            })
+            .catch((error) => {
+              console.log(error);
+              setError(true);
             });
         }
       } catch (error) {
         console.log(error);
         setLoading(false);
+        setError(true);
       }
     }
   }, [wallets]);
@@ -187,7 +210,16 @@ const Carousel = ({ address }) => {
         <meta name="twitter:card" content="summary_large_image" />
       </Head>
       <TopNav />
-      {loading ? (
+      {error ? (
+        <div className="flex flex-col gap-4 justify-center items-center h-screen">
+          <img
+            src="https://c.tenor.com/r3_j0eBORREAAAAC/tenor.gif"
+            alt="error"
+            className="w-[50%] h-1/4 md:h-1/3 rounded-xl"
+          />
+          <h1 className="text-white text-2xl">OOPS! something went wrong</h1>
+        </div>
+      ) : loading ? (
         <div className="flex justify-center items-center h-screen">
           <Loading />
         </div>
@@ -213,12 +245,12 @@ const Carousel = ({ address }) => {
                   onClick={goToPrevSlide}
                   style={{ marginLeft: "35%" }}
                   className={`flex sm:hidden cursor-pointer bg-[#252B35] rounded-full shadow-md z-[2] p-1 m-0 absolute
-                ${
-                  activeSlide === slides.length - 1
-                    ? "bottom-[2%]"
-                    : "bottom-[10%]"
-                }
-                 left-2 ${activeSlide === 0 ? "opacity-0" : "opacity-100"}`}
+                  ${
+                    activeSlide === slides.length - 1
+                      ? "bottom-[2%]"
+                      : "bottom-[10%]"
+                  }
+                   left-2 ${activeSlide === 0 ? "opacity-0" : "opacity-100"}`}
                 >
                   <svg
                     xmlns="http://www.w3.org/2000/svg"
@@ -235,60 +267,67 @@ const Carousel = ({ address }) => {
                 </button>
               )}
               {/* {
-    activeSlide !== 0 && ( */}
+      activeSlide !== 0 && ( */}
               {/* main button left */}
               <div>
-              {activeSlide === 0  ? "" :
-
-                <button
-                  onClick={goToPrevSlide}
-                  style={{
-                    top: "50%",
-                  }}
-                  className={`hidden sm:flex absolute cursor-pointer bg-[#252B35] rounded-full h-12 w-12 shadow-md items-center justify-center ${
-                    activeSlide === 0 ? "hidden" : "flex"
-                  }
-                  ${
-                    activeSlide === slides.length - 1 ? "left-[14%]" : "left-[24%]"
-                  }
-                  `}
-                >
-                  <svg
-                    xmlns="http://www.w3.org/2000/svg"
-                    width="25"
-                    height="25"
-                    viewBox="0 0 25 25"
-                    fill="none"
+                {activeSlide === 0 ? (
+                  ""
+                ) : (
+                  <button
+                    onClick={goToPrevSlide}
+                    style={{
+                      top: "50%",
+                    }}
+                    className={`hidden sm:flex absolute cursor-pointer bg-[#252B35] rounded-full h-12 w-12 shadow-md items-center justify-center ${
+                      activeSlide === 0 ? "hidden" : "flex"
+                    }
+                    ${
+                      activeSlide === slides.length - 1
+                        ? "left-[14%]"
+                        : "left-[24%]"
+                    }
+                    `}
                   >
-                    <path
-                      d="M16.3594 17.2812L11.5885 12.5L16.3594 7.71875L14.8906 6.25L8.64062 12.5L14.8906 18.75L16.3594 17.2812Z"
-                      fill="white"
-                    />
-                  </svg>
-                </button>
-}
-                {activeSlide === slides.length - 1  ? "" :
-                <button
-                  onClick={goToNextSlide}
-                  style={{
-                    top: "50%",
-                  }}
-                  className={`hidden sm:flex absolute cursor-pointer bg-[#252B35] rounded-full h-12 w-12 shadow-md items-center justify-center ${activeSlide === slides.length - 1 ? 'hidden' : 'flex'} right-[24%]`}
-                >
-                  <svg
-                    xmlns="http://www.w3.org/2000/svg"
-                    width="25"
-                    height="25"
-                    viewBox="0 0 25 25"
-                    fill="none"
+                    <svg
+                      xmlns="http://www.w3.org/2000/svg"
+                      width="25"
+                      height="25"
+                      viewBox="0 0 25 25"
+                      fill="none"
+                    >
+                      <path
+                        d="M16.3594 17.2812L11.5885 12.5L16.3594 7.71875L14.8906 6.25L8.64062 12.5L14.8906 18.75L16.3594 17.2812Z"
+                        fill="white"
+                      />
+                    </svg>
+                  </button>
+                )}
+                {activeSlide === slides.length - 1 ? (
+                  ""
+                ) : (
+                  <button
+                    onClick={goToNextSlide}
+                    style={{
+                      top: "50%",
+                    }}
+                    className={`hidden sm:flex absolute cursor-pointer bg-[#252B35] rounded-full h-12 w-12 shadow-md items-center justify-center ${
+                      activeSlide === slides.length - 1 ? "hidden" : "flex"
+                    } right-[24%]`}
                   >
-                    <path
-                      d="M8.64062 7.71875L13.4115 12.5L8.64062 17.2813L10.1094 18.75L16.3594 12.5L10.1094 6.25L8.64062 7.71875Z"
-                      fill="white"
-                    />
-                  </svg>
-                </button>
-}
+                    <svg
+                      xmlns="http://www.w3.org/2000/svg"
+                      width="25"
+                      height="25"
+                      viewBox="0 0 25 25"
+                      fill="none"
+                    >
+                      <path
+                        d="M8.64062 7.71875L13.4115 12.5L8.64062 17.2813L10.1094 18.75L16.3594 12.5L10.1094 6.25L8.64062 7.71875Z"
+                        fill="white"
+                      />
+                    </svg>
+                  </button>
+                )}
                 {slides.map((Slide, index) => (
                   <div
                     key={index}
@@ -297,11 +336,11 @@ const Carousel = ({ address }) => {
                         ? "h-[62%] md:w-[50%]"
                         : "h-[55%] md:w-[40%]"
                     }   
-                       md:h-[60%] top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 transition-all duration-300 ${
-                        index === activeSlide
-                          ? "opacity-100 z-10"
-                          : "opacity-0 z-1"
-                      }`}
+                         md:h-[60%] top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 transition-all duration-300 ${
+                           index === activeSlide
+                             ? "opacity-100 z-10"
+                             : "opacity-0 z-1"
+                         }`}
                   >
                     {Slide}
                   </div>
@@ -313,11 +352,11 @@ const Carousel = ({ address }) => {
                     onClick={goToNextSlide}
                     style={{ marginRight: "40%" }}
                     className={`flex sm:hidden cursor-pointer bg-[#252B35] z-[20] rounded-full md:mt-64 z-1 shadow-md p-1 m-0 absolute 
-                  ${
-                    activeSlide === slides.length - 1
-                      ? "bottom-[2%]"
-                      : "bottom-[10%]"
-                  } right-2`}
+                    ${
+                      activeSlide === slides.length - 1
+                        ? "bottom-[2%]"
+                        : "bottom-[10%]"
+                    } right-2`}
                   >
                     <svg
                       xmlns="http://www.w3.org/2000/svg"
@@ -334,7 +373,6 @@ const Carousel = ({ address }) => {
                   </button>
                 </div>
               )}
-
             </div>
             {isOpen && <ShareModal handleClose={handleClose} />}
 

@@ -364,10 +364,10 @@ const getNftStats = async (address) => {
 //   } = req;
 
 //   let account = await getPublicKeyFromSolDomain(address);
-//   await redis.del(`sol-${account}`);
-//   await redis.del(`sol-${account?.toLowerCase()}`);
-//   res.status(200).json({
-//     success: true,
+//   // await redis.del(`sol-${account}`);
+//   // await redis.del(`sol-${account?.toLowerCase()}`);
+//   res.status(504).json({
+//     success: false,
 //   });
 // }
 
@@ -383,10 +383,10 @@ export default async function handler(req, res) {
         if (!address) {
           return res.status(400).json({ success: false });
         }
-
+        console.log("Address: ", address);
         let account = address;
         if (address.includes(".sol")) {
-          account = await getPublicKeyFromSolDomain(address);
+          account = await getPublicKeyFromSolDomain(address?.toLowerCase());
         }
         // let cached_data = null;
         let cached_data = await redis.get(`sol-${account}`);
