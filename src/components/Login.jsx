@@ -27,7 +27,7 @@ function Login() {
 
   const handleNavigation = (e) => {
     e.preventDefault();
-    if (walletID?.includes(".sol") || walletID?.length === 44) {
+    if (walletID?.includes(".sol") || walletID?.trim()?.length === 44) {
       if (walletID.trim() === "") {
         setErrorMessage("Address field cannot be empty");
       } else {
@@ -49,10 +49,12 @@ function Login() {
   };
 
   const handleAddWallet = () => {
-    if (walletID?.includes(".sol") || walletID?.key === 44) {
+    console.log("walletID IN ADD", walletID);
+    if (walletID?.includes(".sol") || walletID?.trim()?.length === 44) {
       const walletExists = wallets?.find(
         (wallet) => wallet?.toLowerCase() === walletID?.toLowerCase()
       );
+      console.log("walletExists", walletExists);
       if (walletExists) {
         setErrorMessage("You've already added this wallet");
         return;
@@ -73,6 +75,7 @@ function Login() {
         }
       }
     } else {
+      console.log("INVALID ");
       setErrorMessage("Invalid wallet address");
       return;
     }
@@ -138,17 +141,16 @@ function Login() {
                     className="text-white ml-4"
                   >
                     <svg
-                      className="w-4 h-4"
+                      className="w-4 h-4 feather feather-x"
                       xmlns="http://www.w3.org/2000/svg"
                       width="24"
                       height="24"
                       viewBox="0 0 24 24"
                       fill="none"
                       stroke="currentColor"
-                      stroke-width="2"
-                      stroke-linecap="round"
-                      stroke-linejoin="round"
-                      class="feather feather-x"
+                      strokeWidth="2"
+                      strokeLinecap="round"
+                      strokeLinejoin="round"
                     >
                       <line x1="18" y1="6" x2="6" y2="18"></line>
                       <line x1="6" y1="6" x2="18" y2="18"></line>
@@ -167,17 +169,16 @@ function Login() {
                     className="text-white ml-4"
                   >
                     <svg
-                      className="w-4 h-4"
+                      className="w-4 h-4 feather feather-x"
                       xmlns="http://www.w3.org/2000/svg"
                       width="24"
                       height="24"
                       viewBox="0 0 24 24"
                       fill="none"
                       stroke="currentColor"
-                      stroke-width="2"
-                      stroke-linecap="round"
-                      stroke-linejoin="round"
-                      class="feather feather-x"
+                      strokeWidth="2"
+                      strokeLinecap="round"
+                      strokeLinejoin="round"
                     >
                       <line x1="18" y1="6" x2="6" y2="18"></line>
                       <line x1="6" y1="6" x2="18" y2="18"></line>
@@ -235,7 +236,7 @@ function Login() {
           </p>
         )}
 
-        {wallets?.length == 0 && (
+        {(wallets?.length == 0 && walletID?.length > 0) && (
           <div className="flex flex-col items-center justify-center">
             <p className="font-heading text-green-400 mt-3">
               Have more than 1 wallet ?
