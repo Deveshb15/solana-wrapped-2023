@@ -4,7 +4,9 @@ import { getDomainKey, NameRegistryState } from "@bonfida/spl-name-service";
 
 import { Redis } from "@upstash/redis";
 
-export const maxDuration = 60
+export const config = {
+  maxDuration: 5,
+};
 
 const redis = new Redis({
   url: "https://steady-llama-49841.upstash.io",
