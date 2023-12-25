@@ -187,7 +187,7 @@ const handleClose = () => {
             <div>
               <div className="flex ml-0 md:ml-5 justify-center flex-row">
                 <div
-                  className="mt-2 rounded-lg w-28 md:w-[8.7rem] md:h-16 justify-center text-center"
+                  className="mt-2 rounded-lg w-[8.2rem] md:w-[8.7rem] md:h-16 justify-center text-center"
                   style={{
                     background: "rgba(37, 43, 53, 0.30)",
                   }}
@@ -262,7 +262,7 @@ const handleClose = () => {
                       </div>
                     )}
                   </p>
-                  <p className="text-fade text-[8px]">NFT W of 2023</p>
+                  <p className="text-fade pb-2 md:pb-0 text-[8px]">NFT W of 2023</p>
                 </div>
                 <div
                   className="mt-2 ml-2 flex rounded-lg w-28 md:w-36 md:h-16 justify-center text-center"
