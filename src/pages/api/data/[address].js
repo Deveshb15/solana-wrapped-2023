@@ -437,19 +437,21 @@ export default async function handler(req, res) {
           const airdropData = await getAllAirdrops(account);
 
           try {
-            await redis.set(
-              `sol-${account}`,
-              {
-                balance: balance / LAMPORTS_PER_SOL,
-                nft_data: nft_data_obj,
-                txn_data,
-                airdrop_data: airdropData,
-                total_transactions: total_transactions,
-              },
-              {
-                ex: 86400,
-              }
-            );
+            if (balance / LAMPORTS_PER_SOL > 0 && total_transactions > 0) {
+              await redis.set(
+                `sol-${account}`,
+                {
+                  balance: balance / LAMPORTS_PER_SOL,
+                  nft_data: nft_data_obj,
+                  txn_data,
+                  airdrop_data: airdropData,
+                  total_transactions: total_transactions,
+                },
+                {
+                  ex: 86400,
+                }
+              );
+            }
           } catch (err) {
             console.log(err);
           }
