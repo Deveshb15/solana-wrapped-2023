@@ -27,7 +27,7 @@ function Login() {
 
   const handleNavigation = (e) => {
     e.preventDefault();
-    if (walletID?.includes(".sol") || walletID?.trim()?.length === 44) {
+    if (walletID?.includes(".sol") || walletID?.trim()?.length > 40) {
       if (walletID.trim() === "") {
         setErrorMessage("Address field cannot be empty");
       } else {
@@ -50,7 +50,7 @@ function Login() {
 
   const handleAddWallet = () => {
     console.log("walletID IN ADD", walletID);
-    if (walletID?.includes(".sol") || walletID?.trim()?.length === 44) {
+    if (walletID?.includes(".sol") || walletID?.trim()?.length > 40) {
       const walletExists = wallets?.find(
         (wallet) => wallet?.toLowerCase() === walletID?.toLowerCase()
       );
