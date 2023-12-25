@@ -5,7 +5,7 @@ import { getDomainKey, NameRegistryState } from "@bonfida/spl-name-service";
 import { Redis } from "@upstash/redis";
 
 export const config = {
-  maxDuration: 5,
+  maxDuration: 60,
 };
 
 const redis = new Redis({
