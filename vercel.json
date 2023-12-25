@@ -1,5 +1,5 @@
 {
-    "api/*/*.js": {
+    "api/**/*.js": {
         "maxDuration": 300
     },
     "api/*.js": {
