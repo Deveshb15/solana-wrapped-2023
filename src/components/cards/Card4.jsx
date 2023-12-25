@@ -2,7 +2,6 @@ import React from 'react';
 
 const Card4 = ({transactions}) => {
   // console.log('transactions are', transactions)
-{console.log(transactions)}
     return (
       <div className="relative h-full">
       <div 

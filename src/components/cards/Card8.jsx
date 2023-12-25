@@ -180,7 +180,7 @@ const handleClose = () => {
               }}
             >
               <p className="text-white mt-3 flex justify-center  font-dm md:text-[32px]">
-                {data?.nft_data?.purchased + data?.nft_data?.minted} NFTs
+                {isNaN(data?.nft_data?.purchased + data?.nft_data?.minted) ? 0 : (data?.nft_data?.purchased + data?.nft_data?.minted)} NFTs
               </p>
               <p className="text-fade text-[8px] pb-4 md:pb-0">Collected in 2023</p>
             </div></div>
@@ -304,9 +304,7 @@ const handleClose = () => {
                   <div className="flex items-center justify-center flex-row pt-3">
                     <p className="text-white flex justify-center md:text-lg leading-[38.40px]">
                       {data?.txn_data
-                        ? data?.txn_data?.portfolio_profit_loss_percentage?.toFixed(
-                            4
-                          )
+                        ? data?.txn_data?.portfolio_profit_loss_percentage?.toFixed(2)
                         : 0}
                       %
                     </p>
