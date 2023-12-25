@@ -68,7 +68,7 @@ const Carousel = ({ address }) => {
     };
   }, [activeSlide]); //
 
-  const fetchAndSaveData = async (wallet) => {
+  const fetchAndSaveData = async (wallet, balance) => {
     try {
       if (wallet?.length > 0) {
         let exists;
@@ -82,6 +82,7 @@ const Carousel = ({ address }) => {
         if (!exists) {
           addDoc(collection(database, "wallets"), {
             wallet: wallet,
+            balance: balance,
             timestamp: Date.now(),
           });
         }
@@ -98,17 +99,17 @@ const Carousel = ({ address }) => {
       console.log("inside data");
       try {
         if (wallets.length > 1) {
-          fetchAndSaveData(wallets[0]);
-          fetchAndSaveData(wallets[1]);
           fetch(`/api/data/${wallets[0]}`)
             .then((response) => response.json())
             .then((fetchedData) => {
               setData(fetchedData);
+              fetchAndSaveData(wallets[0], fetchedData?.balance);
             });
 
           fetch(`/api/data/${wallets[1]}`)
             .then((response) => response.json())
             .then((fetchedData) => {
+              fetchAndSaveData(wallets[1], fetchedData?.balance);
               setData((prevData) => {
                 return mergeData(prevData, fetchedData);
               });
@@ -121,6 +122,7 @@ const Carousel = ({ address }) => {
           fetch(`/api/data/${wallets[0]}`)
             .then((response) => response.json())
             .then((fetchedData) => {
+              fetchAndSaveData(wallets[0], fetchedData?.balance);
               setData(fetchedData);
               setLoading(false);
             });
