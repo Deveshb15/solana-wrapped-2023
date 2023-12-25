@@ -104,7 +104,7 @@ function Login() {
               <Image
                 width={40}
                 height={24}
-                className="w-10 h-6 mr-3"
+                className="w-10 z-[1] h-6 mr-3"
                 src="/wallet-images.png"
                 alt="wallet-images"
               />
