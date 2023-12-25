@@ -6,7 +6,7 @@ const Card2 = ({ total_transactions }) => {
     return (
     <div className="relative h-full">
       <div 
-    className="flex items-center md:items-start h-full justify-center m-1 rounded-3xl relative overflow-hidden" 
+    className="flex items-center noise-bg md:items-start h-full justify-center m-1 rounded-3xl relative overflow-hidden" 
 
         style={{
           backgroundColor: '#181818',
@@ -26,14 +26,14 @@ const Card2 = ({ total_transactions }) => {
           }}
         ></div>
          
-        <div className="pl-7 md:pl-0 mt-10 md:mt-20 font-dm absolute z-10 w-[312px] h-[484px] md:w-full md:ml-[20%]">
-          <p className="text-white mt-8 md:mt-0 text-5xl md:text-[64px] leading-[38.40px]">
+        <div className="pl-7 md:pl-0 mt-10 md:mt-16 font-dm absolute z-10 w-[312px] h-[484px] md:w-full md:ml-[20%]">
+          <p className="text-white mt-8 md:mt-0 text-4xl md:text-[42px]">
             {total_transactions}
           </p>
-          <p className="text-white mt-4 text-base md:text-lg leading-[38.40px]">
+          <p className="text-white mt-4 text-base md:text-lg">
           Transactions done on Solana          </p>
-          <div className='mt-[90%] md:mt-48'>
-          {/* <div className='h-[284px] md:h=[300px]'> */}
+          <div className='mt-[90%] md:mt-[40%]'>
+          {/* <div className="mt-[80%] md:mt-48 w-[80%]"> */}
           <p className='text-ash text-lg md:text-xl lg:text-2xl'>Looking at your participation in</p>
           <p className='text-ash text-lg md:text-xl lg:text-2xl'>the ecosystem, <span className='text-white'>you&apos;re a builder!</span></p>
         </div>

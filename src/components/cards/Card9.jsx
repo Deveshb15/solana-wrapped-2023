@@ -10,7 +10,7 @@ const Card9 = ({ nft }) => {
     return (
     <div className="relative h-full">
       <div 
-    className="flex items-center md:items-start h-full justify-center m-1 rounded-3xl relative overflow-hidden" 
+    className="flex items-center noise-bg md:items-start h-full justify-center m-1 rounded-3xl relative overflow-hidden" 
 
         style={{
           backgroundColor: '#181818',
@@ -102,8 +102,8 @@ const Card9 = ({ nft }) => {
          <div className='mt-[90%] md:mt-48'>
 
             {percentage == 0 ? (
-              <p className="text-white text-lg md:text-xl lg:text-2xl">
-                🚧 Under construction. Time to dive in maybe?
+              <p className="text-ash text-lg md:text-xl lg:text-2xl">
+                🚧 Under construction. <span className='text-white'> Time to dive in maybe?</span>
               </p>
             ) : percentage > 0 ? (
               <p className="text-white text-lg md:text-xl lg:text-2xl">

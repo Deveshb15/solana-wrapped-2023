@@ -4,7 +4,7 @@ const Card1 = () => {
     return (
 <div className="relative h-full">
   <div 
-    className="flex items-center h-full justify-center m-1 rounded-3xl relative overflow-hidden" 
+    className="flex items-center noise-bg h-full justify-center m-1 rounded-3xl relative overflow-hidden" 
     style={{
       backgroundColor: '#181818',
       position: 'relative'

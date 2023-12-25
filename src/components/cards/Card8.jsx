@@ -94,7 +94,7 @@ const handleClose = () => {
                   <p className="text-fade text-[8px] pb-2 md:pb-0">Transactions</p>
                 </div>
                 <div
-                  className="mt-2 rounded-lg w-28 md:w-36 md:h-16 justify-center text-center"
+                  className="mt-2 rounded-lg w-28 md:w-36 md:h-[4.4rem] justify-center text-center"
                   style={{
                     background: "rgba(37, 43, 53, 0.30)",
                   }}
@@ -187,7 +187,7 @@ const handleClose = () => {
             <div>
               <div className="flex ml-0 md:ml-5 justify-center flex-row">
                 <div
-                  className="mt-2 rounded-lg w-28 md:w-36 md:h-16 justify-center text-center"
+                  className="mt-2 rounded-lg w-28 md:w-[8.7rem] md:h-16 justify-center text-center"
                   style={{
                     background: "rgba(37, 43, 53, 0.30)",
                   }}
@@ -285,7 +285,7 @@ const handleClose = () => {
                       </p>
                     </div>  
                   ) : (
-                    <div>
+                    <div className='flex text-center items-center'>
                       <p className="text-fade text-[8px]">
                         You haven&apos;t interacted with any wallet
                       </p>

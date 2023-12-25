@@ -8,7 +8,7 @@ const Card7 = ({ transactions }) => {
   return (
     <div className="relative h-full">
       <div 
-    className="flex items-center md:items-start h-full justify-center m-1 rounded-3xl relative overflow-hidden" 
+    className="flex items-center noise-bg md:items-start h-full justify-center m-1 rounded-3xl relative overflow-hidden" 
 
         style={{
           backgroundColor: "#181818",
@@ -29,7 +29,7 @@ const Card7 = ({ transactions }) => {
           }}
         ></div>
 
-        <div className="mt-12 md:mt-20 font-dm absolute z-10 w-[312px] h-[484px] md:w-full md-full ml-5% md:ml-[2%] ">
+        <div className="mt-12 md:mt-20 font-dm flex justify-center flex-col md:justify-start absolute z-10 w-[312px] h-[484px] md:w-full md-full ml-5% md:ml-[2%] ">
           <div className="flex justify-center items-center gap-4">
             {transactions?.highest_purchased_nft?.nft ||
             transactions?.highest_sold_nft?.nft ? (
@@ -74,9 +74,9 @@ const Card7 = ({ transactions }) => {
                 )}
               </div>
             ) : (
-              <div>
+              <div className="flex items-center justify-center">
                 <img
-                  className="w-[100%] h-48 sm:h-60 rounded-xl"
+                  className="h-48 sm:h-60 rounded-xl"
                   src="https://c.tenor.com/Ofev06wBI64AAAAd/tenor.gif"
                   alt="loading"
                 />
@@ -84,28 +84,28 @@ const Card7 = ({ transactions }) => {
             )}
           </div>
           {/* <div className="ml-6 md:ml-12 mt-3 md:mt-11 w-[80%]"> */}
-          <div className='mt-[60%] m-5 md:mt-8 md:ml-[10%]'>
+          <div className=' flex justify-center items-center m-5 md:mt-8'>
             {transactions?.highest_purchased_nft?.nft ||
             transactions?.highest_sold_nft?.nft ? (
               transactions?.highest_purchased_nft?.nft &&
               transactions?.highest_sold_nft?.nft ? (
-                <p className="text-lg md:text-xl lg:text-2xl">
+                <p className="text-lg mt-[60%] md:text-xl md:ml-[10%] lg:text-2xl">
                   Top digital collectible trades picked
                   <span className="text-ash">out of your wallet.</span>
                 </p>
               ) : (
                 transactions?.highest_purchased_nft?.nft ? (
-                  <p className="text-lg md:text-xl lg:text-2xl text-white">
+                  <p className="text-lg mt-[60%] md:text-xl lg:text-2xl text-white">
                     Show off your top NFT flex! This one&apos;s your crown jewel💎
                   </p>
                 ) : (
-                  <p className="text-lg md:text-xl lg:text-2xl text-white">
+                  <p className="text-lg mt-[60%] md:text-xl lg:text-2xl text-white">
                     Your most profitable NFT? This one&apos;s gold!💰
                   </p>
                 )
               )
             ) : (
-              <p className="text-lg md:text-xl lg:text-2xl">
+              <p className="text-lg text-center md:text-xl lg:text-2xl">
                 The digital treasure hunt awaits!
               </p>
             )}

@@ -9,7 +9,7 @@ const Card3 = ({ transactions }) => {
   return (
     <div className="relative h-full">
       <div 
-    className="flex items-center h-full justify-center m-1 rounded-3xl relative overflow-hidden" 
+    className="flex items-center noise-bg h-full justify-center m-1 rounded-3xl relative overflow-hidden" 
         style={{
           backgroundColor: "#181818",
           position: "relative",
@@ -30,7 +30,7 @@ const Card3 = ({ transactions }) => {
         ></div>
 
         <div className="pl-7 md:pl-0 mt-10 md:mt-20 font-dm absolute z-10 w-[312px] h-[484px] md:w-full md:ml-[20%]">
-          <p className="text-white mt-8 flex text-5xl md:text-[64px]">
+          <p className="text-white mt-8 flex text-4xl md:text-2xl lg:text-5xl">
             {percentage >= 0 ? (
               <div className="flex items-center justify-center">
                 <p>{percentage?.toString()?.split(".").length > 1 ? percentage?.toFixed(2) : percentage}%</p>
@@ -88,7 +88,7 @@ const Card3 = ({ transactions }) => {
           <p className="text-white md:mt-4 text-white  text-base md:text-lg leading-[38.40px]">
             Wallet Portfolio Gains{" "}
           </p>
-          <div className="mt-[80%] md:mt-48 w-[80%]">
+          <div className="mt-[80%] md:mt-[30%] w-[80%]">
             {
               percentage >= 0 ? (
                 <p className="text-white text-lg md:text-xl lg:text-2xl">

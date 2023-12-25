@@ -57,21 +57,24 @@ export default function Home() {
         {`gtag('config', 'G-2RPFE42SJX');`}
       </Script>
       
-<div className='flex flex-col h-screen justify-between'>
+<div className='flex flex-col  h-screen justify-between'>
     <main
-      className={`flex flex-col bg-black h-screen items-center justify-center ${inter.className}`}
+        style={{backgroundColor:'#131313'} }
+
+      className={`flex flex-col h-screen items-center justify-center ${inter.className}`
+    }
     >
       <div className='rounded-full' style={{
         position: 'absolute',
-        top: '-20%',
+        top: '-30%',
         left: '50%',
         transform: 'translateX(-50%)',
-        width: '50vw',
-        height: '50vh',
-        // borderRadius: '1067px',
+        width: '45vw',
+        height: '65vh',
         background: 'linear-gradient(45deg, #9945FF 10.43%, #8752F3 30.84%, #5497D5 49.4%, #43B4CA 58.68%, #28E0B9 69.81%, #19FB9B 93.01%), linear-gradient(151deg, #1D9D5A 0%, #11553A 82.01%)',
         filter: 'blur(75px)',
         flexShrink: 0,
+        borderRadius:'100%'
       }}/>
         <Login />
         <div className="fixed bottom-0 w-full flex justify-center text-center border-grey p-4 bg-gray-200">

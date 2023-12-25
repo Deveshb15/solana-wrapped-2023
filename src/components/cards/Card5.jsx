@@ -11,7 +11,7 @@ const Card5 = ({ airdrop }) => {
   return (
     <div className="relative h-full">
       <div 
-    className="flex items-center md:items-start h-full justify-center m-1 rounded-3xl relative overflow-hidden" 
+    className="flex items-center noise-bg md:items-start h-full justify-center m-1 rounded-3xl relative overflow-hidden" 
         style={{
           backgroundColor: "#181818",
           position: "relative",
@@ -31,8 +31,8 @@ const Card5 = ({ airdrop }) => {
           }}
         ></div>
 
-        <div className="ml-12 md:mt-20 font-dm absolute z-10 w-[312px] h-[484px] md:w-full md:ml-[20%]">
-          {total === 0 ? (
+        <div className="ml-12 mt-10  md:mt-20 font-dm absolute z-10 w-[312px] h-[484px] md:w-full md:ml-[20%]">
+          {total != 0 ? (
             <div>
               <p className="text-white mt-8 md:mt-0 text-dm text-5xl md:text-[64px] leading-[38.40px]">
                 {/* loop and add all airdrop.usdc */}
@@ -41,15 +41,7 @@ const Card5 = ({ airdrop }) => {
               <p className="text-white md:mt-8 text-white  text-base md:text-lg leading-[38.40px]">
                 Worth Airdrop Received{" "}
               </p>
-            </div>
-          ) : (
-            <div className=" mt-8 md:mt-0">
-              <p className="text-white md:text-xl leading-[38.40px]">
-                You haven&apos;t received any airdrops
-              </p>
-            </div>
-          )}
-          <div className="mt-3 flex">
+              <div className="mt-3 flex">
             <Image
               className="mr-2"
               src="/airdrop1.png"
@@ -66,7 +58,26 @@ const Card5 = ({ airdrop }) => {
             />
             <Image src="/airdrop3.png" height={24} width={24} alt="airdrop3" />
           </div>
-          <div className="mt-56 w-[80%]">
+            </div>
+            
+          ) : (
+            <div>
+            <p className="text-white mt-8 md:mt-0 text-dm text-5xl md:text-[64px] leading-[38.40px]">
+              {/* loop and add all airdrop.usdc */}
+              $0
+            </p>
+            <p className="text-white md:mt-8 text-white  text-base md:text-lg leading-[38.40px]">
+               Airdrop Received{" "}
+            </p>
+          </div>
+            // <div className=" mt-8 md:mt-0">
+            //   <p className="text-white md:text-xl leading-[38.40px]">
+            //     You haven&apos;t received any airdrops
+            //   </p>
+            // </div>
+          )}
+     
+          <div className="mt-[80%] md:mt-[30%] w-[80%]">
             {
               total > 0 ? (
                 <p className="text-white text-lg md:text-xl lg:text-2xl">
@@ -74,7 +85,7 @@ const Card5 = ({ airdrop }) => {
                 </p>
               ) : (
                 <p className="text-white text-lg md:text-xl lg:text-2xl">
-                  Airdrops MIA 🕵️‍♂️! Stay tuned, anon!
+                  Airdrops MIA 🕵️‍♂️! <span className="text-ash" >Stay tuned, anon! </span>
                 </p>
               )
             }
