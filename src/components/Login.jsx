@@ -90,6 +90,7 @@ function Login() {
     setWallets(newWallets);
   };
 
+  console.log(totalWallets)
   return (
     <>
       <div className="flex flex-col items-center">
@@ -107,7 +108,9 @@ function Login() {
               />
 
               <p className="text-center text-xs z-[1] font-dm md:text-sm mb-7 text-white">
-                <span className="text-white">{totalWallets}+ wallets</span>{" "}
+                {/* <span className="text-white">{totalWallets}+ wallets</span>{" "} */}
+                <span className="text-white">362+ wallets</span>{" "}
+
                 checked and wrapped in last 1hr
               </p>
             </div>

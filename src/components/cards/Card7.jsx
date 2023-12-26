@@ -95,11 +95,11 @@ const Card7 = ({ transactions }) => {
                 </p>
               ) : (
                 transactions?.highest_purchased_nft?.nft ? (
-                  <p className="text-lg md:text-xl lg:text-2xl text-white">
+                  <p className="text-lg md:text-xl text-white">
                     Show off your top NFT flex! This one&apos;s your crown jewel💎
                   </p>
                 ) : (
-                  <p className="text-lg md:text-xl lg:text-2xl text-white">
+                  <p className="text-lg md:text-xl text-white">
                     Your most profitable NFT? This one&apos;s gold!💰
                   </p>
                 )
