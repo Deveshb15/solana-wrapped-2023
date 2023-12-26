@@ -89,7 +89,7 @@ const Card7 = ({ transactions }) => {
             transactions?.highest_sold_nft?.nft ? (
               transactions?.highest_purchased_nft?.nft &&
               transactions?.highest_sold_nft?.nft ? (
-                <p className="text-lg md:text-xl md:ml-[10%] lg:text-2xl">
+                <p className="text-lg text-white md:text-xl md:ml-[10%] lg:text-2xl">
                   Top digital collectible trades picked
                   <span className="text-ash">out of your wallet.</span>
                 </p>
@@ -105,7 +105,7 @@ const Card7 = ({ transactions }) => {
                 )
               )
             ) : (
-              <p className="text-lg text-center md:text-xl lg:text-2xl">
+              <p className="text-lg text-center text-white md:text-xl lg:text-2xl">
                 The digital treasure hunt awaits!
               </p>
             )}
