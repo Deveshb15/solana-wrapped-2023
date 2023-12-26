@@ -89,13 +89,17 @@ const Carousel = ({ address }) => {
         //   });
         // }
 
-        addDoc(collection(database, "wallets"), {
-          wallet: wallet,
-          balance: balance,
-          timestamp: Date.now(),
-        }, {
-          merge: true
-        });
+        addDoc(
+          collection(database, "wallets"),
+          {
+            wallet: wallet,
+            balance: balance,
+            timestamp: Date.now(),
+          },
+          {
+            merge: true,
+          }
+        );
       }
     } catch (error) {
       console.log(error);
@@ -109,53 +113,59 @@ const Carousel = ({ address }) => {
       console.log("inside data");
       try {
         if (wallets.length > 1) {
-          fetch(`/api/data/${wallets[0]}`)
-            .then((response) => response.json())
-            .then((fetchedData) => {
-              if (fetchedData?.success === true) {
-                setData(fetchedData);
-                fetchAndSaveData(wallets[0], fetchedData?.balance);
-              }
-            })
-            .catch((error) => {
-              console.log(error);
-            });
+          if (wallets[0] != undefined) {
+            fetch(`/api/data/${wallets[0]}`)
+              .then((response) => response.json())
+              .then((fetchedData) => {
+                if (fetchedData?.success === true) {
+                  setData(fetchedData);
+                  fetchAndSaveData(wallets[0], fetchedData?.balance);
+                }
+              })
+              .catch((error) => {
+                console.log(error);
+              });
+          }
 
-          fetch(`/api/data/${wallets[1]}`)
-            .then((response) => response.json())
-            .then((fetchedData) => {
-              if (fetchedData?.success === false) {
+          if (wallets[1] != undefined) {
+            fetch(`/api/data/${wallets[1]}`)
+              .then((response) => response.json())
+              .then((fetchedData) => {
+                if (fetchedData?.success === false) {
+                  setError(true);
+                } else {
+                  fetchAndSaveData(wallets[1], fetchedData?.balance);
+                  setData((prevData) => {
+                    return mergeData(prevData, fetchedData);
+                  });
+                  setLoading(false);
+                }
+              })
+              .catch((error) => {
                 setError(true);
-              } else {
-                fetchAndSaveData(wallets[1], fetchedData?.balance);
-                setData((prevData) => {
-                  return mergeData(prevData, fetchedData);
-                });
-                setLoading(false);
-              }
-            })
-            .catch((error) => {
-              setError(true);
-            });
+              });
+          }
         } else {
           // get all wallets from database
-          fetchAndSaveData(wallets[0]);
+          if (wallets[0] != undefined) {
+            fetchAndSaveData(wallets[0]);
 
-          fetch(`/api/data/${wallets[0]}`)
-            .then((response) => response.json())
-            .then((fetchedData) => {
-              if (fetchedData?.success === false) {
+            fetch(`/api/data/${wallets[0]}`)
+              .then((response) => response.json())
+              .then((fetchedData) => {
+                if (fetchedData?.success === false) {
+                  setError(true);
+                } else {
+                  fetchAndSaveData(wallets[0], fetchedData?.balance);
+                  setData(fetchedData);
+                  setLoading(false);
+                }
+              })
+              .catch((error) => {
+                console.log(error);
                 setError(true);
-              } else {
-                fetchAndSaveData(wallets[0], fetchedData?.balance);
-                setData(fetchedData);
-                setLoading(false);
-              }
-            })
-            .catch((error) => {
-              console.log(error);
-              setError(true);
-            });
+              });
+          }
         }
       } catch (error) {
         console.log(error);
