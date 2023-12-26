@@ -11,14 +11,7 @@ import Card7 from "@/components/cards/Card7";
 import Card8 from "@/components/cards/Card8";
 import { mergeData } from "@/constants/functions";
 import { app, database } from "@/constants/firebase";
-import {
-  collection,
-  getDocs,
-  addDoc,
-  updateDoc,
-  doc,
-  increment,
-} from "firebase/firestore";
+import { collection, getDocs, getDoc, addDoc, setDoc, updateDoc, doc, increment } from "firebase/firestore";
 
 import TopNav from "@/components/TopNav";
 import Loading from "@/components/loading";
@@ -81,36 +74,26 @@ const Carousel = ({ address }) => {
     try {
       if (wallet?.length > 0) {
         let exists;
-        const snapshot = await getDocs(collection(database, "wallets"));
-        snapshot.forEach((doc) => {
-          // console.log(doc.id, "=>", doc.data());
-          if (doc.data().wallet?.toLowerCase() === wallet?.toLowerCase()) {
-            exists = true;
-          }
-        });
-        if (!exists) {
-          addDoc(collection(database, "wallets"), {
-            wallet: wallet,
+        const docRef = doc(database, "wallets", wallet?.toLowerCase());
+        const docSnap = await getDoc(docRef);
+        if (docSnap.exists()) {
+          exists = true;
+          await setDoc(doc(database, "wallets", wallet?.toLowerCase()), {
+            wallet: wallet?.toLowerCase(),
             balance: balance,
             timestamp: Date.now(),
           });
+        } else {
           const docRef = doc(database, "wallets_count", "count");
           await updateDoc(docRef, {
             count: increment(1),
           });
-        }
-
-        addDoc(
-          collection(database, "wallets"),
-          {
-            wallet: wallet,
+          await setDoc(doc(database, "wallets", wallet?.toLowerCase()), {
+            wallet: wallet?.toLowerCase(),
             balance: balance,
             timestamp: Date.now(),
-          },
-          {
-            merge: true,
-          }
-        );
+          });
+        }
       }
     } catch (error) {
       console.log(error);
