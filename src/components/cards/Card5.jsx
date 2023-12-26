@@ -31,10 +31,10 @@ const Card5 = ({ airdrop }) => {
           }}
         ></div>
 
-        <div className="ml-12 mt-10  md:mt-20 font-dm absolute z-10 w-[312px] h-[484px] md:w-full md:ml-[20%]">
+        <div className="ml-12 mt-10 md:mt-[49px] font-dm absolute z-10 w-[312px] h-[484px] md:w-full md:ml-[20%]">
           {total != 0 ? (
             <div>
-              <p className="text-white mt-8 md:mt-0 text-dm text-5xl md:text-[64px] leading-[38.40px]">
+              <p className="text-white mt-8 md:mt-0 text-dm text-5xl leading-[38.40px]">
                 {/* loop and add all airdrop.usdc */}
                 ${total}
               </p>
@@ -70,7 +70,7 @@ const Card5 = ({ airdrop }) => {
             // </div>
           )}
      
-          <div className="mt-[80%] md:mt-[30%] w-[80%]">
+          <div className="mt-44 md:mt-32 w-[80%]">
             {
               total > 0 ? (
                 <p className="text-white text-lg md:text-xl lg:text-2xl">

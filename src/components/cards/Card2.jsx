@@ -26,14 +26,16 @@ const Card2 = ({ total_transactions }) => {
           }}
         ></div>
          
-        <div className="pl-7 md:pl-0 mt-10 md:mt-16 font-dm absolute z-10 w-[312px] h-[484px] md:w-full md:ml-[20%]">
-          <p className="text-white mt-8 md:mt-0 text-4xl md:text-[42px]">
+        <div className="pl-7 md:pl-0 mt-10 md:mt-[52px] font-dm absolute z-10 w-[312px] h-[484px] md:w-full md:ml-[20%]">
+        <div className='flex flex-col mt-[3%] md:mt-1'>
+
+          <p className="text-white mt-8 md:mt-0 text-5xl md:text-[42px]">
             {total_transactions}
           </p>
           <p className="text-white mt-4 text-base md:text-lg">
           Transactions done on Solana          </p>
-          <div className='mt-[90%] md:mt-[40%]'>
-          {/* <div className="mt-[80%] md:mt-48 w-[80%]"> */}
+          </div>
+          <div className='mt-44 md:mt-34'>
           <p className='text-ash text-lg md:text-xl lg:text-2xl'>Looking at your participation in</p>
           <p className='text-ash text-lg md:text-xl lg:text-2xl'>the ecosystem, <span className='text-white'>you&apos;re a builder!</span></p>
         </div>

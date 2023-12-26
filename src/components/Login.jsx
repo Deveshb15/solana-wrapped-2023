@@ -93,6 +93,7 @@ function Login() {
     setWallets(newWallets);
   };
 
+  console.log(totalWallets)
   return (
     <>
       <div className="flex flex-col items-center">

@@ -99,7 +99,7 @@ const Card9 = ({ nft }) => {
                   </p>
           <p className="text-white mt-4 text-base md:text-lg leading-[38.40px]">
           NFT Portfolio Gains{" "}</p>
-         <div className='mt-[90%] md:mt-48'>
+         <div className='mt-[90%] md:mt-44'>
 
             {percentage == 0 ? (
               <p className="text-ash text-lg md:text-xl lg:text-2xl">
