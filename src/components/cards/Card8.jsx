@@ -195,8 +195,7 @@ const handleClose = () => {
                   <p className="text-white mt-3 flex justify-center md:text-lg leading-[38.40px]">
                     {data?.nft_data?.profitAndLossPercentage ? (
                       data?.nft_data?.profitAndLossPercentage >= 0 ? (
-                        <div className="flex items-center justify-center flex-row pt-3">
-                          <p>{data?.nft_data?.profitAndLossPercentage}</p>
+                        <div className="flex items-center justify-center flex-row">
                           <p className="text-white flex justify-center md:text-lg leading-[38.40px]">
                             {data?.nft_data?.profitAndLossPercentage ? data?.nft_data?.profitAndLossPercentage?.toFixed(2)
                               : 0}
