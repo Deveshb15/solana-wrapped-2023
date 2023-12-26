@@ -4,7 +4,7 @@ import TopNav from "./TopNav";
 import { useRouter } from "next/router";
 import Image from "next/image";
 import { app, database } from "@/constants/firebase";
-import { collection, getDocs, doc } from "firebase/firestore";
+import { collection, getDoc, doc } from "firebase/firestore";
 import ShareModal from "@/components/ShareModal";
 
 function Login() {
@@ -17,12 +17,20 @@ function Login() {
   const [wallets, setWallets] = useState([]);
 
   const getWallets = async () => {
-    // const docRef = doc(database, "wallets_count", "count")
-    // const docSnap = await getDocs(docRef);
-    // const data = docSnap.data();
-    // console.log('data', data)
-    console.log("getting")
-
+    try {
+      const docRef = doc(database, "wallets_count", "count");
+      const docSnap = await getDoc(docRef);
+      const data = docSnap.data();
+      console.log("data", data?.count);
+      if (data?.count) {
+        setTotalWallets(data?.count);
+      } else {
+        setTotalWallets(362);
+      }
+    } catch (err) {
+      console.log("err", err);
+      setTotalWallets(362);
+    }
   };
 
   const handleNavigation = (e) => {
@@ -93,7 +101,7 @@ function Login() {
     setWallets(newWallets);
   };
 
-  console.log(totalWallets)
+  console.log(totalWallets);
   return (
     <>
       <div className="flex flex-col items-center">
@@ -112,7 +120,7 @@ function Login() {
 
               <p className="text-center text-xs z-[1] font-dm md:text-sm mb-7 text-white">
                 {/* <span className="text-white">{totalWallets}+ wallets</span>{" "} */}
-                <span className="text-white"> 362+ wallets</span>{" "}
+                <span className="text-white"> {totalWallets}+ wallets</span>{" "}
                 checked and wrapped in last 1hr
               </p>
             </div>
@@ -238,7 +246,7 @@ function Login() {
           </p>
         )}
 
-        {(wallets?.length == 0 && walletID?.length > 0) && (
+        {wallets?.length == 0 && walletID?.length > 0 && (
           <div className="flex flex-col items-center justify-center">
             <p className="font-heading text-green-400 mt-3">
               Have more than 1 wallet ?
