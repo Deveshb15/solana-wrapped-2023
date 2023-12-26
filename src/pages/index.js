@@ -79,6 +79,7 @@ export default function Home() {
         <Login />
         <div className="fixed bottom-0 w-full flex justify-center text-center border-grey p-4 bg-gray-200">
           <p className="mr-2 text-[#969696]">Built by Team 7 under</p>
+          <a href="https://superteam.fun/">
           <svg
             xmlns="http://www.w3.org/2000/svg"
             width="25"
@@ -91,6 +92,7 @@ export default function Home() {
               fill="#D9D9D9"
             />
           </svg>
+          </a>
         </div>
       </main>
     </div>

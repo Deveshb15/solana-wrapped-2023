@@ -109,18 +109,18 @@ function Login() {
                 alt="wallet-images"
               />
 
-              <p className="text-center text-xs z-[1] font-dm md:text-sm mb-7 text-gray-400">
+              <p className="text-center text-xs z-[1] font-dm md:text-sm mb-7 text-white">
                 <span className="text-white">{totalWallets}+ wallets</span>{" "}
                 checked and wrapped in last 1hr
               </p>
             </div>
 
             <div className="flex font-dm flex-col justify-center items-center lg:overflow-hidden">
-              <p className=" font-bold text-4xl md:text-7xl">
+              <p className=" font-bold text-white text-4xl z-[1] md:text-7xl">
                 Solana Wrapped,
                 <br />
               </p>
-              <span className="text-green-400 text-4xl font-bold md:text-7xl ">
+              <span className="text-green-400 text-white text-4xl z-[1] font-bold md:text-7xl ">
                 2023
               </span>
             </div>
