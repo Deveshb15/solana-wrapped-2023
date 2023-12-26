@@ -22,7 +22,7 @@ function Login() {
     querySnapshot.forEach((doc) => {
       wallets.push(doc.data().wallet);
     });
-    setTotalWallets(wallets.length + 50);
+    setTotalWallets(wallets.length + 300);
   };
 
   const handleNavigation = (e) => {
