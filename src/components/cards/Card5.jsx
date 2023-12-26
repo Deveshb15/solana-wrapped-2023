@@ -1,17 +1,43 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import Image from "next/image";
 
 const Card5 = ({ airdrop }) => {
-  // console.log('transactions are', transactions)
+  console.log("airdrop are", airdrop);
 
-  let total = airdrop?.length>0 ? airdrop
-  .map((item) => item.usdc)
-  .reduce((prev, next) => prev + next)?.toFixed(4) : 0
-  
+  const [tokens, setTokens] = useState([]);
+
+  let total =
+    airdrop?.length > 0
+      ? airdrop
+          .map((item) => item.usdc)
+          .reduce((prev, next) => prev + next)
+          ?.toFixed(4)
+      : 0;
+
+  useEffect(() => {
+    if (airdrop?.length > 0) {
+      let tokenArray = [];
+      airdrop.map((item) => {
+        if (item.usdc > 0) {
+          if (
+            item.protocol === "jupiter" ||
+            item.protocol === "jito" ||
+            item.protocol === "bonk" ||
+            item.protocol === "pyth" ||
+            item.protocol === "rkt"
+          ) {
+            tokenArray.push(item.protocol);
+          }
+        }
+      });
+      setTokens(tokenArray);
+    }
+  }, [airdrop]);
+
   return (
     <div className="relative h-full">
-      <div 
-    className="flex items-center noise-bg md:items-start h-full justify-center m-1 rounded-3xl relative overflow-hidden" 
+      <div
+        className="flex items-center noise-bg md:items-start h-full justify-center m-1 rounded-3xl relative overflow-hidden"
         style={{
           backgroundColor: "#181818",
           position: "relative",
@@ -35,58 +61,60 @@ const Card5 = ({ airdrop }) => {
           {total != 0 ? (
             <div>
               <p className="text-white mt-8 md:mt-0 text-dm text-5xl leading-[38.40px]">
-                {/* loop and add all airdrop.usdc */}
-                ${total}
+                {/* loop and add all airdrop.usdc */}${total}
               </p>
-              <p className="text-white md:mt-8 text-white  text-base md:text-lg leading-[38.40px]">
+              <p className="md:mt-8 text-white  text-base md:text-lg leading-[38.40px]">
                 Worth Airdrop Received{" "}
               </p>
-              <div className="mt-3 flex">
-            <Image
-              className="mr-2"
-              src="/airdrop2.png"
-              height={24}
-              width={24}
-              alt="airdrop2"
-            />
-            <Image src="/airdrop3.png" height={24} width={24} alt="airdrop3" />
-          </div>
+              <div className="mt-3 flex gap-4">
+                {tokens?.map((token) => (
+                    <Image
+                      key={token}
+                      className="rounded-full"
+                      src={`/${token}.png`}
+                      width={30}
+                      height={30}
+                      alt={token}
+                    />
+                ))}
+              </div>
             </div>
-            
           ) : (
             <div>
-            <p className="text-white mt-8 md:mt-0 text-dm text-5xl leading-[38.40px]">
-              {/* loop and add all airdrop.usdc */}
-              $0
-            </p>
-            <p className="text-white md:mt-8 text-white  text-base md:text-lg leading-[38.40px]">
-               Airdrop Received{" "}
-            </p>
-          </div>
+              <p className="text-white mt-8 md:mt-0 text-dm text-5xl leading-[38.40px]">
+                {/* loop and add all airdrop.usdc */}
+                $0
+              </p>
+              <p className="text-white md:mt-8 text-base md:text-lg leading-[38.40px]">
+                Airdrop Received{" "}
+              </p>
+            </div>
             // <div className=" mt-8 md:mt-0">
             //   <p className="text-white md:text-xl leading-[38.40px]">
             //     You haven&apos;t received any airdrops
             //   </p>
             // </div>
           )}
-     
+
           <div className="mt-44 md:mt-32 w-[80%]">
-            {
-              total > 0 ? (
-                <p className="text-white text-lg md:text-xl lg:text-2xl">
-                  <span className="text-ash">Despite the year&apos;s ups & downs,</span> you&apos;ve received free monies.
-                </p>
-              ) : (
-                <p className="text-white text-lg md:text-xl lg:text-2xl">
-                  Airdrops MIA 🕵️‍♂️! <span className="text-ash" >Stay tuned, anon! </span>
-                </p>
-              )
-            }
+            {total > 0 ? (
+              <p className="text-white text-lg md:text-xl lg:text-2xl">
+                <span className="text-ash">
+                  Despite the year&apos;s ups & downs,
+                </span>{" "}
+                you&apos;ve received free monies.
+              </p>
+            ) : (
+              <p className="text-white text-lg md:text-xl lg:text-2xl">
+                Airdrops MIA 🕵️‍♂️!{" "}
+                <span className="text-ash">Stay tuned, anon! </span>
+              </p>
+            )}
             {/* <div className='h-[284px] md:h=[300px]'> */}
           </div>
         </div>
 
-        <div className='flex w-full h-full justify-end items-center px-5 md:px-14 mb-10'>
+        <div className="flex w-full h-full justify-end items-center px-5 md:px-14 mb-10">
           <svg
             xmlns="http://www.w3.org/2000/svg"
             width="214"
