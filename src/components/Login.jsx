@@ -17,12 +17,12 @@ function Login() {
   const [wallets, setWallets] = useState([]);
 
   const getWallets = async () => {
-    const querySnapshot = await getDocs(collection(database, "wallets"));
-    const wallets = [];
+    const querySnapshot = await getDocs(collection(database, "wallets_count"));
+    
     querySnapshot.forEach((doc) => {
-      wallets.push(doc.data().wallet);
+      console.log(doc.id, " => ", doc.data());
+      setTotalWallets(doc.data().count+200);
     });
-    setTotalWallets(wallets.length + 300);
   };
 
   const handleNavigation = (e) => {

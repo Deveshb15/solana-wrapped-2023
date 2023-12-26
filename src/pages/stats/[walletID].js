@@ -11,7 +11,7 @@ import Card7 from "@/components/cards/Card7";
 import Card8 from "@/components/cards/Card8";
 import { mergeData } from "@/constants/functions";
 import { app, database } from "@/constants/firebase";
-import { collection, getDocs, addDoc } from "firebase/firestore";
+import { collection, getDocs, addDoc, updateDoc } from "firebase/firestore";
 
 import TopNav from "@/components/TopNav";
 import Loading from "@/components/loading";
@@ -87,6 +87,13 @@ const Carousel = ({ address }) => {
         //     balance: balance,
         //     timestamp: Date.now(),
         //   });
+          
+        //   // increment counter in wallets_count document
+        //   const docRef = doc(database, "wallets_count", "count");
+        //   await updateDoc(docRef, {
+        //     count: increment(1),
+        //   });
+          
         // }
 
         addDoc(

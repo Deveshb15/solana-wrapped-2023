@@ -42,7 +42,7 @@ const Card4 = ({transactions}) => {
           <div>
           <div>
           <p className="text-white flex mt-8 text-2xl md:text-[42px] leading-[38.40px]">
-          {transactions? (transactions.total_gas_spent):0}
+          {transactions? (transactions.total_gas_spent?.toFixed(6)):0}
           </p>
           <p className='text-fade'>GAS Spent</p>
           </div>

@@ -100,7 +100,7 @@ const handleClose = () => {
                   }}
                 >
                   <p className="text-white mt-1 md:mt-3 flex justify-center md:text-lg leading-[38.40px]">
-                    {data?.txn_data ? data?.txn_data.total_gas_spent : 0}
+                    {data?.txn_data ? data?.txn_data.total_gas_spent?.toFixed(6) : 0}
                   </p>
                   <p className="text-fade text-[8px] pb-2 md:pb-0">Total txn fees paid</p>
                 </div>
@@ -366,7 +366,7 @@ const handleClose = () => {
                   </div>
                 )}
                 <p className="text-fade text-[8px] pb-2 md:pb-0">
-                  Increase in Wallet Balance
+                  {data?.txn_data?.portfolio_profit_loss_percentage >= 0 ? "Increase" : "Decrease"} in Wallet Balance
                 </p>
               </div>
               </div>
