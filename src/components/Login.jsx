@@ -4,7 +4,7 @@ import TopNav from "./TopNav";
 import { useRouter } from "next/router";
 import Image from "next/image";
 import { app, database } from "@/constants/firebase";
-import { collection, getDocs, addDoc } from "firebase/firestore";
+import { collection, getDocs, doc } from "firebase/firestore";
 import ShareModal from "@/components/ShareModal";
 
 function Login() {
@@ -17,12 +17,12 @@ function Login() {
   const [wallets, setWallets] = useState([]);
 
   const getWallets = async () => {
-    const querySnapshot = await getDocs(collection(database, "wallets_count"));
-    
-    querySnapshot.forEach((doc) => {
-      console.log(doc.id, " => ", doc.data());
-      setTotalWallets(doc.data().count+200);
-    });
+    // const docRef = doc(database, "wallets_count", "count")
+    // const docSnap = await getDocs(docRef);
+    // const data = docSnap.data();
+    // console.log('data', data)
+    console.log("getting")
+
   };
 
   const handleNavigation = (e) => {

@@ -11,7 +11,14 @@ import Card7 from "@/components/cards/Card7";
 import Card8 from "@/components/cards/Card8";
 import { mergeData } from "@/constants/functions";
 import { app, database } from "@/constants/firebase";
-import { collection, getDocs, addDoc, updateDoc } from "firebase/firestore";
+import {
+  collection,
+  getDocs,
+  addDoc,
+  updateDoc,
+  doc,
+  increment,
+} from "firebase/firestore";
 
 import TopNav from "@/components/TopNav";
 import Loading from "@/components/loading";
@@ -73,28 +80,25 @@ const Carousel = ({ address }) => {
   const fetchAndSaveData = async (wallet, balance) => {
     try {
       if (wallet?.length > 0) {
-        // let exists;
-        // const snapshot = await getDocs(collection(database, "wallets"));
-        // snapshot.forEach((doc) => {
-        //   // console.log(doc.id, "=>", doc.data());
-        //   if (doc.data().wallet?.toLowerCase() === wallet?.toLowerCase()) {
-        //     exists = true;
-        //   }
-        // });
-        // if (!exists) {
-        //   addDoc(collection(database, "wallets"), {
-        //     wallet: wallet,
-        //     balance: balance,
-        //     timestamp: Date.now(),
-        //   });
-          
-        //   // increment counter in wallets_count document
-        //   const docRef = doc(database, "wallets_count", "count");
-        //   await updateDoc(docRef, {
-        //     count: increment(1),
-        //   });
-          
-        // }
+        let exists;
+        const snapshot = await getDocs(collection(database, "wallets"));
+        snapshot.forEach((doc) => {
+          // console.log(doc.id, "=>", doc.data());
+          if (doc.data().wallet?.toLowerCase() === wallet?.toLowerCase()) {
+            exists = true;
+          }
+        });
+        if (!exists) {
+          addDoc(collection(database, "wallets"), {
+            wallet: wallet,
+            balance: balance,
+            timestamp: Date.now(),
+          });
+          const docRef = doc(database, "wallets_count", "count");
+          await updateDoc(docRef, {
+            count: increment(1),
+          });
+        }
 
         addDoc(
           collection(database, "wallets"),

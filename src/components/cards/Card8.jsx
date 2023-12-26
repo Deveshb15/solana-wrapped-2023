@@ -135,7 +135,7 @@ const handleClose = () => {
               {total_airdrop > 0 ? (
                 <div>
                   <p className="text-white pt-6 flex justify-center md:text-lg leading-[38.40px]">
-                    {total_airdrop}
+                    ${total_airdrop}
                   </p>
                   <p className="text-fade text-[8px]">Worth Airdrop Recevied</p>
                 </div>
