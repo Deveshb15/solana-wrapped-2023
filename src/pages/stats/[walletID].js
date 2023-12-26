@@ -73,21 +73,29 @@ const Carousel = ({ address }) => {
   const fetchAndSaveData = async (wallet, balance) => {
     try {
       if (wallet?.length > 0) {
-        let exists;
-        const snapshot = await getDocs(collection(database, "wallets"));
-        snapshot.forEach((doc) => {
-          // console.log(doc.id, "=>", doc.data());
-          if (doc.data().wallet?.toLowerCase() === wallet?.toLowerCase()) {
-            exists = true;
-          }
+        // let exists;
+        // const snapshot = await getDocs(collection(database, "wallets"));
+        // snapshot.forEach((doc) => {
+        //   // console.log(doc.id, "=>", doc.data());
+        //   if (doc.data().wallet?.toLowerCase() === wallet?.toLowerCase()) {
+        //     exists = true;
+        //   }
+        // });
+        // if (!exists) {
+        //   addDoc(collection(database, "wallets"), {
+        //     wallet: wallet,
+        //     balance: balance,
+        //     timestamp: Date.now(),
+        //   });
+        // }
+
+        addDoc(collection(database, "wallets"), {
+          wallet: wallet,
+          balance: balance,
+          timestamp: Date.now(),
+        }, {
+          merge: true
         });
-        if (!exists) {
-          addDoc(collection(database, "wallets"), {
-            wallet: wallet,
-            balance: balance,
-            timestamp: Date.now(),
-          });
-        }
       }
     } catch (error) {
       console.log(error);
