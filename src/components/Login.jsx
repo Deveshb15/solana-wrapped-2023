@@ -23,7 +23,7 @@ function Login() {
       const data = docSnap.data();
       console.log("data", data?.count);
       if (data?.count) {
-        setTotalWallets(data?.count);
+        setTotalWallets(data?.count+362);
       } else {
         setTotalWallets(362);
       }
