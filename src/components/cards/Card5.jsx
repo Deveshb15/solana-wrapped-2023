@@ -44,13 +44,6 @@ const Card5 = ({ airdrop }) => {
               <div className="mt-3 flex">
             <Image
               className="mr-2"
-              src="/airdrop1.png"
-              height={24}
-              width={24}
-              alt="airdrop1"
-            />
-            <Image
-              className="mr-2"
               src="/airdrop2.png"
               height={24}
               width={24}
@@ -62,7 +55,7 @@ const Card5 = ({ airdrop }) => {
             
           ) : (
             <div>
-            <p className="text-white mt-8 md:mt-0 text-dm text-5xl md:text-[64px] leading-[38.40px]">
+            <p className="text-white mt-8 md:mt-0 text-dm text-5xl leading-[38.40px]">
               {/* loop and add all airdrop.usdc */}
               $0
             </p>
