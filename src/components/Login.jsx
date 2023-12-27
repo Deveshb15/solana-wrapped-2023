@@ -120,7 +120,7 @@ function Login() {
 
               <p className="text-center text-xs z-[1] font-dm md:text-sm mb-7 text-white">
                 {/* <span className="text-white">{totalWallets}+ wallets</span>{" "} */}
-                <span className="text-white"> {totalWallets}+ glass eaters</span>{" "}
+                <span className="text-white"> {totalWallets}+ users</span>{" "}
                 checked their wrapped in the 1 hour
               </p>
             </div>
