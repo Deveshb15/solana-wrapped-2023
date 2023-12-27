@@ -78,11 +78,6 @@ const Carousel = ({ address }) => {
         const docSnap = await getDoc(docRef);
         if (docSnap.exists()) {
           exists = true;
-          await setDoc(doc(database, "wallets", wallet?.toLowerCase()), {
-            wallet: wallet?.toLowerCase(),
-            balance: balance,
-            timestamp: Date.now(),
-          });
         } else {
           const docRef = doc(database, "wallets_count", "count");
           await updateDoc(docRef, {
