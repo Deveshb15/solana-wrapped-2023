@@ -23,7 +23,7 @@ function Login() {
       const data = docSnap.data();
       console.log("data", data?.count);
       if (data?.count) {
-        setTotalWallets(data?.count+362);
+        setTotalWallets(data?.count);
       } else {
         setTotalWallets(362);
       }
@@ -120,8 +120,8 @@ function Login() {
 
               <p className="text-center text-xs z-[1] font-dm md:text-sm mb-7 text-white">
                 {/* <span className="text-white">{totalWallets}+ wallets</span>{" "} */}
-                <span className="text-white"> {totalWallets}+ wallets</span>{" "}
-                checked and wrapped in last 1hr
+                <span className="text-white"> {totalWallets}+ glass easters</span>{" "}
+                checked their wrapped in the 1 hour
               </p>
             </div>
 
