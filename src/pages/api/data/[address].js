@@ -9,9 +9,9 @@ export const config = {
 };
 
 const redis = new Redis({
-  url: "https://steady-llama-49841.upstash.io",
+  url: "https://us1-trusted-elephant-38385.upstash.io",
   token:
-    "AcKxACQgYTZjZWI0YTUtNzc0Ni00Y2Q3LWFhN2UtMmY0NzNlZjViODdkYTRhNzRiNTlhOWYyNDhjODk2ZjI3MTdkMDFmNDJjNDc=",
+    "AZXxACQgYzRkMDgwMDAtOTc4NC00N2I2LWFiMDItNDAxZDVmYTI3ZjUyMGY2YTk5YjE4MmQyNGUzMzhmYzlkMzcyZmU3Nzk0NDg=",
 });
 
 // const data = await redis.set('foo', 'bar');
@@ -254,8 +254,12 @@ const getDataFromTransaction = async (transactions, address, balance) => {
     }
   }
 
-  portfolio_profit_loss_percentage = ((balance - balance_a_year_ago) / balance_a_year_ago) * 100;
-  portfolio_profit_loss_percentage = Math.min(100, Math.max(-100, portfolio_profit_loss_percentage))
+  portfolio_profit_loss_percentage =
+    ((balance - balance_a_year_ago) / balance_a_year_ago) * 100;
+  portfolio_profit_loss_percentage = Math.min(
+    100,
+    Math.max(-100, portfolio_profit_loss_percentage)
+  );
 
   // get most transacted wallet
   let max = 0;
